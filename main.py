@@ -3,11 +3,9 @@ from flask import Flask
 app = Flask(__name__)
 
 @app.route("/")
+@app.route("/home")
 def home():
-    return '''<!doctype html>
-    <html>
-    
-    '''
+    return render_template('home.html')
 
 @app.route("/about")
 def about():
