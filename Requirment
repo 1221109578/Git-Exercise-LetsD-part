@@ -1,0 +1,8 @@
+#requirement we will be using for the project add more libraries if necessary
+
+pip install Flask
+pip install Flask_Admin
+pip install Flask_Login
+pip install Flask_SocketIO
+pip install Flask_sqlalchemy
+pip install SQLAlchemy
