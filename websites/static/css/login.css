@@ -83,16 +83,28 @@ nav {
 }
 
 /*Login stuff*/
-
-.form {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-
 .h1 {
     font-size: 26px;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.login {
+    text-align: center;
+}
+
+.login_form {
+    margin:0 auto; 
+    width:600px;
+    padding:20px;
+    background:#f9f9f9;
+    vertical-align: middle;
+    height: 170px;
+    width: 250px;
+}
+
+input {
+ height: 50px;
+ font-size: 20px;
+
 }
