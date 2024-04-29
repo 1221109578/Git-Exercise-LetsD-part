@@ -3,14 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title>LetsD'Part</title>
-    <link rel="stylesheet" href="static/css/login.css">
-    <link rel= "icon" href="/static/logo.png" type="image/icon type">
+    <link rel="stylesheet" href="/websites/static/css/login.css">
+    <link rel= "icon" href="/websites/static/logo.png" type="image/icon type">
 <body>
     <header>
         <nav>
             <div class="logo-container">
                 <div class="logo">
-                    <img src="/static/logo.png" alt="Logo">
+                    <img src="/websites/static/logo.png" alt="Logo">
                 </div>
             </div>
             <div class="nav-links">
@@ -24,9 +24,23 @@
                 </ul>
             </div>
             <div class="auth-buttons">
-                <a href="/login">Log In</a>
+                <a href="/signup">Sign up</a>
             </div>
         </nav>
     </header>
+    <div class="h1">
+        <h1>Please Login You Plebs</h1>
+    </div>
+
+    <div id="login_form">
+        <form action="/login">
+            <input type="text" name ="Username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+
+    </div>
+
+
 </body>
 </html>

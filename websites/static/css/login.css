@@ -82,3 +82,17 @@ nav {
     background-color: #2c99ff;
 }
 
+/*Login stuff*/
+
+.form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.h1 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-align: center;
+}
