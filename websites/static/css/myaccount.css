@@ -81,3 +81,12 @@ nav {
 .nav-links a:hover {
     background-color: #2c99ff;
 }
+
+/*myaccount stuff*/
+footer {
+    background-color: #5aafff;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    margin-top: auto;
+}
