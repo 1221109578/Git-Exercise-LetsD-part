@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    <title>LetsD'Part</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel= "icon" href="/static/logo.png" type="image/icon type">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="/static/logo.png" alt="Logo">
+                </div>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/package">Travel Packages</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/history">Booking</a></li>
+                    <li><a href="/chat">Chat</a></li>    
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <a href="/signup">Sign up</a>
+            </div>
+        </nav>
+    </header>
+    <div class="h1">
+        <h1>Fill in to sign up Plebs</h1>
+    </div>
+
+    <div class="login">
+        <div class="login_form">
+            <form action="/login">
+                <input type="text" name="full_name" placeholder="Full Name" required>
+                <input type="text" name ="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password">
+                <input type="submit" value="signup">
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>
