@@ -94,13 +94,11 @@ nav {
 }
 
 .login_form {
-    margin:0 auto; 
-    width:600px;
-    padding:20px;
-    background:#f9f9f9;
-    vertical-align: middle;
-    height: 170px;
-    width: 250px;
+    margin: 0 auto; 
+    width: 300px;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 2px solid #333;
 }
 
 input {
