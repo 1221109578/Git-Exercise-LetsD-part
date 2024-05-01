@@ -108,3 +108,12 @@ input {
     font-size: 20px;
 
 }
+
+/*footer */
+footer {
+    background-color: #5aafff;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    margin-top: 342px;
+}

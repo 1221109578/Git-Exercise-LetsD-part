@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
-    <title>LetsD'Part</title>
+    <title>LetsD'Part - login</title>
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel= "icon" href="/static/logo.png" type="image/icon type">
 </head>
@@ -36,9 +36,9 @@
 
     <div class="login">
         <div class="login_form">
-            <form action="/login">
-                <input type="text" name ="Username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
+            <form action="/login" method = 'POST'>
+                <input type="text" name ="Username" placeholder="username" required>
+                <input type="password" name="Password" placeholder="password" required>
                 <input type="submit" value="Login">
             </form>
         </div>
@@ -46,6 +46,9 @@
             <h3>dont have an account yet? <a href="{{url_for('signup')}}">Sign up here</a></h3>
         </div>
     </div>
+<footer>
+    <p>LetsD'Part. All rights reserved.</p>
+</footer>
 
 
 </body>
