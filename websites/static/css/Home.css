@@ -140,20 +140,102 @@ nav {
     transition: background-color 0.3s;
 }
 
-.btn2 {
+.cd-1 {
     position: absolute;
     text-decoration: none;
     color: blue;
-    top: 125px;
-    left: 520px;
+    top: 160px;
+    left: 535px;
+    transition: background-color 0.3s;
 }
 
-.btn3 {
+.location-1 {
     display: block;
-    font-size: 20px;
+    font-size: 10px;
     padding: 0px;
     margin: 0px;
 }
+
+.cd-2 {
+    position: absolute;
+    text-decoration: none;
+    color: blue;
+    top: 190px;
+    left: 555px;
+}
+
+.location-2 {
+    display: block;
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.cd-3 {
+    position: absolute;
+    text-decoration: none;
+    color: blue;
+    top: 225px;
+    left: 680px;
+}
+
+.location-3 {
+    display: block;
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.cd-4 {
+    position: absolute;
+    text-decoration: none;
+    color: blue;
+    top: 210px;
+    left: 600px;
+}
+
+.location-4 {
+    display: block;
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.cd-5 {
+    position: absolute;
+    text-decoration: none;
+    color: blue;
+    top: 205px;
+    left: 620px;
+}
+
+.location-5 {
+    display: block;
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.location-1:hover {
+    color: red;
+}
+
+.location-2:hover {
+    color: red;
+}
+
+.location-3:hover {
+    color: red;
+}
+
+.location-4:hover {
+    color: red;
+}
+
+.location-5:hover {
+    color: red;
+}
+
 
 .btn:hover {
     background-color: #2c99ff;
