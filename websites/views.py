@@ -12,4 +12,10 @@ def home():
 @login_required
 def myaccount():
     return render_template('myaccount.html')
-from flask import Blueprint,render_template
+
+@views.route("/package")
+def package():
+    return render_template('package.html')
+@views.route("/Iceland")
+def Iceland():
+    return render_template('Iceland.html')
