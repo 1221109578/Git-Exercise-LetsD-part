@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
-    <title>LetsD'Part - login</title>
+    <title>LetsD'Part - sign up</title>
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel= "icon" href="/static/logo.png" type="image/icon type">
 </head>
@@ -26,20 +26,22 @@
                 </ul>
             </div>
             <div class="auth-buttons">
-                <a href="/signup">Sign up</a>
+                <a href="/login">Login</a>
             </div>
         </nav>
     </header>
     <div class="h1">
-        <h1>Please Login You Plebs</h1>
+        <h1>Fill in to sign up Plebs</h1>
     </div>
-
     <div class="login">
         <div class="login_form">
-            <form method = 'POST'>
+            <form method="POST">
+                <input type="text" name="full_name" placeholder="Full Name" >
                 <input type="text" name ="username" placeholder="Username" >
+                <input type="email" name="email" placeholder="Email" >
                 <input type="password" name="password" placeholder="Password" >
-                <input type="submit" value="Login">
+                <input type="password" name="confirm_password" placeholder="Confirm Password">
+                <input type="submit" value="Sign up">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                   <div class="flash-messages">
@@ -53,14 +55,12 @@
               {% endwith %}
             </form>
         </div>
-        <div>
-            <h3>dont have an account yet? <a href="/signup">Sign up here</a></h3>
-        </div>
+        <h3>Already have an account? <a href="/login">Login here</a></h3>
     </div>
+    
 <footer>
     <p>LetsD'Part. All rights reserved @2024.</p>
 </footer>
-
-
+        
 </body>
 </html>
