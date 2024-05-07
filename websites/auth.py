@@ -3,6 +3,7 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+import re
 
 
 auth = Blueprint('auth', __name__)
@@ -16,7 +17,6 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user:
             if check_password_hash(user.password, password):
-                flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
@@ -24,14 +24,14 @@ def login():
         else:
             flash('Username or Password may be incorrect, Please try again.', category='error')
 
-    return render_template('login.html')
+    return render_template('login.html', user=current_user)
 
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return render_template(url_for('auth.login'))
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/signup', methods = ['GET', 'POST'])
@@ -43,6 +43,7 @@ def signup():
         full_name = request.form.get('full_name')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+        phone_number = request.form.get('phone_number')
 
         #Check if username or email has been taken
         email_check = User.query.filter_by(email=email).first()
@@ -64,8 +65,8 @@ def signup():
                 confirm_password, method='pbkdf2:sha1'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(User, remember=True)
+            login_user(new_user, remember=True)
             return redirect(url_for('views.home'))
 
-    return render_template('signup.html')
+    return render_template('signup.html', user=current_user)
 

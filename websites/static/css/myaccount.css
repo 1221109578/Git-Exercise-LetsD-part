@@ -83,6 +83,29 @@ nav {
 }
 
 /*myaccount stuff*/
+h1, h2{
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 2px solid #333;
+    align-items: center;
+}
+
+input {
+    vertical-align: top;
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 500px;
+}
+/* Footer */
 footer {
     background-color: #5aafff;
     padding: 10px;
