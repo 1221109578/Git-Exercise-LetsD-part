@@ -15,8 +15,9 @@ def myaccount():
     username = current_user.username
     email   = current_user.email
     full_name = current_user.full_name
+    phone_number = current_user.phone_number
     return render_template('myaccount.html', user=current_user, username=username, email=email,
-                             full_name=full_name)
+                             full_name=full_name, phone_number=phone_number)
 
 @views.route("/package")
 def package():
