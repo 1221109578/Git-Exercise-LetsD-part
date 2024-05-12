@@ -28,7 +28,13 @@ nav {
 .Description {
     display: flex;
     align-items: center;
-    padding-left: 250px;
+    padding-left: 450px;
+}
+
+.Activity {
+    display: flex;
+    align-items: center;
+    padding-left: 70px;
 }
 
 .Activity-lists {
