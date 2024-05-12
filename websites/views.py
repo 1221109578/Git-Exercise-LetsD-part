@@ -33,7 +33,7 @@ def chat():
 def Iceland():
     return render_template('Iceland.html')
 
-@views.route("/United-Kingdom")
+@views.route("/United Kingdom")
 def United_Kingdom():
     return render_template('United Kingdom.html')
 
