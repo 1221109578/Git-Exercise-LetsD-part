@@ -1,0 +1,51 @@
+.title {
+    display: flex;
+    align-items: center;
+    padding-left: 500px;
+}
+
+.Iceland {
+    display: flex;
+    align-items: center;
+    padding-left: 625px;
+}
+
+.Iceland-pic {
+    margin-left: 250px;
+}
+
+.Germany {
+    display: flex;
+    align-items: center;
+    padding-left: 625px;
+}
+
+.Germany-pic {
+    margin-left: 175px;
+}
+
+.United-Kingdom {
+    display: flex;
+    align-items: center;
+    padding-left: 600px;
+}
+
+.UK-pic {
+   margin-left: 300px;
+}
+
+.Turkey {
+    display: flex;
+    align-items: center;
+    padding-left: 625px;
+}
+
+.Turkey-pic {
+    margin-left: 225px;
+}
+
+.Switzerland {
+    display: flex;
+    align-items: center;
+    padding-left: 625px;
+}
