@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #5aafffb9;
+  }
+
+header {
+    background-color: #5aafff;
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.package {
+    display: flex;
+    align-items: center;
+    padding-left: 600px;
+}
+
+.Description {
+    display: flex;
+    align-items: center;
+    padding-left: 250px;
+}
+
+.Activity-lists {
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+}
+
+.person-counter {
+    display: flex;
+    align-items: center;
+    padding-left: 45px;
+}
+
+.button {
+  border: 2px solid rgb(0, 113, 242);
+  background-color: rgb(0, 68, 255);
+  color: rgb(255, 255, 255);
+  padding: 20px 40px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 65px; 
+  text-align: center;
+  flex-direction: column;
+  margin-left: 50px;
+}

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
 from . import db
 
-views = Blueprint(__name__ , 'views')
+views = Blueprint('views', __name__)
 
 @views.route("/", methods=['GET', 'POST'])
 def home():
@@ -33,7 +33,7 @@ def chat():
 def Iceland():
     return render_template('Iceland.html')
 
-@views.route("/United-Kingdom")
+@views.route("/United Kingdom")
 def United_Kingdom():
     return render_template('United Kingdom.html')
 
