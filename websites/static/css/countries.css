@@ -56,3 +56,11 @@ nav {
   flex-direction: column;
   margin-left: 50px;
 }
+
+footer {
+    background-color: #5aafff;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    margin-top: auto;
+}

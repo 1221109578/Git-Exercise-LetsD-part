@@ -1,3 +1,14 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #87b37899;
+  }
+
+
 .title {
     display: flex;
     align-items: center;
@@ -11,7 +22,7 @@
 }
 
 .Iceland-pic {
-    margin-left: 250px;
+    margin-left: 375px;
 }
 
 .Germany {
@@ -21,17 +32,17 @@
 }
 
 .Germany-pic {
-    margin-left: 175px;
+    margin-left: 375px;
 }
 
 .United-Kingdom {
     display: flex;
     align-items: center;
-    padding-left: 600px;
+    padding-left: 585px;
 }
 
 .UK-pic {
-   margin-left: 300px;
+   margin-left: 375px;
 }
 
 .Turkey {
@@ -41,11 +52,37 @@
 }
 
 .Turkey-pic {
-    margin-left: 225px;
+    margin-left: 375px;
 }
 
 .Switzerland {
     display: flex;
     align-items: center;
-    padding-left: 625px;
+    padding-left: 600px;
+}
+
+.Switzerland-pic {
+    margin-left: 375px;
+}
+
+.button {
+    border: 2px solid rgb(255, 229, 28);
+    background-color: rgb(234, 0, 0);
+    color: rgb(255, 255, 255);
+    padding: 20px 100px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 65px; 
+    text-align: center;
+    flex-direction: column;
+    margin-left: 550px;
+  }
+
+footer {
+    background-color: #5aafff;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    margin-top: auto;
 }
