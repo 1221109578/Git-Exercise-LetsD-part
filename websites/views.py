@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
-from . import db
+from .__init__ import create_app
 
 views = Blueprint('views', __name__)
 
@@ -48,3 +48,19 @@ def Turkey():
 @views.route("/Germany")
 def Germany():
     return render_template('Germany.html')
+
+@views.route("/winter")
+def Winter():
+    return render_template('winter.html')
+
+@views.route("/summer")
+def Summer():
+    return render_template('summer.html')
+
+@views.route("/spring")
+def Spring():
+    return render_template('spring.html')
+
+@views.route("/autumn")
+def Autumn():
+    return render_template('autumn.html')
