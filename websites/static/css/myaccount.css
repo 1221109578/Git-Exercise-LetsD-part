@@ -83,7 +83,7 @@ nav {
 }
 
 /*myaccount stuff*/
-h1, h2{
+h1, h2, h3{
     text-align: center;
 }
 
@@ -93,9 +93,16 @@ h2 {
     margin-bottom: 10px;
 }
 
-.account-info, .password-change{
+.account-info, .password-change, .payment-info{
+    margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 2px solid #333;
 }
 
 form {
@@ -104,9 +111,6 @@ form {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background: #f9f9f9;
-    border: 2px solid #333;
-    align-items: center;
 }
 
 label {
@@ -116,11 +120,15 @@ label {
     color: #555;
 }
 
-input {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"]    {
     vertical-align: top;
     padding: 8px;
     margin-bottom: 10px;
     width: 500px;
+    font-size: 14px;
 }
 
 button[type="submit"] {
@@ -131,10 +139,28 @@ button[type="submit"] {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    width: 200px;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
   }
+
+.btn {
+    display: inline-block;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+  
+
+.btn-remove {
+    background-color: #ff4d4d;
+}
+  
 
 .flash-messages {
     position: fixed;
@@ -163,6 +189,20 @@ button[type="submit"] {
     animation: fadeOut 3s ease-in-out forwards;
     background-color: #9cf3b9;
     color: #56a146;
+}
+
+input[type="number"]{
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 250px;
+    margin-inline-end: 250px;
+       
+}
+
+label[for="cvv"],
+label[for="card-number"] {
+    width: 510px;
+    margin-top: 10px;
 }
 
 /* Footer */

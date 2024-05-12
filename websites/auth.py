@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, PaymentMethod
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -63,8 +63,10 @@ def signup():
         elif not validate_phone_number(phone_number):
             flash('Invalid phone number format. Please enter a valid phone number.', category='error')
         else:
-            new_user = User(email=email,username=username, full_name=full_name, password=generate_password_hash(
-                confirm_password, method='pbkdf2:sha1'), phone_number=phone_number)
+            new_user = User(email=email,username=username, full_name=full_name,
+                             password=generate_password_hash(confirm_password,method='pbkdf2:sha1'), 
+                             phone_number=phone_number)
+            
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -72,7 +74,6 @@ def signup():
 
     return render_template('signup.html', user=current_user)
 
-# Validate Phone Number
 def validate_phone_number(number):
     pattern = r'^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$'
     return re.match(pattern, number) is not None
@@ -100,7 +101,7 @@ def change_password():
     
     user = User.query.get(current_user.id)
 
-    if not check_password_hash(user.password, current_password):
+    if not (user.password, current_password):
         flash('Current password is incorrect.', category='alert')
     elif new_password != confirm_password:
         flash('New password and confirmation do not match.', category='alert')
@@ -113,5 +114,66 @@ def change_password():
         user.password = generate_password_hash(new_password, method='pbkdf2:sha256')
         db.session.commit()
         flash('Password changed successfully.', category='success')
+
+    return redirect(url_for('views.myaccount'))
+
+@auth.route('/payment', methods=['POST'])
+@login_required
+def update_payment_method():
+    cardholder_name = request.form.get('cardholder_name')
+    card_number = request.form.get('card-number')
+    expiry_month = str(request.form.get('expiry-month'))
+    expiry_year = str(request.form.get('expiry-year'))
+    cvv = request.form.get('cvv')
+
+    if len(cvv) > 3:
+        flash('invalid CVV number. Please try again', category='alert')
+    if len(cvv) < 3:
+        flash('Invalid CVV number. Please try again', category='alert')
+
+    cvv_hash = generate_password_hash(cvv)
+    card_number_hash = generate_password_hash(card_number)
+    card_number_last_digits = card_number[-4:]
+
+    user = current_user
+
+    payment_method = PaymentMethod.query.filter_by(user_id=user.id).first()
+
+    if payment_method:
+        payment_method.card_number_hash = card_number_hash
+        payment_method.card_number_last_digit = card_number_last_digits
+        payment_method.cardholder_name= cardholder_name
+        payment_method.expiry_month = expiry_month
+        payment_method.expiry_year = expiry_year
+        payment_method.cvv_hash = cvv_hash
+    else:
+        payment_method = PaymentMethod(
+            user_id=user.id,
+            card_number_hash=card_number_hash,
+            card_number_last_digits=card_number_last_digits,
+            cardholder_name=cardholder_name,
+            expiry_month=expiry_month,
+            expiry_year=expiry_year,
+            cvv_hash=cvv_hash
+
+        )
+        db.session.add(payment_method)
+
+    db.session.commit()
+
+    flash('Payment method updated successfully', category='success')
+    return redirect(url_for('views.myaccount'))
+
+@auth.route('/payment/remove/<int:payment_method_id>', methods=["GET"])
+@login_required
+def remove_payment_method(payment_method_id):
+    payment_method = PaymentMethod.query.get(payment_method_id)
+
+    if payment_method:
+        db.session.delete(payment_method)
+        db.session.commit()
+        flash('Payment Method Removed Successfully', category='success')
+    else:
+        flash('Payment Method Not Found', category='alert')
 
     return redirect(url_for('views.myaccount'))

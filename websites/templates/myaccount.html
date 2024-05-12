@@ -75,6 +75,50 @@
                 <button type="submit">Change Password</button>
             </form>
         </div>
+        <div class="payment-info">
+        <h1>Payment Information</h1>
+            <h2>Your Payment Methods</h2>
+            {% if payment_methods %}
+                {% for payment_method in payment_methods %}
+                <label>Cardholder Name:</label>
+                <input type="text" id="cardholder_name" value="{{ payment_method.cardholder_name }}" disabled>
+                <label>Card Number:</label>
+                <input type="text" id="card-number" value="**** **** **** {{payment_method.card_number_last_digits }}" disabled>
+                <label>Expiry Date:</label>
+                <input type="text" id="expiry-date" value="{{ payment_method.expiry_month }}/{{ payment_method.expiry_year }}" disabled>
+                <div>
+                    <a href="/payment/remove/{{ payment_method.id }}" class="btn btn-remove">Remove</a>
+                </div>
+                {% endfor %}
+            {% else %}
+            <h3>You haven't add any payment method yet</h3>
+            {% endif %}
+            <h2>Add Payment method</h2>
+            <form action="/payment" method="POST">
+                <label for="cardholder_name">Cardholder Name:</label>
+                <input type="text" name="cardholder_name" id="cardholder_name">
+                <label for="card-number">Card Number:</label>
+                <input type="number" name="card-number" id="card-number">
+                <div class="expiry-date">
+                    <label for="expiry-month">Expiry Date:</label>
+                    <div class="expiry-select">
+                        <select id="expiry-month" name="expiry-month">
+                            {% for month in months %}
+                            <option value="{{ month.value }}">{{ month.label }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="expiry-year" id="expiry-year">
+                            {% for year in years %}
+                            <option value="{{year.value}}">{{ year.label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <label for="cvv">CVV:</label>
+                <input type="number" name="cvv" id="cvv">
+                <button type="submit">Add Payment Method</button>  
+            </form>
+        </div>
     </div>
     
 
