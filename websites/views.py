@@ -64,53 +64,57 @@ def package():
     return render_template('package.html', user=current_user)
 
 @views.route("/Booking")
+@login_required
 def Booking():
-    return render_template('Booking.html')
+    return render_template('Booking.html', user=current_user)
 
 @views.route("/cart")
+@login_required
 def cart():
-    return render_template("cart.html")
+    return render_template("cart.html", user=current_user)
 
 @views.route("/chat")
+@login_required
 def chat():
-    return render_template("chat.html")
+    return render_template("chat.html", user=current_user)
 
 @views.route("/Iceland")
 @login_required
 def Iceland():
-    return render_template('Iceland.html')
+    return render_template('Iceland.html', user=current_user)
 
 @views.route("/United Kingdom")
+@login_required
 def United_Kingdom():
-    return render_template('United Kingdom.html')
+    return render_template('United Kingdom.html', user=current_user)
 
 @views.route("/Switzerland")
 @login_required
 def Switzerland():
-    return render_template('Switzerland.html')
+    return render_template('Switzerland.html', user=current_user)
 
 @views.route("/Turkey")
 @login_required
 def Turkey():
-    return render_template('Turkey.html')
+    return render_template('Turkey.html', user=current_user)
 
 @views.route("/Germany")
 @login_required
 def Germany():
-    return render_template('Germany.html')
+    return render_template('Germany.html', user=current_user)
 
 @views.route("/winter")
 def Winter():
-    return render_template('winter.html')
+    return render_template('winter.html', user=current_user)
 
 @views.route("/summer")
 def Summer():
-    return render_template('summer.html')
+    return render_template('summer.html', user=current_user)
 
 @views.route("/spring")
 def Spring():
-    return render_template('spring.html')
+    return render_template('spring.html', user=current_user)
 
 @views.route("/autumn")
 def Autumn():
-    return render_template('autumn.html')
+    return render_template('autumn.html', user=current_user)
