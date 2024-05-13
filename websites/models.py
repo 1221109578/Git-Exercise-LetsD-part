@@ -20,6 +20,4 @@ class PaymentMethod(db.Model):
     expiry_year = db.Column(db.Integer, nullable=False)
     card_number_hash = db.Column(db.String(200), nullable=False)
     card_number_last_digits = db.Column(db.String(200), nullable=False)
-    cvv_hash = db.Column(db.String(200), nullable=False)
-
-
+    cvv_hash = db.Column(db.String(200),nullable=False)
