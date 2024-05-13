@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LetsD'part</title>
+    <link rel="stylesheet" href="static/css/Home.css">
+    <link rel= "icon" href="\static\Logo.png" type="image/icon type">
+    <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
+    <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="/static/Logo.png" alt="Logo">
+                </div>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/package">Travel Packages</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/Booking">Booking</a></li>
+                    <li><a href="/chat">Chat</a></li>
+                    {% endif %}   
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <a href="/logout">Log Out</a>
+                {% else %}
+                <a href="/login">Log In</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p>Twenty years from now you will be more disappointed by the things you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. EXPLORE. DREAM. DISCOVER.</p>
+            <a href="/package" class="btn">Let's Explore</a>
+        </div>
+    </section>
+
+    <section class="hero-2">
+        <div class="hero-content">
+        <a href="/Iceland" class="cd-1" ><p class="location-1">Iceland</p><img src="\static\pin.png" /></a>
+        <a href="/United Kingdom" class="cd-2" ><p class="location-2">United Kingdom</p><img src="\static\pin.png" /></a>
+        <a href="/Turkey" class="cd-3" ><p class="location-3">Turkey</p><img src="\static\pin.png" /></a>
+        <a href="/Switzerland" class="cd-4" ><p class="location-4">Switzerland</p><img src="\static\pin.png" /></a>
+        <a href="/Germany" class="cd-5" ><p class="location-5">Germany</p><img src="\static\pin.png" /></a>
+        </div>
+    </section>
+
+    <section class="hero-content-3">
+
+        <a href="/winter"  class="card">
+            <h3>Winter</h3>
+            <img src="static\Winter.jpg">
+        </a>
+
+        <a href="/summer"  class="card">
+            <h3>Summer</h3>
+            <img src="static\Summer.jpg">
+        </a>
+
+        <a href="/spring"  class="card">
+            <h3>Spring</h3>
+            <img src="static\Spring.webp">
+        </a>
+
+        <a href="/autumn"  class="card">
+            <h3>Autumn</h3>
+            <img src="static\Autumn.jpg">
+        </a>
+    </section>
+
+    </body>
+</html>
