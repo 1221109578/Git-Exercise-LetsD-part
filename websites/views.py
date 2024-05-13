@@ -17,7 +17,7 @@ def myaccount():
 def package():
     return render_template('package.html')
 
-@views.route("/history")
+@views.route("/Booking")
 def Booking():
     return render_template('Booking.html')
 
