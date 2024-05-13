@@ -63,7 +63,7 @@ def myaccount():
 def package():
     return render_template('package.html', user=current_user)
 
-@views.route("/history")
+@views.route("/Booking")
 def Booking():
     return render_template('Booking.html')
 
@@ -81,7 +81,6 @@ def Iceland():
     return render_template('Iceland.html')
 
 @views.route("/United Kingdom")
-@login_required
 def United_Kingdom():
     return render_template('United Kingdom.html')
 
