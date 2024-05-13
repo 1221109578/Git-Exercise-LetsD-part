@@ -6,3 +6,4 @@ pip install Flask_Login
 pip install Flask_SocketIO
 pip install Flask_sqlalchemy
 pip install SQLAlchemy
+pip install Werkzeug
