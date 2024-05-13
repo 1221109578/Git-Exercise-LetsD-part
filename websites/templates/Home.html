@@ -6,6 +6,8 @@
     <title>LetsD'part</title>
     <link rel="stylesheet" href="static/css/Home.css">
     <link rel= "icon" href="\static\Logo.png" type="image/icon type">
+    <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
+    <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -38,15 +40,81 @@
         </div>
     </section>
 
-    <section class="hero-2">
-        <div class="hero-content">
-        <a href="/Iceland" class="cd-1" ><p class="location-1">Iceland</p><img src="\static\pin.png" /></a>
-        <a href="/United-Kingdom" class="cd-2" ><p class="location-2">United Kingdom</p><img src="\static\pin.png" /></a>
-        <a href="/Turkey" class="cd-3" ><p class="location-3">Turkey</p><img src="\static\pin.png" /></a>
-        <a href="/Switzerland" class="cd-4" ><p class="location-4">Switzerland</p><img src="\static\pin.png" /></a>
-        <a href="/Germany" class="cd-5" ><p class="location-5">Germany</p><img src="\static\pin.png" /></a>
-        </div>
+    <section>
+        <div class="hero-content-2">
+
+        <div id="map"></div>
+        <script type="text/javascript">
+
+        const key = 'WKLh9Ubp8P8mijbUGzZN';
+        var map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=WKLh9Ubp8P8mijbUGzZN',
+        center: [0.11, 51.49],
+        zoom: 1,
+        });
+
+        const ukPopup = new maplibregl.Popup().setHTML("The UK is steeped in history, with ancient castles, cathedrals, and monuments scattered throughout the country. (1) Stonehenge is older than the Pyramids. (2) Belfast in Northern Ireland is where the Titanic was constructed. (3) The UK's highest summit is Ben Nevis which is 1345 metres tall. (4) London Eye is among the most significant landmarks worldwide. It takes 30 minutes to do a complete turn! (5) Wales is known for having the most castles per square mile in Europe. Some of its most popular include Caernarfon Castle, Raglan Castle, and Conwy Castle.");
+
+        const uk = new maplibregl.Marker()
+        .setLngLat([-2.50, 55])
+        .setPopup(ukPopup)
+        .addTo(map);
+
+        const icelandPopup = new maplibregl.Popup().setHTML("Iceland is a magical Nordic destination located east of Greenland, a land of volcanoes and Viking sagas. (1) Iceland experiences up to 23 hours of darkness during the month of December and approximately 22 to 24 hours of daylight in the month of June. (2) Settled by Norse Vikings who arrived from Norway in the 800s CE, Iceland has a unique cultural background full of history and colorful tales. (3) Iceland is considered geologically active, with approximately 130 volcanic mountains, about 30 of which are still active today. several parts of Iceland are covered in lava fields. (4) Surtsey Island is not only one of the world's newest islands, but the most filmed and researched and one of the most restricted. (5)  Iceland has one of the lowest crime rate in the world.");
+
+        const iceland = new maplibregl.Marker()
+        .setLngLat([-18, 65])
+        .setPopup(icelandPopup)
+        .addTo(map);
+
+        const switzerlandPopup = new maplibregl.Popup().setHTML("Switzerland is acknowledged as one of the most scenic places in all of Europe (1) Switzerland's Swiss Alps cover around 58% of the land area. (2) Switzerland boasts some of the finest drinking water around the world. (3) Switzerland's Alpine countryside ia really nice to go hiking! (4) Switzerland is by far the most known country for the variety, quality, and quantity of cheeses it produces. (5) Switzerland’s brilliant public transportation facility has cable cars and trains that run through the most astonishing parts of the country that could not be accessible by foot.");
+
+        const switzerland = new maplibregl.Marker()
+        .setLngLat([7.90, 46.89])
+        .setPopup(switzerlandPopup)
+        .addTo(map);
+
+        const germanyPopup = new maplibregl.Popup().setHTML("Germany as a country that loves beer and sausages, but it’s also a really interesting and vibrant place that’s full of history. (1) You can find Europe’s largest train station in Berlin. (2) The highest peak in Germany is the Zugspitze in Bavaria which is 2,962 meters high. (3) Germany sells around 6 million cars a year, making it one of the largest car producers in the world. (4) Some of the world’s most famous inventions were created in Germany - the lightbulb, automated calculators, automobiles, insulin, petrol engines, jet engines, and the Walkman. (5) In Germany we have 1,500 different types of beer, 300 types of bread and 1,000 types of sausage.");
+
+        const germany = new maplibregl.Marker()
+        .setLngLat([10.40, 51.30])
+        .setPopup(germanyPopup)
+        .addTo(map);
+
+        const turkeyPopup = new maplibregl.Popup().setHTML("Turkey is blessed with some of the most stunning natural wonders in the world (1) Istanbul is the only city in the world which straddles two continents. (2) Istanbul is the largest city in Turkey but it is not the capital. Turkey’s capital is Ankara. (3) There are more then 10 UNESCO World heritage sites in Turkey. (4) Turkey is the birthplace of historic legends, such as Omar (the poet), King Midas, Herodotus (the father of history) and St. Paul the Apostle. (5) The Black Sea coast of Turkey stretches for 1175 km. About the same distance between London and Venice.");
+
+        const turkey = new maplibregl.Marker()
+        .setLngLat([35.41, 39.10])
+        .setPopup(turkeyPopup)
+        .addTo(map);
+
+        </script>
+
     </section>
 
-</body>
+    <section class="hero-content-3">
+
+        <a href="/winter"  class="card">
+            <h3>Winter</h3>
+            <img src="static\Winter.jpg">
+        </a>
+
+        <a href="/summer"  class="card">
+            <h3>Summer</h3>
+            <img src="static\Summer.jpg">
+        </a>
+
+        <a href="/spring"  class="card">
+            <h3>Spring</h3>
+            <img src="static\Spring.webp">
+        </a>
+
+        <a href="/autumn"  class="card">
+            <h3>Autumn</h3>
+            <img src="static\Autumn.jpg">
+        </a>
+    </section>
+
+    </body>
 </html>
