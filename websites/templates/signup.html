@@ -19,19 +19,25 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
+                    {% if user.is_authenticated %}
                     <li><a href="/cart">Cart</a></li>
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/history">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>    
+                    <li><a href="/chat">Chat</a></li> 
+                    {% endif %}   
                 </ul>
             </div>
             <div class="auth-buttons">
-                <a href="/login">Login</a>
+                {% if user.is_authenticated %}
+                <a href="/logout">Log Out</a>
+                {% else %}
+                <a href="/login">Log In</a>
+                {% endif %}
             </div>
         </nav>
     </header>
     <div class="h1">
-        <h1>Fill in to sign up Plebs</h1>
+        <h1>Dear Future Traveler, Fill in to sign up</h1>
     </div>
     <div class="login">
         <div class="login_form">
@@ -41,6 +47,7 @@
                 <input type="email" name="email" placeholder="Email" >
                 <input type="password" name="password" placeholder="Password" >
                 <input type="password" name="confirm_password" placeholder="Confirm Password">
+                <input type="text" name="phone_number" placeholder="Phone Number">
                 <input type="submit" value="Sign up">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
@@ -59,7 +66,7 @@
     </div>
     
 <footer>
-    <p>LetsD'Part. All rights reserved @2024.</p>
+    <p>© 2024 LetsD'Part. All rights reserved.</p>
 </footer>
         
 </body>
