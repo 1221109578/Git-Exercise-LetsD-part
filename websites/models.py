@@ -21,3 +21,7 @@ class PaymentMethod(db.Model):
     card_number_hash = db.Column(db.String(200), nullable=False)
     card_number_last_digits = db.Column(db.String(200), nullable=False)
     cvv_hash = db.Column(db.String(200),nullable=False)
+
+class Events(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    

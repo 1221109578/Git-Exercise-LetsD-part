@@ -68,11 +68,6 @@ def package():
 def Booking():
     return render_template('Booking.html', user=current_user)
 
-@views.route("/cart")
-@login_required
-def cart():
-    return render_template("cart.html", user=current_user)
-
 @views.route("/chat")
 @login_required
 def chat():
