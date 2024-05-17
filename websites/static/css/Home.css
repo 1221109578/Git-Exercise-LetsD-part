@@ -90,6 +90,7 @@ nav {
 /* Home */
 
 #map {
+    margin: 0 auto;
     height: 500px;
     width: 1000px;
     border-style: solid;
@@ -130,10 +131,11 @@ nav {
 }
 
 .hero-content-2 {
+    margin: 0 auto;
+    margin-inline-end: 45%;
     max-width: 600px;
     padding-top: 40px;
     padding-bottom: 40px;
-    padding-left: 132px;
     
 }
 
@@ -201,4 +203,12 @@ nav {
     padding-left: 10px;
     width: 1100px;
     height: 500px;
+}
+
+footer {
+    background-color: #5aafff;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    margin-top: auto;
 }
