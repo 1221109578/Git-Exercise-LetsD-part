@@ -50,45 +50,65 @@
     </div>
     
     <div class="Activity-lists">
-        <ul>
-            <li>Berlin - Visit art galleries, historical sites especially the sites from the Nazis reign</li><br>
-            <li>Munich - Visit the infamous Allianz Arena of the Bayern München. Join the Oktoberfest, the  traditional<br> festival celebrates every October in Germany. Featuring beautiful gardens and worth-exploring markets.</li><br>
-            <li>Black Forest - places for nature lover, a picturesque scenery. Highly recommended for Photographer.</li><br>
-            <li>Nuremberg - The city's darkest WW2 connections are on display at the documentations<br> Centre Nazi Party Rallying Grounds and the memorial Nuremberg trial Museum.</li><br>
-            <li>Munster - German Panzer museum Munster, a museum about Germany's war machines since the great war until modern equipments.</li>
-        </ul>
-    </div>
-    <br>
-    <div class="person-counter">
-        <form>
-            <label for="No. of pax">Select No. of pax:</label>
-            <select id="No. of pax" name="No. of Pax">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-            </select>
+        <form id="activity-form">
+            <ul>
+                <li>
+                    <input type="checkbox" id="berlin" name="activities" value="Berlin - Visit art galleries, historical sites especially the sites from the Nazis reign">
+                    <label for="berlin">Berlin - Visit art galleries, historical sites especially the sites from the Nazis reign</label>
+                </li><br>
+                <li>
+                    <input type="checkbox" id="munich" name="activities" value="Munich - Visit the infamous Allianz Arena of the Bayern München. Join the Oktoberfest, the traditional festival celebrates every October in Germany. Featuring beautiful gardens and worth-exploring markets.">
+                    <label for="munich">Munich - Visit the infamous Allianz Arena of the Bayern München. Join the Oktoberfest, the traditional festival celebrates every October in Germany. Featuring beautiful gardens and worth-exploring markets.</label>
+                </li><br>
+                <li>
+                    <input type="checkbox" id="black-forest" name="activities" value="Black Forest - places for nature lover, a picturesque scenery. Highly recommended for Photographer.">
+                    <label for="black-forest">Black Forest - places for nature lover, a picturesque scenery. Highly recommended for Photographer.</label>
+                </li><br>
+                <li>
+                    <input type="checkbox" id="nuremberg" name="activities" value="Nuremberg - The city's darkest WW2 connections are on display at the documentations Centre Nazi Party Rallying Grounds and the memorial Nuremberg trial Museum.">
+                    <label for="nuremberg">Nuremberg - The city's darkest WW2 connections are on display at the documentations Centre Nazi Party Rallying Grounds and the memorial Nuremberg trial Museum.</label>
+                </li><br>
+                <li>
+                    <input type="checkbox" id="munster" name="activities" value="Munster - German Panzer museum Munster, a museum about Germany's war machines since the great war until modern equipments.">
+                    <label for="munster">Munster - German Panzer museum Munster, a museum about Germany's war machines since the great war until modern equipments.</label>
+                </li>
+            </ul>
+            <div class="person-counter">
+                <label for="No. of pax">Select No. of pax:</label>
+                <select id="No. of pax" name="No. of Pax">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <br>
+            <a href="/Booking" class="button" onclick="submitForm()"><b>Proceed</b></a>
         </form>
-        </div>
+    </div>
     
-        <a href="/Booking" class="button"><b>Proceed</b></a>
-        
+    <script>
+        function submitForm() {
+            const form = document.getElementById('activity-form');
+            form.submit();
+        }
+    </script>
 </body>
 <footer>
     <p>LetsD'Part. All rights reserved @2024.</p>
