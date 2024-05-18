@@ -19,10 +19,11 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
-                    <li><a href="/cart">Cart</a></li>
+                    {% if user.is_authenticated %}
                     <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/history">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>    
+                    <li><a href="/Booking">Booking</a></li>
+                    <li><a href="/chat">Chat</a></li>
+                    {% endif %}    
                 </ul>
             </div>
             <div class="auth-buttons">
@@ -91,7 +92,7 @@
                 </div>
                 {% endfor %}
             {% else %}
-            <h3>You haven't add any payment method yet</h3>
+            <h3>You haven't add any payment method yet, Sadge ;c</h3>
             {% endif %}
             <h2>Add Payment method</h2>
             <form action="/payment" method="POST">

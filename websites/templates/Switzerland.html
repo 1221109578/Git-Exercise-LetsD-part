@@ -21,15 +21,26 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
                     {% if user.is_authenticated %}
+<<<<<<< HEAD
                     <li><a href="/cart">Cart</a></li>
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
                     <li><a href="/chat">Chat</a></li> 
                     {% endif %}   
+=======
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/Booking">Booking</a></li>
+                    <li><a href="/chat">Chat</a></li> 
+                    {% endif %}      
+>>>>>>> 72d41b1b96b912668488d03e91634f1708880b2b
                 </ul>
             </div>
             <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <a href="/logout">Log Out</a>
+                {% else %}
                 <a href="/login">Log In</a>
+                {% endif %}
             </div>
         </nav>
     </header>
