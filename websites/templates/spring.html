@@ -33,15 +33,20 @@
             </div>
         </nav>
     </header>
-
+    <form action="/phone" method="POST" id="phone-form" >
         <div class="def-cards">
-            <h1>Spring</h1>
-            <p>+Germany - Kieler Woche ----- May 2024<br>
-            +Iceland - Reykjavik Arts Festival ----- May 2024<br>
-            +Switzerland - Finale Nationale de la Race d'Hérens ----- May 2024<br>
-            +United Kingdom - Liverpool Sound City ----- 4-5 May<br>
-            +Turkey - Cappadox Festival ----- May 2024
-            </p>
+            
+            <h1>Spring Events</h1>
+            <ul>
+                {% for event in events %}
+                    <li>
+                        <strong>{{ event.event_name }}</strong><br>
+                        Country: {{ event.country }}<br>
+                        Date: {{ event.date }}<br><br>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
+    </form>
     </body>
 </html>

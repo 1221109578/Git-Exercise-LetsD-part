@@ -31,14 +31,20 @@
             </div>
         </nav>
     </header>
-
+    <form action="/phone" method="POST" id="phone-form" >
         <div class="def-cards">
-            <h1>Autumn</h1>
-            <p>+United Kingdom - Longleat Festival of Light ----- 11/11/2023 to 3/1/2024<br>
-            +Switzerland - Chestnut Festival ----- mid Octobre 2024<br>
-            +Iceland - Imagine Peace Tower ----- 9/10/2024 to 8/12/2024<br>
-            +Germany - Berlin Festival of lights ----- Octobre
-            </p>
+            
+            <h1>Autumn Events</h1>
+            <ul>
+                {% for event in events %}
+                    <li>
+                        <strong>{{ event.event_name }}</strong><br>
+                        Country: {{ event.country }}<br>
+                        Date: {{ event.date }}<br><br>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
+    </form>
     </body>
 </html>

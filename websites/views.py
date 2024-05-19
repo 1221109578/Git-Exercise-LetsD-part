@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
-from .__init__ import create_app
-from .models import PaymentMethod
+from . import create_app
+from .models import PaymentMethod, Winter, Summer, Spring, Autumn
+from . import db
 
 views = Blueprint('views', __name__)
 
@@ -59,6 +60,40 @@ def myaccount():
                             payment_methods=payment_methods
                             )
 
+#-----
+
+@views.route('/winter', methods=['GET'])
+def winter():
+    # Retrieve all events from the Winter table
+    winter_events = Winter.query.all()
+    return render_template('winter.html', 
+                           user=current_user, 
+                           events=winter_events)
+
+@views.route('/summer', methods=['GET'])
+def summer():
+    # Retrieve all events from the Summer table
+    summer_events = Summer.query.all()
+    return render_template('summer.html', 
+                           user=current_user, 
+                           events=summer_events)
+
+@views.route('/spring', methods=['GET'])
+def spring():
+    # Retrieve all events from the Spring table
+    spring_events = Spring.query.all()
+    return render_template('spring.html', 
+                           user=current_user, 
+                           events=spring_events)
+
+@views.route('/autumn', methods=['GET'])
+def autumn():
+    # Retrieve all events from the Autumn table
+    autumn_events = Autumn.query.all()
+    return render_template('autumn.html', 
+                           user=current_user, 
+                           events=autumn_events)
+
 @views.route("/package")
 def package():
     return render_template('package.html', user=current_user)
@@ -97,19 +132,3 @@ def Turkey():
 @login_required
 def Germany():
     return render_template('Germany.html', user=current_user)
-
-@views.route("/winter")
-def Winter():
-    return render_template('winter.html', user=current_user)
-
-@views.route("/summer")
-def Summer():
-    return render_template('summer.html', user=current_user)
-
-@views.route("/spring")
-def Spring():
-    return render_template('spring.html', user=current_user)
-
-@views.route("/autumn")
-def Autumn():
-    return render_template('autumn.html', user=current_user)

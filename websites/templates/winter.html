@@ -34,17 +34,20 @@
             </div>
         </nav>
     </header>
-
-        <div class="def-cards">
-            <h1>Winter</h1>
-            <p>+United Kingdom - Jorvik Viking Festivals ----- 20-27 February 2024<br>
-            +United Kingdom - Coastival Arts Festival ----- 22-24 February 2024<br>
-            +Switzerland - St. Moritz Gourmet Festival ----- 29/1/2024 to 3/2/2024<br>
-            +Switzerland - Alte Silvester ----- 30/12/2023 and 13/1/2024 <br>
-            +Germany - Tollwood Winter Festival ----- Novembre to December<br>
-            +Germany - Epiphany ----- 6/1/2024<br>
-            +Iceland - Reykjavík Winter Lights Festival - February 2024<br>
-            +Iceland - Dark Music Days ----- January 2024</p>
-        </div>
+    <form action="/phone" method="POST" id="phone-form" >
+            <div class="def-cards">
+                
+                <h1>Winter Events</h1>
+                <ul>
+                    {% for event in events %}
+                        <li>
+                            <strong>{{ event.event_name }}</strong><br>
+                            Country: {{ event.country }}<br>
+                            Date: {{ event.date }}<br><br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </form>
     </body>
 </html>
