@@ -24,7 +24,10 @@
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
                     <li><a href="/chat">Chat</a></li> 
-                    {% endif %}      
+                    {% endif %}
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>   
+                    {% endif %}     
                 </ul>
             </div>
             <div class="auth-buttons">
