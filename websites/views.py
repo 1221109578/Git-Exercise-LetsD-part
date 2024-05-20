@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
 from .__init__ import create_app
-from .models import PaymentMethod
+from . import db
+from .models import PaymentMethod, Packages
 
 views = Blueprint('views', __name__)
 
@@ -59,9 +60,14 @@ def myaccount():
                             payment_methods=payment_methods
                             )
 
-@views.route("/package")
+@views.route("/package" , methods = ["GET" , "POST"])
 def package():
-    return render_template('package.html', user=current_user)
+    country = db.session(Packages, country)
+    city = db.session(Packages, city)
+    airline_company = db.session(Packages, airline_company)
+    hotel_name = db.session(Packages, hotel_name)
+    pax = db.session(Packages, pax)
+    return render_template('package.html', user=current_user, country=country, city=city, airline_company=airline_company, hotel_name=hotel_name, pax=pax)
 
 @views.route("/Booking")
 @login_required
@@ -98,6 +104,7 @@ def Turkey():
 def Germany():
     return render_template('Germany.html', user=current_user)
 
+
 @views.route("/winter")
 def Winter():
     return render_template('winter.html', user=current_user)
@@ -113,3 +120,5 @@ def Spring():
 @views.route("/autumn")
 def Autumn():
     return render_template('autumn.html', user=current_user)
+
+

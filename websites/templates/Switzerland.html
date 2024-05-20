@@ -21,18 +21,10 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
                     {% if user.is_authenticated %}
-<<<<<<< HEAD
-                    <li><a href="/cart">Cart</a></li>
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li> 
-                    {% endif %}   
-=======
-                    <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/Booking">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li> 
-                    {% endif %}      
->>>>>>> 72d41b1b96b912668488d03e91634f1708880b2b
+                    <li><a href="/chat">Chat</a></li>   
+                    {% endif %} 
                 </ul>
             </div>
             <div class="auth-buttons">
@@ -49,59 +41,93 @@
         <h1><b><i><u>Basic package</u></i></b></h1><br>
     </div>
     <div class="Description">
-        <ul>
-        <li>Starts from RM 5k per person</li>
-        <li>12 Days 10 Nights</li>
-        <li>Flight - Swiss Airlines (Direct flight to Zurich International Airport from Kuala Lumpur International Airport)</li>
-        <li><b>From: </b>19/8/2024 <b>To: </b>31/8/2024</li>
-        <li><b>Lodgings: </b>Hotel Chalet du Lac</li>
-        </ul>
-    </div>
-    
-    <div class="Activity">
-        <h1><b>Activites</b></h1>
-    </div>
+        
+        <form id="booking-form" method="POST" action="/Switzerland"> 
+            <ul>
+                <li>
+                    <label for="start-date"><b>Start Date:</b></label>
+                    <input type="date" id="start-date" name="start-date" required>
+                </li>
+                <li>
+                    <label for="return-date"><b>Return Date:</b></label>
+                    <input type="date" id="return-date" name="return-date" required> 
+                </li> 
+                <li>
+                    <label for="flight"><b>Flight:</b></label>
+                    <select id="flight" name="flight">
+                        <option value="Swiss Airlines">Swiss Airlines - RM1300</option>
+                        <option value="Lufthansa">Lufthansa - RM1200</option>
+                        <option value="Emirates">Emirates - RM1400</option>
+                        <option value="Qatar Airways">Qatar Airways - RM1500</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="lodging"><b>Lodging:</b></label>
+                    <select id="lodging" name="lodging">
+                        <option value="Hotel Chalet du Lac">Hotel Chalet du Lac - RM700</option>
+                        <option value="The Dolder Grand">The Dolder Grand - RM1000</option>
+                        <option value="Baur au Lac">Baur au Lac - RM1100</option>
+                        <option value="Hotel Schweizerhof Zurich">Hotel Schweizerhof Zurich - RM900</option>
+                    </select>
+                </li>
+            </ul>
 
-    <div class="Activity-lists">
-        <ul>
-            <li>Zurich - The city of Zurich, a global center for banking and finance, lies at the north end of Lake Zurich in northern Switzerland.<br> The picturesque lanes of the central Altstadt (Old Town), on either side of the Limmat River, reflect its pre-medieval history.</li><br>
-            <li>Geneva - visit the Chillon Castle. Chillon Castle is an island medieval castle located on Lake Geneva,<br> south of Veytaux in the canton of Vaud. It is situated at the eastern end of the lake, on the narrow shore between Montreux and Villeneuve, which gives access to the Alpine valley of the Rhône </li><br>
-            <li>Mount Pilatus - Pilatus, also often referred to as Mount Pilatus, is a mountain massif overlooking Lucerne in Central Switzerland.<br> It is composed of several peaks, of which the highest is named Tomlishorn.</li><br>
-            <li>Rhine Falls - The Rhine Falls is a waterfall located in Switzerland and the most powerful waterfall in Europe.<br> The falls are located on the High Rhine on the border between the cantons of Schaffhausen and Zürich<br> between the municipalities of Neuhausen am Rheinfall  and Laufen-Uhwiesen/Dachsen , next to the town of Schaffhausen in northern Switzerland.</li><br>
-            <li>Lake Zurich -  Lake Zurich  is a lake in Switzerland, extending southeast of the city of Zürich. Depending on the context, Lake Zurich or Zürichsee can be used to describe the lake as a whole,<br> or just that part of the lake downstream of the Seedamm at Rapperswil, whilst the part upstream of Rapperswil may be called the Obersee or Upper Lake.</li>
-        </ul>
-    </div>
-    <br>
-    <div class="person-counter">
-        <form>
-            <label for="No. of pax">Select No. of pax:</label>
-            <select id="No. of pax" name="No. of Pax">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-            </select>
+            <div class="Activity">
+                <h1><b>Activities</b></h1>
+            </div>
+            <div class="Activity-lists">
+                <ul>
+                    <li>
+                        <input type="checkbox" id="zurich" name="activities" value="Zurich">
+                        <label for="zurich">Zurich - The city of Zurich, a global center for banking and finance, lies at the north end of Lake Zurich in northern Switzerland. - RM300</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="geneva" name="activities" value="Geneva">
+                        <label for="geneva">Geneva - Visit the Chillon Castle. Chillon Castle is an island medieval castle located on Lake Geneva, south of Veytaux in the canton of Vaud. - RM200</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="mount-pilatus" name="activities" value="Mount Pilatus">
+                        <label for="mount-pilatus">Mount Pilatus - Pilatus, also often referred to as Mount Pilatus, is a mountain massif overlooking Lucerne in Central Switzerland. It is composed of several peaks, of which the highest is named Tomlishorn. - RM350</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="rhine-falls" name="activities" value="Rhine Falls">
+                        <label for="rhine-falls">Rhine Falls - The Rhine Falls is a waterfall located in Switzerland and the most powerful waterfall in Europe. The falls are located on the High Rhine on the border between the cantons of Schaffhausen and Zürich between the municipalities of Neuhausen am Rheinfall and Laufen-Uhwiesen/Dachsen, next to the town of Schaffhausen in northern Switzerland. - RM150</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="lake-zurich" name="activities" value="Lake Zurich">
+                        <label for="lake-zurich">Lake Zurich - Lake Zurich is a lake in Switzerland, extending southeast of the city of Zürich. - R100</label>
+                    </li>
+                </ul>
+                <div class="person-counter">
+                    <label for="No. of pax">Select No. of pax:</label>
+                    <select id="No. of pax" name="No. of Pax">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                <br><br>
+                <a href="/Booking" class="button"><b>Proceed</b></a> 
+            </div>
         </form>
-        </div>
-    
-        <a href="/Booking" class="button"><b>Proceed</b></a>
-
+    </div>
 </body>
 <footer>
     <p>LetsD'Part. All rights reserved @2024.</p>

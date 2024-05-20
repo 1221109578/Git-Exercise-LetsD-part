@@ -41,14 +41,36 @@
         <h1><b><i><u>Basic package</u></i></b></h1><br>
     </div>
     <div class="Description">
-        <ul>
-        <li>Starts from RM 3.7k per person</li>
-        <li>9 Days 7 Nights</li>
-        <li>Flight - Lufthansa (Direct flight to Frankfurt from KLIA)</li>
-        <li><b>From:</b> 3/12/2024 <b>To:</b>12/12/2024</li>
-        <li><b>Lodgings: </b>Leonardo Royal Hotel Frankfurt</li>
-        </ul>
-    </div>
+        <form id="booking-form" method="POST" action="/Germany">
+            <ul>
+                <li>
+                    <label for="start-date"><b>Start Date:</b></label>
+                    <input type="date" id="start-date" name="start-date" required>
+                </li>
+                <li>
+                    <label for="return-date"><b>Return Date:</b></label>
+                    <input type="date" id="return-date" name="return-date" required>
+                </li> 
+                <li>
+                    <label for="flight"><b>Flight:</b></label>
+                    <select id="flight" name="flight">
+                        <option value="Lufthansa">Lufthansa - RM1300</option>
+                        <option value="Emirates">Emirates - RM1600</option>
+                        <option value="Singapore Airlines">Singapore Airlines - RM1400</option>
+                        <option value="Malaysia Airlines">Malaysia Airlines - RM1200</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="lodging"><b>Lodging:</b></label>
+                    <select id="lodging" name="lodging">
+                        <option value="Leonardo Royal Hotel Frankfurt">Leonardo Royal Hotel Frankfurt - RM700</option>
+                        <option value="Hilton Frankfurt City Centre">Hilton Frankfurt City Centre - RM900</option>
+                        <option value="Marriott Frankfurt">Marriott Frankfurt - RM950</option>
+                    </select>
+                </li>
+            </ul>
+            </form>
+            </div>
 
     <div class="Activity">
         <h1><b>Activites</b></h1>
@@ -58,24 +80,24 @@
         <form id="activity-form">
             <ul>
                 <li>
-                    <input type="checkbox" id="berlin" name="activities" value="Berlin - Visit art galleries, historical sites especially the sites from the Nazis reign">
-                    <label for="berlin">Berlin - Visit art galleries, historical sites especially the sites from the Nazis reign</label>
+                    <input type="checkbox" id="berlin" name="activities" value="berlin">
+                    <label for="berlin">Berlin - Visit art galleries, historical sites especially the sites from the Nazis reign - RM400</label>
                 </li><br>
                 <li>
-                    <input type="checkbox" id="munich" name="activities" value="Munich - Visit the infamous Allianz Arena of the Bayern München. Join the Oktoberfest, the traditional festival celebrates every October in Germany. Featuring beautiful gardens and worth-exploring markets.">
-                    <label for="munich">Munich - Visit the infamous Allianz Arena of the Bayern München. Join the Oktoberfest, the traditional festival celebrates every October in Germany. Featuring beautiful gardens and worth-exploring markets.</label>
+                    <input type="checkbox" id="munich" name="activities" value="munich">
+                    <label for="munich">Munich - Visit the infamous Allianz Arena of the Bayern München. Join the Oktoberfest, the traditional festival celebrates every October in Germany. Featuring beautiful gardens and worth-exploring markets. - RM200</label>
                 </li><br>
                 <li>
-                    <input type="checkbox" id="black-forest" name="activities" value="Black Forest - places for nature lover, a picturesque scenery. Highly recommended for Photographer.">
-                    <label for="black-forest">Black Forest - places for nature lover, a picturesque scenery. Highly recommended for Photographer.</label>
+                    <input type="checkbox" id="black-forest" name="activities" value="black-forest">
+                    <label for="black-forest">Black Forest - places for nature lover, a picturesque scenery. Highly recommended for Photographer. - RM350</label>
                 </li><br>
                 <li>
-                    <input type="checkbox" id="nuremberg" name="activities" value="Nuremberg - The city's darkest WW2 connections are on display at the documentations Centre Nazi Party Rallying Grounds and the memorial Nuremberg trial Museum.">
-                    <label for="nuremberg">Nuremberg - The city's darkest WW2 connections are on display at the documentations Centre Nazi Party Rallying Grounds and the memorial Nuremberg trial Museum.</label>
+                    <input type="checkbox" id="nuremberg" name="activities" value="nuremberg">
+                    <label for="nuremberg">Nuremberg - The city's darkest WW2 connections are on display at the documentations Centre Nazi Party Rallying Grounds and the memorial Nuremberg trial Museum. - RM80</label>
                 </li><br>
                 <li>
-                    <input type="checkbox" id="munster" name="activities" value="Munster - German Panzer museum Munster, a museum about Germany's war machines since the great war until modern equipments.">
-                    <label for="munster">Munster - German Panzer museum Munster, a museum about Germany's war machines since the great war until modern equipments.</label>
+                    <input type="checkbox" id="munster" name="activities" value="munster">
+                    <label for="munster">Munster - German Panzer museum Munster, a museum about Germany's war machines since the great war until modern equipments. - RM70</label>
                 </li>
             </ul>
             <div class="person-counter">
@@ -103,17 +125,10 @@
                     <option value="20">20</option>
                 </select>
             </div>
-            <br>
-            <a href="/Booking" class="button" onclick="submitForm()"><b>Proceed</b></a>
+            <br><br>
+            <a href="/Booking" class="button"><b>Proceed</b></a>
         </form>
     </div>
-    
-    <script>
-        function submitForm() {
-            const form = document.getElementById('activity-form');
-            form.submit();
-        }
-    </script>
 </body>
 <footer>
     <p>LetsD'Part. All rights reserved @2024.</p>

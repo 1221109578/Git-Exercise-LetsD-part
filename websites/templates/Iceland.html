@@ -6,7 +6,7 @@
     <title>LetsD'part</title>
     <link rel="stylesheet" href="static/css/Home.css">
     <link rel="stylesheet" href="static/css/countries.css">
-    <link rel= "icon" href="\static\Logo.png" type="image/icon type">
+    <link rel="icon" href="\static\Logo.png" type="image/icon type">
 </head>
 <body>
     <header>
@@ -23,8 +23,8 @@
                     {% if user.is_authenticated %}
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>   
-                    {% endif %} 
+                    <li><a href="/chat">Chat</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="auth-buttons">
@@ -38,68 +38,96 @@
     </header>
 
     <div class="package">
-    <h2><b><i><u>Basic Packages</u></i></b></h2><br>
+        <h1><b><i><u>Basic Packages</u></i></b></h1><br>
     </div>
     <div class="Description">
-        <ul>
-    <li>Starts from RM 4500 per person.</li> 
-    <li>10 Days 8 Nights</li>
-    <li>Flight - Qatar airways (transit in Doha,Qatar)</li>
-    <li><b>From: </b>20/7/2025 <b>To: </b>30/7/2025</li>
-    <li><b>Lodgings: </b>Fossar Cabin</li>
-    </ul>
+        <form id="booking-form" method="POST" action="/Iceland"> 
+            <ul>
+                <li>
+                    <label for="start-date"><b>Start Date:</b></label>
+                    <input type="date" id="start-date" name="start-date" required>
+                </li>
+                <li>
+                    <label for="return-date"><b>Return Date:</b></label>
+                    <input type="date" id="return-date" name="return-date" required> 
+                </li>
+                <li>
+                    <label for="flight"><b>Flight:</b></label>
+                    <select id="flight" name="flight">
+                        <option value="Icelandair">Icelandair - RM1600</option>
+                        <option value="WOW air">WOW air - RM1500</option>
+                        <option value="Delta">Delta - RM1700</option>
+                        <option value="United">United - RM1800</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="lodging"><b>Lodging:</b></label>
+                    <select id="lodging" name="lodging">
+                        <option value="Aurora Inn">Aurora Inn - RM800</option>
+                        <option value="Ice Hotel">Ice Hotel - RM1000</option>
+                        <option value="Glacier Lodge">Glacier Lodge - RM1200</option>
+                        <option value="Northern Lights Resort">Northern Lights Resort - RM900</option>
+                    </select>
+                </li>
+            </ul>
+
+            <div class="Activity">
+                <h1><b>Activities</b></h1>
+            </div>
+            <div class="Activity-lists">
+                <ul>
+                    <li>
+                        <input type="checkbox" id="northern-lights" name="activities" value="Northern Lights">
+                        <label for="northern-lights">Northern Lights Tour - Experience the mesmerizing beauty of the Northern Lights, a natural phenomenon that illuminates the Icelandic sky. - RM300</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="blue-lagoon" name="activities" value="Blue Lagoon">
+                        <label for="blue-lagoon">Blue Lagoon Spa - Relax in the geothermal waters of the Blue Lagoon, known for its healing properties and stunning surroundings. - RM250</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="glacier-hiking" name="activities" value="Glacier Hiking">
+                        <label for="glacier-hiking">Glacier Hiking Adventure - Explore the icy wilderness of Iceland with a guided glacier hiking tour. - RM350</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="whale-watching" name="activities" value="Whale Watching">
+                        <label for="whale-watching">Whale Watching Excursion - Embark on a thrilling whale watching tour to catch a glimpse of majestic whales in their natural habitat. - RM200</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="golden-circle" name="activities" value="Golden Circle">
+                        <label for="golden-circle">Golden Circle Tour - Discover Iceland's iconic Golden Circle, featuring breathtaking waterfalls, geysers, and volcanic landscapes. - RM280</label>
+                    </li><br>
+                </ul>
+                <div class="person-counter">
+                    <label for="No. of pax">Select No. of pax:</label>
+                    <select id="No. of pax" name="No. of Pax">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                <a href="/Booking" class="button"><b>Proceed</b></a>
+            </div>
+        </form>
     </div>
-
-    <div class="Activity">
-        <h1><b>Activites</b></h1>
-    </div>
-
-    <div class="Activity-lists">
-    <ul>
-        <li>Seljalandfoss - Seljalandsfoss is a waterfall in Iceland. Seljalandsfoss is located in the South Region in Iceland right by Route 1 and the road that leads to Þórsmörk Road 249.<br> The waterfall drops 60 m and is part of the Seljalands River that has its origin in the volcano glacier Eyjafjallajökull.</li><br>
-
-        <li>Vik -  the southernmost village in Iceland. It is one of the best place to spot the northern light or known as aurora.<br> If you visit here during Christmas eve, this town will make you feel like you are in a Santa Claus' hometown.</li><br>
-
-        <li>Diamond Beach - The Diamond Beach, also known as Breiðamerkursandur, is a beach located on the south coast of Iceland,<br> near Jökulsárlón glacier lagoon. The beach is famous for its black sand and icebergs that wash up on the shore, resembling sparkling diamonds.</li><br>
-
-        <li>Úthlíð -  a rare gem to be found in largely unspoiled Icelandic landscape. It is located centrally from most key locations,<br> only an hour drive from Reykjavik, 25 min from the national park of Þingvellir, 10 min from the famous Geysir hot springs and only 15 min from Gullfoss.</li><br>
-
-        <li>Reykjavík - Reykjavik, on the coast of Iceland, is the country's capital and largest city. It's home to the National and Saga museums, tracing Iceland’s Viking history.<br> The striking concrete Hallgrimskirkja church and rotating Perlan glass dome offer sweeping views of the sea and nearby hills.</li>
-    </ul>
-    </div>
-    <br>
-    <div class="person-counter">
-    <form>
-        <label for="No. of pax">Select No. of pax:</label>
-        <select id="No. of pax" name="No. of Pax">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-        </select>
-    </form>
-    </div>
-
-    <a href="/Booking" class="button"><b>Proceed</b></a>
-
-    </body>
-    <footer>
-        <p>LetsD'Part. All rights reserved @2024.</p>
-    </footer>
-    </html>
+</body>
+<footer>
+    <p>LetsD'Part. All rights reserved @2024.</p>
+</footer>
+</html>
