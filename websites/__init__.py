@@ -33,9 +33,10 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
     
-    from .admin import MyModelView, MyAdminIndexView
+    from .admin import MyModelView, MyAdminIndexView, MyAdminPackageView
     adminview = Admin(app, index_view=MyAdminIndexView())
     adminview.add_view(MyModelView(User, db.session))
+    adminview.add_view(MyAdminPackageView(Packages, db.session))
 
     return app
 
