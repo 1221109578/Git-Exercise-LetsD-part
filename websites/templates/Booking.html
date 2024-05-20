@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LetsD'part</title>
+    <title>LetsD'Part - Booking</title>
     <link rel="stylesheet" href="static/css/Home.css">
     <link rel="stylesheet" href="static/css/Booking.css">
     <link rel= "icon" href="\static\Logo.png" type="image/icon type">
@@ -20,9 +20,14 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
+                    {% if user.is_authenticated %}
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>    
+                    <li><a href="/chat">Chat</a></li> 
+                    {% endif %}
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}   
                 </ul>
             </div>
             <div class="auth-buttons">
