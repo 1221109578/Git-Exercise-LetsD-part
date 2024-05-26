@@ -37,14 +37,20 @@
             </div>
         </nav>
     </header>
-
-    <div class="def-cards">
-        <h1>Summer</h1>
-        <p>+Turkey - Trojan Festival ----- August 2024<br>
-        +United Kingdom - Stonehenge Summer Solstice ----- 18-22 June 2024<br>
-        +Iceland - Reykjavik Culture Night ----- 3rd week of August 2024<br>
-        +Germany - Den Rhein in Flammen ----- August 2024
-    </p>
-    </div>
+    <form action="/phone" method="GET" id="phone-form" >
+        <div class="def-cards">
+            
+            <h1>Summer Events</h1>
+            <ul>
+                {% for event in events %}
+                    <li>
+                        <strong>{{ event.event_name }}</strong><br>
+                        Country: {{ event.country }}<br>
+                        Date: {{ event.date }}<br><br>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </form>
 </body>
 </html>

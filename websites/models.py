@@ -2,6 +2,7 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime
+from sqlalchemy.sql import func
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -23,22 +24,29 @@ class PaymentMethod(db.Model):
     card_number_last_digits = db.Column(db.String(200), nullable=False)
     cvv_hash = db.Column(db.String(200),nullable=False)
 
-class Events(db.Model):
+#------
+class Seasons(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    
-
-class Packages(db.Model):
-    id=db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.String(100))
-    city = db.Column(db.String(100))
-    description = db.Column(db.String(100))
-    price = db.Column(db.Float)
-    days = db.Column(db.Integer)
-    nights = db.Column(db.Integer)
-    departure_date = db.Column(db.Date)
-    return_date = db.Column(db.Date)
-    airline_company = db.Column(db.String(100))
-    hotel_name = db.Column(db.String(100))
-    pax = db.Column(db.Integer)
-    availability = db.Column(db.Integer)
-    image_url = db.Column(db.String(200))
+    event_name = db.Column(db.String(150), nullable=False)
+    country = db.Column(db.String(150), nullable=False)
+    date = db.Column(db.String(150), nullable=False)
+    event_id = db.Column(db.Integer, nullable=False)
+#
+#class Summer(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+#    event_name = db.Column(db.String(150), nullable=False)
+#    country = db.Column(db.String(150), nullable=False)
+#    date = db.Column(db.String(150), nullable=False)
+#
+#class Spring(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+#    event_name = db.Column(db.String(150), nullable=False)
+#    country = db.Column(db.String(150), nullable=False)
+#    date = db.Column(db.String(150), nullable=False)
+#
+#class Autumn(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+#    event_name = db.Column(db.String(150), nullable=False)
+#    country = db.Column(db.String(150), nullable=False)
+#    date = db.Column(db.String(150), nullable=False)
+##------

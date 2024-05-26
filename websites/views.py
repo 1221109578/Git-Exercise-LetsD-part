@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
-from .__init__ import create_app
+from . import create_app
+from .models import PaymentMethod, Seasons
 from . import db
-from .models import PaymentMethod, Packages
 
 views = Blueprint('views', __name__)
 
@@ -60,7 +60,47 @@ def myaccount():
                             payment_methods=payment_methods
                             )
 
-@views.route("/package" , methods = ["GET" , "POST"])
+#-----
+
+@views.route('/winter', methods=['GET'])
+def winter():
+    # Retrieve all events from the Seasons table
+    main_events = Seasons.query.all()
+    return render_template('winter.html', 
+                           user=current_user, 
+                           events=main_events,
+                           event_id = 1)
+
+@views.route('/summer', methods=['GET'])
+def summer():
+    # Retrieve all events from the Seasons table
+    main_events = Seasons.query.all()
+    return render_template('summer.html', 
+                           user=current_user, 
+                           events=main_events,
+                           event_id = 2
+                           )
+
+@views.route('/spring', methods=['GET'])
+def spring():
+    # Retrieve all events from the Seasons table
+    main_events = Seasons.query.all()
+    return render_template('spring.html', 
+                           user=current_user, 
+                           events=main_events,
+                           event_id=3,
+                           )
+
+@views.route('/autumn', methods=['GET'])
+def autumn():
+    # Retrieve all events from the Seasons table
+    main_events = Seasons.query.all()
+    return render_template('autumn.html', 
+                           user=current_user, 
+                           events=main_events,
+                           event_id=4)
+
+@views.route("/package")
 def package():
     country = db.session(Packages, country)
     city = db.session(Packages, city)
@@ -103,22 +143,3 @@ def Turkey():
 @login_required
 def Germany():
     return render_template('Germany.html', user=current_user)
-
-
-@views.route("/winter")
-def Winter():
-    return render_template('winter.html', user=current_user)
-
-@views.route("/summer")
-def Summer():
-    return render_template('summer.html', user=current_user)
-
-@views.route("/spring")
-def Spring():
-    return render_template('spring.html', user=current_user)
-
-@views.route("/autumn")
-def Autumn():
-    return render_template('autumn.html', user=current_user)
-
-
