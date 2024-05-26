@@ -36,6 +36,7 @@ def create_app():
     from .admin import MyModelView, MyAdminIndexView
     adminview = Admin(app, index_view=MyAdminIndexView())
     adminview.add_view(MyModelView(User, db.session))
+    adminview.add_view(MyModelView(Seasons, db.session))
 
     return app
 
