@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     phone_number = db.Column(db.String(10))
+    is_admin = db.Column(db.Boolean, default=False)
     payment_methods = db.relationship('PaymentMethod', backref='user', lazy=True)
 
 class PaymentMethod(db.Model):
