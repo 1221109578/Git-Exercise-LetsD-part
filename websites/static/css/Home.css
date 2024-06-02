@@ -82,8 +82,8 @@ nav {
 .profile .dropdown {
     display: none;
     position: absolute;
-    top: 35px;
-    left: -65px;
+    top: 30px;
+    left: -63px;
     background-color: #5aafff;
     border-radius: 10px;
     z-index: 999;
