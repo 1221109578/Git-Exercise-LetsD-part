@@ -55,25 +55,9 @@
                     <label for="return-date"><b>Return Date:</b></label>
                     <input type="date" id="return-date" name="return-date" required> 
                 </li>
-                <li>
-                    <label for="flight"><b>Flight:</b></label>
-                    <select id="flight" name="flight">
-                        <option value="British Airways">British Airways - RM1600</option>
-                        <option value="Virgin Atlantic">Virgin Atlantic - RM1500</option>
-                        <option value="Emirates">Emirates - RM1700</option>
-                        <option value="Qatar Airways">Qatar Airways - RM1800</option>
-                    </select>
-                </li>
-                <li>
-                    <label for="lodging"><b>Lodging:</b></label>
-                    <select id="lodging" name="lodging">
-                        <option value="Premier Inn">Premier Inn - RM800</option>
-                        <option value="Hilton London">Hilton London - RM1000</option>
-                        <option value="The Ritz London">The Ritz London - RM1200</option>
-                        <option value="Holiday Inn">Holiday Inn - RM900</option>
-                    </select>
-                </li>
-            </ul>
+                <li><b>Flight: </b>British Airways - RM{{ price_flight[0] }}</li>
+                <li><b>Lodging: </b>Premier Inn - RM{{ price_lodge[0] }}</li>
+            </ul> 
 
             <div class="Activity">
                 <h1><b>Activities</b></h1>
@@ -81,24 +65,24 @@
             <div class="Activity-lists">
                 <ul>
                     <li>
-                        <input type="checkbox" id="loch-ness" name="activities" value="Loch Ness">
-                        <label for="loch-ness">Visit Loch Ness, Glencoe & Scottish Highlands Tour - RM400</label>
+                        <input type="checkbox" id="loch-ness" name="activities" value="activity_1">
+                        <label for="loch-ness">{{ activity_1[0] }}. - RM{{ price_activity_1[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="london-tower" name="activities" value="London Tower">
-                        <label for="london-tower">Visit London Tower Bridge + The Tower of London - RM300</label>
+                        <input type="checkbox" id="london-tower" name="activities" value="activity_2">
+                        <label for="london-tower">{{ activity_2[0] }}. - RM{{ price_activity_2[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="madame-tussauds" name="activities" value="Madame Tussauds">
-                        <label for="madame-tussauds">Visit London's Madame Tussauds - RM200</label>
+                        <input type="checkbox" id="madame-tussauds" name="activities" value="activity_3">
+                        <label for="madame-tussauds">{{ activity_3[0] }}. - RM{{ price_activity_3[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="stadium-tour" name="activities" value="Stadium Tour">
-                        <label for="stadium-tour">Visit the World Renowned club's stadiums like Anfield, Old Trafford, and Etihad Stadium - RM350</label>
+                        <input type="checkbox" id="stadium-tour" name="activities" value="activity_4">
+                        <label for="stadium-tour">{{ activity_4[0] }}. - RM{{ price_activity_4[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="stonehenge" name="activities" value="Stonehenge">
-                        <label for="stonehenge">Visit the UNESCO Heritage site, Stonehenge - RM250</label>
+                        <input type="checkbox" id="stonehenge" name="activities" value="activity_5">
+                        <label for="stonehenge">{{ activity_5[0] }}. - RM{{ price_activity_5[0] }}</label>
                     </li>
                 </ul>
                 <div class="person-counter">

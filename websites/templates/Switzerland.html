@@ -55,24 +55,8 @@
                     <label for="return-date"><b>Return Date:</b></label>
                     <input type="date" id="return-date" name="return-date" required> 
                 </li> 
-                <li>
-                    <label for="flight"><b>Flight:</b></label>
-                    <select id="flight" name="flight">
-                        <option value="Swiss Airlines">Swiss Airlines - RM1300</option>
-                        <option value="Lufthansa">Lufthansa - RM1200</option>
-                        <option value="Emirates">Emirates - RM1400</option>
-                        <option value="Qatar Airways">Qatar Airways - RM1500</option>
-                    </select>
-                </li>
-                <li>
-                    <label for="lodging"><b>Lodging:</b></label>
-                    <select id="lodging" name="lodging">
-                        <option value="Hotel Chalet du Lac">Hotel Chalet du Lac - RM700</option>
-                        <option value="The Dolder Grand">The Dolder Grand - RM1000</option>
-                        <option value="Baur au Lac">Baur au Lac - RM1100</option>
-                        <option value="Hotel Schweizerhof Zurich">Hotel Schweizerhof Zurich - RM900</option>
-                    </select>
-                </li>
+                <li><b>Flight: </b>Swiss Airlines - RM{{ price_flight[0] }}</li>
+                <li><b>Lodging: </b>Hotel Chalet du Lac - RM{{ price_lodge[0] }}</li>
             </ul>
 
             <div class="Activity">
@@ -81,24 +65,24 @@
             <div class="Activity-lists">
                 <ul>
                     <li>
-                        <input type="checkbox" id="zurich" name="activities" value="Zurich">
-                        <label for="zurich">Zurich - The city of Zurich, a global center for banking and finance, lies at the north end of Lake Zurich in northern Switzerland. - RM300</label>
+                        <input type="checkbox" id="zurich" name="activities" value="activity_1">
+                        <label for="zurich">{{ activity_1[0] }}. - RM{{ price_activity_1[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="geneva" name="activities" value="Geneva">
-                        <label for="geneva">Geneva - Visit the Chillon Castle. Chillon Castle is an island medieval castle located on Lake Geneva, south of Veytaux in the canton of Vaud. - RM200</label>
+                        <input type="checkbox" id="geneva" name="activities" value="activity_2">
+                        <label for="geneva">{{ activity_2[0] }}. - RM{{ price_activity_2[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="mount-pilatus" name="activities" value="Mount Pilatus">
-                        <label for="mount-pilatus">Mount Pilatus - Pilatus, also often referred to as Mount Pilatus, is a mountain massif overlooking Lucerne in Central Switzerland. It is composed of several peaks, of which the highest is named Tomlishorn. - RM350</label>
+                        <input type="checkbox" id="mount-pilatus" name="activities" value="activity_3">
+                        <label for="mount-pilatus">{{ activity_3[0] }}. - RM{{ price_activity_3[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="rhine-falls" name="activities" value="Rhine Falls">
-                        <label for="rhine-falls">Rhine Falls - The Rhine Falls is a waterfall located in Switzerland and the most powerful waterfall in Europe. The falls are located on the High Rhine on the border between the cantons of Schaffhausen and Zürich between the municipalities of Neuhausen am Rheinfall and Laufen-Uhwiesen/Dachsen, next to the town of Schaffhausen in northern Switzerland. - RM150</label>
+                        <input type="checkbox" id="rhine-falls" name="activities" value="activity_4">
+                        <label for="rhine-falls">{{ activity_4[0] }}. - RM{{ price_activity_4[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="lake-zurich" name="activities" value="Lake Zurich">
-                        <label for="lake-zurich">Lake Zurich - Lake Zurich is a lake in Switzerland, extending southeast of the city of Zürich. - R100</label>
+                        <input type="checkbox" id="lake-zurich" name="activities" value="activity_5">
+                        <label for="lake-zurich">{{ activity_5[0] }}. - RM{{ price_activity_5[0] }}</label>
                     </li>
                 </ul>
                 <div class="person-counter">

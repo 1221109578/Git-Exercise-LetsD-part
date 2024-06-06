@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
 from . import create_app
-from .models import PaymentMethod, Seasons
+from .models import PaymentMethod, Seasons, Package
 from . import db
 
 views = Blueprint('views', __name__)
@@ -102,16 +102,12 @@ def autumn():
 
 @views.route("/package")
 def package():
-    country = db.session(Packages, country)
-    city = db.session(Packages, city)
-    airline_company = db.session(Packages, airline_company)
-    hotel_name = db.session(Packages, hotel_name)
-    pax = db.session(Packages, pax)
-    return render_template('package.html', user=current_user, country=country, city=city, airline_company=airline_company, hotel_name=hotel_name, pax=pax)
+    return render_template('package.html', user=current_user)
 
 @views.route("/Booking")
 @login_required
 def Booking():
+    Booking_item = current_user.Package
     return render_template('Booking.html', user=current_user)
 
 @views.route("/chat")
@@ -119,27 +115,156 @@ def Booking():
 def chat():
     return render_template("chat.html", user=current_user)
 
-@views.route("/Iceland")
+@views.route("/Iceland", methods=["GET"])
 @login_required
 def Iceland():
-    return render_template('Iceland.html', user=current_user)
+    price_flight = db.session.query(Package.price_flight).first()
+    price_lodge = db.session.query(Package.price_lodge).first()
+    price_activity_1 = db.session.query(Package.price_activity_1).first()
+    price_activity_2 = db.session.query(Package.price_activity_2).first()
+    price_activity_3 = db.session.query(Package.price_activity_3).first()
+    price_activity_4 = db.session.query(Package.price_activity_4).first()
+    price_activity_5 = db.session.query(Package.price_activity_5).first()
+    activity_1 = db.session.query(Package.activity_1).first()
+    activity_2 = db.session.query(Package.activity_2).first()
+    activity_3 = db.session.query(Package.activity_3).first()
+    activity_4 = db.session.query(Package.activity_4).first()
+    activity_5 = db.session.query(Package.activity_5).first()
+    return render_template('Iceland.html',
+                            user=current_user,
+                            price_flight = price_flight,
+                            price_lodge = price_lodge,
+                            price_activity_1 = price_activity_1,
+                            price_activity_2 = price_activity_2,
+                            price_activity_3 = price_activity_3,
+                            price_activity_4 = price_activity_4,
+                            price_activity_5 = price_activity_5,
+                            activity_1 = activity_1,
+                            activity_2 = activity_2,
+                            activity_3 = activity_3,
+                            activity_4 = activity_4,
+                            activity_5 = activity_5,
+                            id=1)
 
 @views.route("/United Kingdom")
 @login_required
 def United_Kingdom():
-    return render_template('United Kingdom.html', user=current_user)
+    price_flight = db.session.query(Package.price_flight).filter_by(id=2).first()
+    price_lodge = db.session.query(Package.price_lodge).filter_by(id=2).first()
+    price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=2).first()
+    price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=2).first()
+    price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=2).first()
+    price_activity_4 = db.session.query(Package.price_activity_4).filter_by(id=2).first()
+    price_activity_5 = db.session.query(Package.price_activity_5).filter_by(id=2).first()
+    activity_1 = db.session.query(Package.activity_1).filter_by(id=2).first()
+    activity_2 = db.session.query(Package.activity_2).filter_by(id=2).first()
+    activity_3 = db.session.query(Package.activity_3).filter_by(id=2).first()
+    activity_4 = db.session.query(Package.activity_4).filter_by(id=2).first()
+    activity_5 = db.session.query(Package.activity_5).filter_by(id=2).first()
+    return render_template('United Kingdom.html',
+                            user=current_user,
+                            price_flight = price_flight,
+                            price_lodge = price_lodge,
+                            price_activity_1 = price_activity_1,
+                            price_activity_2 = price_activity_2,
+                            price_activity_3 = price_activity_3,
+                            price_activity_4 = price_activity_4,
+                            price_activity_5 = price_activity_5,
+                            activity_1 = activity_1,
+                            activity_2 = activity_2,
+                            activity_3 = activity_3,
+                            activity_4 = activity_4,
+                            activity_5 = activity_5,
+                            id=2)
 
 @views.route("/Switzerland")
 @login_required
 def Switzerland():
-    return render_template('Switzerland.html', user=current_user)
+    price_flight = db.session.query(Package.price_flight).filter_by(id=3).first()
+    price_lodge = db.session.query(Package.price_lodge).filter_by(id=3).first()
+    price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=3).first()
+    price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=3).first()
+    price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=3).first()
+    price_activity_4 = db.session.query(Package.price_activity_4).filter_by(id=3).first()
+    price_activity_5 = db.session.query(Package.price_activity_5).filter_by(id=3).first()
+    activity_1 = db.session.query(Package.activity_1).filter_by(id=3).first()
+    activity_2 = db.session.query(Package.activity_2).filter_by(id=3).first()
+    activity_3 = db.session.query(Package.activity_3).filter_by(id=3).first()
+    activity_4 = db.session.query(Package.activity_4).filter_by(id=3).first()
+    activity_5 = db.session.query(Package.activity_5).filter_by(id=3).first()
+    return render_template('Switzerland.html',
+                            user=current_user,
+                            price_flight = price_flight,
+                            price_lodge = price_lodge,
+                            price_activity_1 = price_activity_1,
+                            price_activity_2 = price_activity_2,
+                            price_activity_3 = price_activity_3,
+                            price_activity_4 = price_activity_4,
+                            price_activity_5 = price_activity_5,
+                            activity_1 = activity_1,
+                            activity_2 = activity_2,
+                            activity_3 = activity_3,
+                            activity_4 = activity_4,
+                            activity_5 = activity_5,
+                            id=3)
 
 @views.route("/Turkey")
 @login_required
 def Turkey():
-    return render_template('Turkey.html', user=current_user)
-
+    price_flight = db.session.query(Package.price_flight).filter_by(id=4).first()
+    price_lodge = db.session.query(Package.price_lodge).filter_by(id=4).first()
+    price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=4).first()
+    price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=4).first()
+    price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=4).first()
+    price_activity_4 = db.session.query(Package.price_activity_4).filter_by(id=4).first()
+    price_activity_5 = db.session.query(Package.price_activity_5).filter_by(id=4).first()
+    activity_1 = db.session.query(Package.activity_1).filter_by(id=4).first()
+    activity_2 = db.session.query(Package.activity_2).filter_by(id=4).first()
+    activity_3 = db.session.query(Package.activity_3).filter_by(id=4).first()
+    activity_4 = db.session.query(Package.activity_4).filter_by(id=4).first()
+    activity_5 = db.session.query(Package.activity_5).filter_by(id=4).first()
+    return render_template('Turkey.html',
+                            user=current_user,
+                            price_flight = price_flight,
+                            price_lodge = price_lodge,
+                            price_activity_1 = price_activity_1,
+                            price_activity_2 = price_activity_2,
+                            price_activity_3 = price_activity_3,
+                            price_activity_4 = price_activity_4,
+                            price_activity_5 = price_activity_5,
+                            activity_1 = activity_1,
+                            activity_2 = activity_2,
+                            activity_3 = activity_3,
+                            activity_4 = activity_4,
+                            activity_5 = activity_5,
+                            id=4)
 @views.route("/Germany")
 @login_required
 def Germany():
-    return render_template('Germany.html', user=current_user)
+    price_flight = db.session.query(Package.price_flight).filter_by(id=5).first()
+    price_lodge = db.session.query(Package.price_lodge).filter_by(id=5).first()
+    price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=5).first()
+    price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=5).first()
+    price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=5).first()
+    price_activity_4 = db.session.query(Package.price_activity_4).filter_by(id=5).first()
+    price_activity_5 = db.session.query(Package.price_activity_5).filter_by(id=5).first()
+    activity_1 = db.session.query(Package.activity_1).filter_by(id=5).first()
+    activity_2 = db.session.query(Package.activity_2).filter_by(id=5).first()
+    activity_3 = db.session.query(Package.activity_3).filter_by(id=5).first()
+    activity_4 = db.session.query(Package.activity_4).filter_by(id=5).first()
+    activity_5 = db.session.query(Package.activity_5).filter_by(id=5).first()
+    return render_template('Germany.html',
+                            user=current_user,
+                            price_flight = price_flight,
+                            price_lodge = price_lodge,
+                            price_activity_1 = price_activity_1,
+                            price_activity_2 = price_activity_2,
+                            price_activity_3 = price_activity_3,
+                            price_activity_4 = price_activity_4,
+                            price_activity_5 = price_activity_5,
+                            activity_1 = activity_1,
+                            activity_2 = activity_2,
+                            activity_3 = activity_3,
+                            activity_4 = activity_4,
+                            activity_5 = activity_5,
+                            id=5)

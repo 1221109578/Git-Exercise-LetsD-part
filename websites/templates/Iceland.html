@@ -54,24 +54,8 @@
                     <label for="return-date"><b>Return Date:</b></label>
                     <input type="date" id="return-date" name="return-date" required> 
                 </li>
-                <li>
-                    <label for="flight"><b>Flight:</b></label>
-                    <select id="flight" name="flight">
-                        <option value="Icelandair">Icelandair - RM1600</option>
-                        <option value="WOW air">WOW air - RM1500</option>
-                        <option value="Delta">Delta - RM1700</option>
-                        <option value="United">United - RM1800</option>
-                    </select>
-                </li>
-                <li>
-                    <label for="lodging"><b>Lodging:</b></label>
-                    <select id="lodging" name="lodging">
-                        <option value="Aurora Inn">Aurora Inn - RM800</option>
-                        <option value="Ice Hotel">Ice Hotel - RM1000</option>
-                        <option value="Glacier Lodge">Glacier Lodge - RM1200</option>
-                        <option value="Northern Lights Resort">Northern Lights Resort - RM900</option>
-                    </select>
-                </li>
+                <li><b>Flight: </b>Delta - RM{{ price_flight[0] }}</li>
+                <li><b>Lodging: </b>Aurora Inn - RM{{ price_lodge[0] }}</li>
             </ul>
 
             <div class="Activity">
@@ -80,24 +64,24 @@
             <div class="Activity-lists">
                 <ul>
                     <li>
-                        <input type="checkbox" id="northern-lights" name="activities" value="Northern Lights">
-                        <label for="northern-lights">Northern Lights Tour - Experience the mesmerizing beauty of the Northern Lights, a natural phenomenon that illuminates the Icelandic sky. - RM300</label>
+                        <input type="checkbox" id="northern-lights" name="activities" value="activity_1">
+                        <label for="northern-lights">{{ activity_1[0] }}. - RM{{ price_activity_1[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="blue-lagoon" name="activities" value="Blue Lagoon">
-                        <label for="blue-lagoon">Blue Lagoon Spa - Relax in the geothermal waters of the Blue Lagoon, known for its healing properties and stunning surroundings. - RM250</label>
+                        <input type="checkbox" id="blue-lagoon" name="activities" value="activity_2">
+                        <label for="blue-lagoon">{{ activity_2[0] }}. - RM{{ price_activity_2[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="glacier-hiking" name="activities" value="Glacier Hiking">
-                        <label for="glacier-hiking">Glacier Hiking Adventure - Explore the icy wilderness of Iceland with a guided glacier hiking tour. - RM350</label>
+                        <input type="checkbox" id="glacier-hiking" name="activities" value="activity_3">
+                        <label for="glacier-hiking">{{ activity_3[0] }}. - RM{{ price_activity_3[0] }}</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="whale-watching" name="activities" value="Whale Watching">
-                        <label for="whale-watching">Whale Watching Excursion - Embark on a thrilling whale watching tour to catch a glimpse of majestic whales in their natural habitat. - RM200</label>
+                        <input type="checkbox" id="whale-watching" name="activities" value="activity_4">
+                        <label for="whale-watching">{{ activity_4[0] }}. - RM{{ price_activity_4[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="golden-circle" name="activities" value="Golden Circle">
-                        <label for="golden-circle">Golden Circle Tour - Discover Iceland's iconic Golden Circle, featuring breathtaking waterfalls, geysers, and volcanic landscapes. - RM280</label>
+                        <input type="checkbox" id="golden-circle" name="activities" value="activity_5">
+                        <label for="golden-circle">{{ activity_5[0] }}. - RM{{ price_activity_5[0] }}</label>
                     </li><br>
                 </ul>
                 <div class="person-counter">

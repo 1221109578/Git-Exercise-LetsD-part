@@ -54,24 +54,8 @@
                     <label for="return-date"><b>Return Date:</b></label>
                     <input type="date" id="return-date" name="return-date" required> <!-- Changed name to return-date -->
                 </li>
-                <li>
-                    <label for="flight"><b>Flight:</b></label>
-                    <select id="flight" name="flight">
-                        <option value="Malaysia Airlines">Malaysia Airlines - RM1500</option>
-                        <option value="Turkish Airlines">Turkish Airlines - RM1400</option>
-                        <option value="Qatar Airways">Qatar Airways - RM1600</option>
-                        <option value="Emirates">Emirates - RM1700</option>
-                    </select>
-                </li>
-                <li>
-                    <label for="lodging"><b>Lodging:</b></label>
-                    <select id="lodging" name="lodging">
-                        <option value="Cappadocia Caves Hotel">Cappadocia Caves Hotel - RM700</option>
-                        <option value="The Marmara Taksim">The Marmara Taksim - RM900</option>
-                        <option value="Ciragan Palace Kempinski">Ciragan Palace Kempinski - RM1200</option>
-                        <option value="Swissotel The Bosphorus">Swissotel The Bosphorus - RM1000</option>
-                    </select>
-                </li>
+                <li><b>Flight: </b>Turkish Airlines - RM{{ price_flight[0] }}</li>
+                <li><b>Lodging: </b>The Marmara Taksim - RM{{ price_lodge[0] }}</li>
             </ul>
 
             <div class="Activity">
@@ -80,24 +64,24 @@
             <div class="Activity-lists">
                 <ul>
                     <li>
-                        <input type="checkbox" id="istanbul" name="activities" value="Istanbul">
-                        <label for="istanbul">Istanbul - Visit the Grand Mosque, Hagia Sophia. Hagia Sophia is a mosque, a former church, and a major cultural and historical site in Istanbul, Turkey. - RM300</label>
+                        <input type="checkbox" id="istanbul" name="activities" value="activity_1">
+                        <label for="istanbul">{{ activity_1[0] }}. - RM{{ price_activity_1[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="cappadocia" name="activities" value="Cappadocia">
-                        <label for="cappadocia">Cappadocia - A semi-arid region in central Turkey, known for its distinctive “fairy chimneys,” tall, cone-shaped rock formations clustered in Monks Valley, Göreme and elsewhere. - RM250</label>
+                        <input type="checkbox" id="cappadocia" name="activities" value="activity_2">
+                        <label for="cappadocia">{{ activity_2[0] }}. - RM{{ price_activity_2[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="pamukkale" name="activities" value="Pamukkale">
-                        <label for="pamukkale">Pamukkale - Visit a Natural thermal pools surrounded by white limestone, accessed by a walk over rough rocks. - RM200</label>
+                        <input type="checkbox" id="pamukkale" name="activities" value="activity_3">
+                        <label for="pamukkale">{{ activity_3[0] }}. - RM{{ price_activity_3[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="ankara" name="activities" value="Ankara">
-                        <label for="ankara">Ankara - Visit the Ankara Castle, a historic fortification in the city of Ankara, Turkey, constructed in or after the 7th century. - RM150</label>
+                        <input type="checkbox" id="ankara" name="activities" value="activity_4">
+                        <label for="ankara">{{ activity_4[0] }}. - RM{{ price_activity_4[0] }}</label>
                     </li><br>
                     <li>
-                        <input type="checkbox" id="bursa" name="activities" value="Bursa">
-                        <label for="bursa">Bursa - Uludag-Bursa is Istanbul's skiers favorite ski resort. - RM180</label>
+                        <input type="checkbox" id="bursa" name="activities" value="activity_5">
+                        <label for="bursa">{{ activity_5[0] }}. - RM{{ price_activity_5[0] }}</label>
                     </li>
                 </ul>
                 <div class="person-counter">

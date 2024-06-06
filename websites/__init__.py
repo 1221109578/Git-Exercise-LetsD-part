@@ -19,7 +19,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Seasons
+    from .models import User, Seasons, Package
 
     with app.app_context():
         db.create_all()
@@ -37,6 +37,7 @@ def create_app():
     adminview = Admin(app, index_view=MyAdminIndexView())
     adminview.add_view(MyModelView(User, db.session))
     adminview.add_view(MyModelView(Seasons, db.session))
+    adminview.add_view(MyAdminPackageView(Package, db.session))
 
     return app
 
@@ -77,7 +78,7 @@ def Events():
         for event_data in main_events:
             event1 = Seasons(**event_data)
             db.session.add(event1)
-
+            
     else:
         print("Data already exists, skipping insertion.")
 
