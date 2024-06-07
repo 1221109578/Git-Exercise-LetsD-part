@@ -17,15 +17,18 @@
                     <img src="/static/Logo.png" alt="Logo">
                 </div>
             </div>
+
             <div class="nav-links">
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
+
                     {% if user.is_authenticated %}
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
                     <li><a href="/chat">Chat</a></li>    
                     {% endif %}
+
                     {% if user.is_admin %}
                     <li><a href="/admin">Admin</a></li>
                     {% endif %}
@@ -42,16 +45,16 @@
     </header>
 
     <div class="hero-center">
-    <section class="hero">
-        <div class="hero-content">
-            <p>Twenty years from now you will be more disappointed by the things you didn't do than by the ones you did do. So throw off the bowlines.<br>Sail away from the safe harbor. Catch the trade winds in your sails.<br>EXPLORE. DREAM. DISCOVER.</p>
-            <a href="/package" class="btn">Let's Explore</a>
-        </div>
-    </section>
+        <section class="hero">
+            <div>
+                <p>Twenty years from now you will be more disappointed by the things you didn't do than by the ones you did do. So throw off the bowlines.<br>Sail away from the safe harbor. Catch the trade winds in your sails.<br>EXPLORE. DREAM. DISCOVER.</p>
+                <a href="/package" class="btn">Let's Explore</a>
+            </div>
+        </section>
 
     <section>
         <div class="hero-content-2">
-        <h2 class="style-1">Explore the world while learning new things!</h2>
+        <h1 class="style-1">Explore the world while learning new things!</h1>
             <div id="map"></div>
             <script type="text/javascript">
 
@@ -102,30 +105,30 @@
     </section>
 
     <div class="hero-content-4">
-        <h2 class="style-2">Explore the some of our seasonal events!</h2>
+        <h1 class="style-2">Explore some unique seasonal events the country of your choices!</h1>
         <section class="hero-content-3">
 
-        <a href="/winter"  class="card">
-            <h3>Winter</h3>
-            <img src="static\Winter.jpg">
-        </a>
+            <a href="/winter"  class="card">
+                <h3>Winter</h3>
+                <img src="static\Winter.jpg">
+            </a>
 
-        <a href="/summer"  class="card">
-            <h3>Summer</h3>
-            <img src="static\Summer.jpg">
-        </a>
+            <a href="/summer"  class="card">
+                <h3>Summer</h3>
+                <img src="static\Summer.jpg">
+            </a>
 
-        <a href="/spring"  class="card">
-            <h3>Spring</h3>
-            <img src="static\Spring.webp">
-        </a>
+            <a href="/spring"  class="card">
+                <h3>Spring</h3>
+                <img src="static\Spring.webp">
+            </a>
 
-        <a href="/autumn"  class="card">
-            <h3>Autumn</h3>
-            <img src="static\Autumn.jpg">
-        </a>
+            <a href="/autumn"  class="card">
+                <h3>Autumn</h3>
+                <img src="static\Autumn.jpg">
+            </a>
+
         </section>
-    </div>
     </div>
 
     <footer>© 2024 LetsD'Part. All rights reserved.</footer>
