@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
-from . import create_app
 from .models import PaymentMethod, Seasons
 from . import db
+from flask import jsonify
+import sqlite3
 
 views = Blueprint('views', __name__)
 
@@ -64,41 +65,41 @@ def myaccount():
 
 @views.route('/winter', methods=['GET'])
 def winter():
+
     # Retrieve all events from the Seasons table
-    main_events = Seasons.query.all()
+    main_events = Seasons.query.filter_by(event_id=1)
+
     return render_template('winter.html', 
-                           user=current_user, 
-                           events=main_events,
-                           event_id = 1)
+                            user=current_user, 
+                            events=main_events,
+                            )
 
 @views.route('/summer', methods=['GET'])
 def summer():
     # Retrieve all events from the Seasons table
-    main_events = Seasons.query.all()
+    main_events = Seasons.query.filter_by(event_id=2)
     return render_template('summer.html', 
                            user=current_user, 
                            events=main_events,
-                           event_id = 2
                            )
 
 @views.route('/spring', methods=['GET'])
 def spring():
     # Retrieve all events from the Seasons table
-    main_events = Seasons.query.all()
+    main_events = Seasons.query.filter_by(event_id=3)
     return render_template('spring.html', 
                            user=current_user, 
                            events=main_events,
-                           event_id=3,
                            )
 
 @views.route('/autumn', methods=['GET'])
 def autumn():
     # Retrieve all events from the Seasons table
-    main_events = Seasons.query.all()
+    main_events = Seasons.query.filter_by(event_id=4)
     return render_template('autumn.html', 
                            user=current_user, 
                            events=main_events,
-                           event_id=4)
+                           )
 
 @views.route("/package")
 def package():

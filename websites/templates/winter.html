@@ -42,6 +42,7 @@
                 
                 <h1>Winter Events</h1>
                 <ul>
+                    
                     {% for event in events %}
                         <li>
                             <strong>{{ event.event_name }}</strong><br>
@@ -49,6 +50,7 @@
                             Date: {{ event.date }}<br><br>
                         </li>
                     {% endfor %}
+                    
                 </ul>
             </div>
         </form>
