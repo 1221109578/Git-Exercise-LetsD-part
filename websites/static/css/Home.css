@@ -147,7 +147,9 @@ nav {
 }
 
 #map {
+    width: 85%;
     height: 500px;
+    margin: auto;
     border-style: solid;
     border-color: #fff;
     border-width: 2px;
