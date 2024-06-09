@@ -65,10 +65,25 @@
             <th>Actions</th>
         </tr>
         <form action="">
+            {% for package in booking_items %}
+            <tr>
+                <td>{{  }}</td>
+                <td>{{ Activity name }}</td>
+                <td></td>
+                <td>Date Start <strong>To</strong> Date End</td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="" class="btn btn-remove">Remove</a>
+                        <button type="submit" class="btn btn-update">Update</button>
+                        
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
         <tr>
-            <td>Number</td>
-            <td>Package Item</td>
-            <td>Package Price</td>
+            <td>2</td>
+            <td>Package Item 2</td>
+            <td><input type="number" id="price-2" name="price" value="0"></td>
             <td>Date Start <strong>To</strong> Date End</td>
             <td>
                 <div class="action-buttons">
@@ -77,13 +92,16 @@
                 </div>
             </td>
         </tr>
-        </form>
         <tr>
             <td colspan="2" class="total-label">Total</td>
-            <td colspan="2" class="total-price">Total Price</td>
+            <td colspan="2" class="total-price"></td>
             <td colspan="2"></td>
         </tr>
+        </form>
     </table>
+    </body>
+    </html>
 
 
-        
+
+          

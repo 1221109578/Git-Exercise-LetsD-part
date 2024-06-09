@@ -48,12 +48,10 @@
         <form id="booking-form" method="POST" action="/Switzerland"> 
             <ul>
                 <li>
-                    <label for="start-date"><b>Start Date:</b></label>
-                    <input type="date" id="start-date" name="start-date" required>
+                    <label for="date_start"><b>Start Date: {{ date_start[0] }}</b></label>
                 </li>
                 <li>
-                    <label for="return-date"><b>Return Date:</b></label>
-                    <input type="date" id="return-date" name="return-date" required> 
+                    <label for="date_end"><b>Return Date: {{ date_end[0] }}</b></label>
                 </li> 
                 <li><b>Flight: </b>Swiss Airlines - RM{{ price_flight[0] }}</li>
                 <li><b>Lodging: </b>Hotel Chalet du Lac - RM{{ price_lodge[0] }}</li>

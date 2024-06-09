@@ -104,11 +104,28 @@ def autumn():
 def package():
     return render_template('package.html', user=current_user)
 
-@views.route("/Booking")
+@views.route("/Booking", methods=['GET','POST'])
 @login_required
 def Booking():
-    Booking_item = current_user.Package
-    return render_template('Booking.html', user=current_user)
+    if request.method =='POST':
+        package_id = request.form [package_id]
+        package = Package.query.get(package_id)
+        booking = booking()
+        booking.user_id = current_user.id 
+        booking.package_id = package_id
+        booking.package_name = package.name
+        booking.price = package.price
+        db.session.add(booking)
+        db.session.commit()
+        
+        flash('Booking Successful' , 'success')
+        #return redirect(url_for('views.booking_confirmation'))
+
+        booking_items = Package.query.all()     
+        return render_template('Booking.html', user=current_user, booking_items=booking_items)
+    else:
+        booking_items = Package.query.all()
+        return render_template('Booking.html', user=current_user, booking_items=booking_items)
 
 @views.route("/chat")
 @login_required
@@ -118,8 +135,42 @@ def chat():
 @views.route("/Iceland", methods=["GET"])
 @login_required
 def Iceland():
+    if request.method == "POST":
+        selected_activities = request.form.getlist('activities')
+        Num_of_pax = int(request.form['No. of Pax'])
+        price_flight = db.session.query(Package.price_flight).first()[0]
+        price_lodge = db.session.query(Package.price_lodge).first()[0]
+        price_activity_1 = db.session.query(Package.price_activity_1).first()[0]
+        price_activity_2 = db.session.query(Package.price_activity_2).first()[0]
+        price_activity_3 = db.session.query(Package.price_activity_3).first()[0]
+        price_activity_4 = db.session.query(Package.price_activity_4).first()[0]
+        price_activity_5 = db.session.query(Package.price_activity_5).first()[0]
+
+        #Calculate total activity cost
+        total_activity_cost = 0
+        if 'activity_1' in selected_activities:
+            total_activity_cost += price_activity_1
+        if 'activity_2' in selected_activities:
+            total_activity_cost += price_activity_2
+        if 'activity_3' in selected_activities:
+            total_activity_cost += price_activity_3
+        if 'activity_4' in selected_activities:
+            total_activity_cost += price_activity_4
+        if 'activity_5' in selected_activities:
+            total_activity_cost += price_activity_5
+
+            #total activity costs (without person)
+            total_cost = total_activity_cost + price_flight + price_lodge
+
+            total_cost_with_pax = total_cost * Num_of_pax
+
+            return render_template('Booking.html', total_cost_with_persons=total_cost_with_pax)
+        
+    
     price_flight = db.session.query(Package.price_flight).first()
     price_lodge = db.session.query(Package.price_lodge).first()
+    date_start = db.session.query(Package.date_start).first()
+    date_end = db.session.query(Package.date_end).first()
     price_activity_1 = db.session.query(Package.price_activity_1).first()
     price_activity_2 = db.session.query(Package.price_activity_2).first()
     price_activity_3 = db.session.query(Package.price_activity_3).first()
@@ -134,6 +185,8 @@ def Iceland():
                             user=current_user,
                             price_flight = price_flight,
                             price_lodge = price_lodge,
+                            date_start = date_start,
+                            date_end = date_end,
                             price_activity_1 = price_activity_1,
                             price_activity_2 = price_activity_2,
                             price_activity_3 = price_activity_3,
@@ -151,6 +204,8 @@ def Iceland():
 def United_Kingdom():
     price_flight = db.session.query(Package.price_flight).filter_by(id=2).first()
     price_lodge = db.session.query(Package.price_lodge).filter_by(id=2).first()
+    date_start = db.session.query(Package.date_start).filter_by(id=2).first()
+    date_end = db.session.query(Package.date_end).filter_by(id=2).first()
     price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=2).first()
     price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=2).first()
     price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=2).first()
@@ -165,6 +220,8 @@ def United_Kingdom():
                             user=current_user,
                             price_flight = price_flight,
                             price_lodge = price_lodge,
+                            date_start = date_start,
+                            date_end = date_end,
                             price_activity_1 = price_activity_1,
                             price_activity_2 = price_activity_2,
                             price_activity_3 = price_activity_3,
@@ -182,6 +239,8 @@ def United_Kingdom():
 def Switzerland():
     price_flight = db.session.query(Package.price_flight).filter_by(id=3).first()
     price_lodge = db.session.query(Package.price_lodge).filter_by(id=3).first()
+    date_start = db.session.query(Package.date_start).filter_by(id=3).first()
+    date_end = db.session.query(Package.date_end).filter_by(id=3).first()
     price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=3).first()
     price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=3).first()
     price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=3).first()
@@ -196,6 +255,8 @@ def Switzerland():
                             user=current_user,
                             price_flight = price_flight,
                             price_lodge = price_lodge,
+                            date_start = date_start,
+                            date_end = date_end,
                             price_activity_1 = price_activity_1,
                             price_activity_2 = price_activity_2,
                             price_activity_3 = price_activity_3,
@@ -213,6 +274,8 @@ def Switzerland():
 def Turkey():
     price_flight = db.session.query(Package.price_flight).filter_by(id=4).first()
     price_lodge = db.session.query(Package.price_lodge).filter_by(id=4).first()
+    date_start = db.session.query(Package.date_start).filter_by(id=4).first()
+    date_end = db.session.query(Package.date_end).filter_by(id=4).first()
     price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=4).first()
     price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=4).first()
     price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=4).first()
@@ -227,6 +290,8 @@ def Turkey():
                             user=current_user,
                             price_flight = price_flight,
                             price_lodge = price_lodge,
+                            date_start = date_start,
+                            date_end = date_end,
                             price_activity_1 = price_activity_1,
                             price_activity_2 = price_activity_2,
                             price_activity_3 = price_activity_3,
@@ -243,6 +308,8 @@ def Turkey():
 def Germany():
     price_flight = db.session.query(Package.price_flight).filter_by(id=5).first()
     price_lodge = db.session.query(Package.price_lodge).filter_by(id=5).first()
+    date_start = db.session.query(Package.date_start).filter_by(id=5).first()
+    date_end = db.session.query(Package.date_end).filter_by(id=5).first()
     price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=5).first()
     price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=5).first()
     price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=5).first()
@@ -257,6 +324,8 @@ def Germany():
                             user=current_user,
                             price_flight = price_flight,
                             price_lodge = price_lodge,
+                            date_start = date_start,
+                            date_end = date_end,
                             price_activity_1 = price_activity_1,
                             price_activity_2 = price_activity_2,
                             price_activity_3 = price_activity_3,

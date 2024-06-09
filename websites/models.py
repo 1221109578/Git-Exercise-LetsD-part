@@ -34,16 +34,24 @@ class Seasons(db.Model):
 
 class Package(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.String(300) , nullable=False)
+    country = db.Column(db.String(300), nullable=False)
+    country_id = db.Column(db.Integer, nullable=False)
     activity_1 = db.Column(db.String(2000), nullable=False)
     activity_2 = db.Column(db.String(2000), nullable=False)
     activity_3 = db.Column(db.String(2000), nullable=False)
     activity_4 = db.Column(db.String(2000), nullable=False)
     activity_5 = db.Column(db.String(2000), nullable=False)
-    price_flight = db.Column(db.Integer, nullable=False)
-    price_lodge = db.Column(db.Integer, nullable=False)
-    price_activity_1 = db.Column(db.Integer, nullable=False)
-    price_activity_2 = db.Column(db.Integer, nullable=False)
-    price_activity_3 = db.Column(db.Integer, nullable=False)
-    price_activity_4 = db.Column(db.Integer, nullable=False)
-    price_activity_5 = db.Column(db.Integer, nullable=False)
+    activity_id = db.Column(db.Integer, nullable=False)
+    date_start = db.Column(db.String(20), nullable=False)
+    date_end = db.Column(db.String(20), nullable=False)
+    price_flight = db.Column(db.String(300), nullable=False)
+    price_lodge = db.Column(db.String(300), nullable=False)
+    price_activity_1 = db.Column(db.String(300), nullable=False)
+    price_activity_2 = db.Column(db.String(300), nullable=False)
+    price_activity_3 = db.Column(db.String(300), nullable=False)
+    price_activity_4 = db.Column(db.String(300), nullable=False)
+    price_activity_5 = db.Column(db.String(300), nullable=False)
+
+class Booking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    

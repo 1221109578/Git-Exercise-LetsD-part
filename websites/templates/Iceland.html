@@ -47,13 +47,11 @@
         <form id="booking-form" method="POST" action="/Iceland"> 
             <ul>
                 <li>
-                    <label for="start-date"><b>Start Date:</b></label>
-                    <input type="date" id="start-date" name="start-date" required>
+                    <label for="date_start"><b>Start Date: {{ date_start[0] }}</b></label>
                 </li>
                 <li>
-                    <label for="return-date"><b>Return Date:</b></label>
-                    <input type="date" id="return-date" name="return-date" required> 
-                </li>
+                    <label for="date_end"><b>Return Date: {{ date_end[0] }}</b></label>
+                </li> 
                 <li><b>Flight: </b>Delta - RM{{ price_flight[0] }}</li>
                 <li><b>Lodging: </b>Aurora Inn - RM{{ price_lodge[0] }}</li>
             </ul>

@@ -24,6 +24,7 @@ def create_app():
     with app.app_context():
         db.create_all()
         Events() # Insert data after creating the tables
+        
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
