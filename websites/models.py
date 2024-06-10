@@ -24,6 +24,12 @@ class PaymentMethod(db.Model):
     card_number_last_digits = db.Column(db.String(200), nullable=False)
     cvv_hash = db.Column(db.String(200),nullable=False)
 
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    package_id = db.Column(db.Integer, db.ForeignKey('package.id'), nullable=False)
+    num_of_pax = db.Column(db.Integer, nullable=False)
+
 #------
 class Seasons(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -52,6 +58,26 @@ class Package(db.Model):
     price_activity_4 = db.Column(db.String(300), nullable=False)
     price_activity_5 = db.Column(db.String(300), nullable=False)
 
+    @hybrid_property
+    def days(self):
+        if self.date_start and self.date_end:
+            return (self.date_end - self.date_start).days
+        return None
+    
+    @hybrid_property
+    def nights(self):
+        if self.days is not None:
+            return self.days - 1
+        return None
+    
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    package_id = db.Column(db.Integer, db.ForeignKey('package.id'), nullable=False)  
+    cust_username = db.Column(db.String(150), nullable=False)
+    country = db.Column(db.String(150), nullable=False)
+    activity = db.Column(db.String(1500), nullable=False)
+    total_price = db.Column(db.Integer, nullable=False)
+    num_of_pax = db.Column(db.Integer, nullable=False)
+    booking_date = db.Column(db.DateTime, nullable=False, default=datetime)
+        

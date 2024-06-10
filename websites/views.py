@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
 from . import create_app
-from .models import PaymentMethod, Seasons, Package
+from .models import PaymentMethod, Seasons, Package, Booking
 from . import db
 
 views = Blueprint('views', __name__)
@@ -103,34 +103,25 @@ def autumn():
 @views.route("/package")
 def package():
     return render_template('package.html', user=current_user)
+    
 
-@views.route("/Booking", methods=['GET','POST'])
+@views.route("/Booking", ['GET', 'POST'])
 @login_required
 def Booking():
-    if request.method =='POST':
-        package_id = request.form [package_id]
-        package = Package.query.get(package_id)
-        booking = booking()
-        booking.user_id = current_user.id 
-        booking.package_id = package_id
-        booking.package_name = package.name
-        booking.price = package.price
-        db.session.add(booking)
-        db.session.commit()
-        
-        flash('Booking Successful' , 'success')
-        #return redirect(url_for('views.booking_confirmation'))
+    package_id = db.session.query(Booking.package_id)
+    cust_username = db.session.query(Booking.cust_username)
+    country = db.session.query(Booking.country)
+    activity = db.session.query(Booking.activity)
+    total_price = db.session.query(Booking.total_price)
+    num_of_pax = db.session.query(Booking.num_of_pax)
+    booking_date = db.session.query(Booking.booking_date)
 
-        booking_items = Package.query.all()     
-        return render_template('Booking.html', user=current_user, booking_items=booking_items)
-    else:
-        booking_items = Package.query.all()
-        return render_template('Booking.html', user=current_user, booking_items=booking_items)
-
-@views.route("/chat")
-@login_required
-def chat():
-    return render_template("chat.html", user=current_user)
+    return render_template('Booking.html', user=current_user, package_id=package_id,
+                            cust_username=cust_username,
+                              country=country, activity=activity,
+                                total_price=total_price,
+                                num_of_pax=num_of_pax,
+                                booking_date=booking_date)
 
 @views.route("/Iceland", methods=["GET"])
 @login_required
