@@ -21,7 +21,6 @@
                     {% if user.is_authenticated %}
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li> 
                     {% endif %}
                     {% if user.is_admin %}
                     <li><a href="/admin">Admin</a></li>   
@@ -42,6 +41,7 @@
                 
                 <h1>Winter Events</h1>
                 <ul>
+                    
                     {% for event in events %}
                         <li>
                             <strong>{{ event.event_name }}</strong><br>
@@ -49,6 +49,7 @@
                             Date: {{ event.date }}<br><br>
                         </li>
                     {% endfor %}
+                    
                 </ul>
             </div>
         </form>

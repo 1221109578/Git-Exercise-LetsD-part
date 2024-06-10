@@ -24,29 +24,9 @@ class PaymentMethod(db.Model):
     card_number_last_digits = db.Column(db.String(200), nullable=False)
     cvv_hash = db.Column(db.String(200),nullable=False)
 
-#------
 class Seasons(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(150), nullable=False)
     country = db.Column(db.String(150), nullable=False)
     date = db.Column(db.String(150), nullable=False)
     event_id = db.Column(db.Integer, nullable=False)
-#
-#class Summer(db.Model):
-#    id = db.Column(db.Integer, primary_key=True)
-#    event_name = db.Column(db.String(150), nullable=False)
-#    country = db.Column(db.String(150), nullable=False)
-#    date = db.Column(db.String(150), nullable=False)
-#
-#class Spring(db.Model):
-#    id = db.Column(db.Integer, primary_key=True)
-#    event_name = db.Column(db.String(150), nullable=False)
-#    country = db.Column(db.String(150), nullable=False)
-#    date = db.Column(db.String(150), nullable=False)
-#
-#class Autumn(db.Model):
-#    id = db.Column(db.Integer, primary_key=True)
-#    event_name = db.Column(db.String(150), nullable=False)
-#    country = db.Column(db.String(150), nullable=False)
-#    date = db.Column(db.String(150), nullable=False)
-##------
