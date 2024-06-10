@@ -105,7 +105,7 @@ def package():
     return render_template('package.html', user=current_user)
     
 
-@views.route("/Booking", ['GET', 'POST'])
+@views.route("/Booking", methods=['GET', 'POST'])
 @login_required
 def Booking():
     package_id = db.session.query(Booking.package_id)
