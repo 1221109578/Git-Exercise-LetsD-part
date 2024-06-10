@@ -57,7 +57,8 @@
             <div id="map"></div>
             <script type="text/javascript">
 
-            const key = 'WKLh9Ubp8P8mijbUGzZN';
+            const key = 'WKLh9Ubp8P8mijbUGzZN'; //API key to access the map tiles from MapTiler.//
+            //Initializes the map//
             var map = new maplibregl.Map({
             container: 'map',
             style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=WKLh9Ubp8P8mijbUGzZN',
@@ -65,6 +66,7 @@
             zoom: 1,
             });
 
+            //Creates a popup with HTML content//
             const ukPopup = new maplibregl.Popup().setHTML("The UK is steeped in history, with ancient castles, cathedrals, and monuments scattered throughout the country.<br>(1) Stonehenge is older than the Pyramids.<br>(2) Belfast in Northern Ireland is where the Titanic was constructed.<br>(3) The UK's highest summit is Ben Nevis which is 1345 metres tall.<br>(4) London Eye is among the most significant landmarks worldwide. It takes 30 minutes to do a complete turn!<br>(5) Wales is known for having the most castles per square mile in Europe. Some of its most popular include Caernarfon Castle, Raglan Castle, and Conwy Castle.");
 
             const uk = new maplibregl.Marker()

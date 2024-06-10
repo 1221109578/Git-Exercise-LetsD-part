@@ -59,8 +59,6 @@ def myaccount():
                             payment_methods=payment_methods
                             )
 
-#-----
-
 @views.route('/winter', methods=['GET'])
 def winter():
 
