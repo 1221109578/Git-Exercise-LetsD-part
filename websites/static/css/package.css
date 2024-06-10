@@ -9,60 +9,20 @@ body {
   }
 
 
-.title {
+
+h1, h2 {
+    text-align: center;
+    font-size: 35px;
+}
+
+.Iceland, .Germany, .United-Kingdom, .Turkey, .Switzerland{
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 700px;
     display: flex;
-    align-items: center;
-    padding-left: 500px;
-}
-
-.Iceland {
-    display: flex;
-    align-items: center;
-    padding-left: 625px;
-}
-
-.Iceland-pic {
-    margin-left: 375px;
-}
-
-.Germany {
-    display: flex;
-    align-items: center;
-    padding-left: 625px;
-}
-
-.Germany-pic {
-    margin-left: 375px;
-}
-
-.United-Kingdom {
-    display: flex;
-    align-items: center;
-    padding-left: 585px;
-}
-
-.UK-pic {
-   margin-left: 375px;
-}
-
-.Turkey {
-    display: flex;
-    align-items: center;
-    padding-left: 625px;
-}
-
-.Turkey-pic {
-    margin-left: 375px;
-}
-
-.Switzerland {
-    display: flex;
-    align-items: center;
-    padding-left: 600px;
-}
-
-.Switzerland-pic {
-    margin-left: 375px;
+    flex-direction: column;
+    padding: 20px;
 }
 
 .button {
@@ -75,8 +35,7 @@ body {
     border-radius: 8px;
     width: 65px; 
     text-align: center;
-    flex-direction: column;
-    margin-left: 550px;
+    margin: 20px auto;
   }
 
 footer {
@@ -86,3 +45,65 @@ footer {
     text-align: center;
     margin-top: auto;
 }
+
+/* Porfile drop down menu  */
+.profile {
+    position: relative;
+    display: inline-block;
+}
+
+.profile > a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #5aafff;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.profile:hover > a {
+    background-color: #2c99ff;
+}
+
+.profile .dropdown {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: -63px;
+    background-color: #5aafff;
+    border-radius: 10px;
+    z-index: 999;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    transition: background-color 0.3s;
+}
+
+.profile:hover .dropdown {
+    display: block;
+    background-color: #2c99ff;
+}
+
+.profile .dropdown li {
+    padding: 10px 20px;
+    width: 110px;
+}
+
+.profile .dropdown li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 10px;
+    transition: background-color 0.3s;
+}
+
+.profile .dropdown li a:hover {
+    background-color: #1b7fd1;
+}
+
+.profile:hover {
+    background-color: #2c99ff;
+}
+
+/* End of drop down menu*/

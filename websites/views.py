@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, flash, redirect ,url_for
+from flask import Blueprint, render_template
 from flask_login import login_required, current_user
-from .__init__ import create_app
-from .models import PaymentMethod
+from .models import PaymentMethod, Seasons
+from . import db
 
 views = Blueprint('views', __name__)
 
@@ -59,58 +59,74 @@ def myaccount():
                             payment_methods=payment_methods
                             )
 
+@views.route('/winter', methods=['GET'])
+def winter():
+
+    # Retrieve all events from the Seasons table
+    main_events = Seasons.query.filter_by(event_id=1)
+
+    return render_template('winter.html', 
+                            user=current_user, 
+                            events=main_events,
+                            )
+
+@views.route('/summer', methods=['GET'])
+def summer():
+    # Retrieve all events from the Seasons table
+    main_events = Seasons.query.filter_by(event_id=2)
+    return render_template('summer.html', 
+                           user=current_user, 
+                           events=main_events,
+                           )
+
+@views.route('/spring', methods=['GET'])
+def spring():
+    # Retrieve all events from the Seasons table
+    main_events = Seasons.query.filter_by(event_id=3)
+    return render_template('spring.html', 
+                           user=current_user, 
+                           events=main_events,
+                           )
+
+@views.route('/autumn', methods=['GET'])
+def autumn():
+    # Retrieve all events from the Seasons table
+    main_events = Seasons.query.filter_by(event_id=4)
+    return render_template('autumn.html', 
+                           user=current_user, 
+                           events=main_events,
+                           )
+
 @views.route("/package")
 def package():
     return render_template('package.html', user=current_user)
 
 @views.route("/Booking")
+@login_required
 def Booking():
-    return render_template('Booking.html')
-
-@views.route("/cart")
-def cart():
-    return render_template("cart.html")
-
-@views.route("/chat")
-def chat():
-    return render_template("chat.html")
+    return render_template('Booking.html', user=current_user)
 
 @views.route("/Iceland")
 @login_required
 def Iceland():
-    return render_template('Iceland.html')
+    return render_template('Iceland.html', user=current_user)
 
 @views.route("/United Kingdom")
+@login_required
 def United_Kingdom():
-    return render_template('United Kingdom.html')
+    return render_template('United Kingdom.html', user=current_user)
 
 @views.route("/Switzerland")
 @login_required
 def Switzerland():
-    return render_template('Switzerland.html')
+    return render_template('Switzerland.html', user=current_user)
 
 @views.route("/Turkey")
 @login_required
 def Turkey():
-    return render_template('Turkey.html')
+    return render_template('Turkey.html', user=current_user)
 
 @views.route("/Germany")
 @login_required
 def Germany():
-    return render_template('Germany.html')
-
-@views.route("/winter")
-def Winter():
-    return render_template('winter.html')
-
-@views.route("/summer")
-def Summer():
-    return render_template('summer.html')
-
-@views.route("/spring")
-def Spring():
-    return render_template('spring.html')
-
-@views.route("/autumn")
-def Autumn():
-    return render_template('autumn.html')
+    return render_template('Germany.html', user=current_user)

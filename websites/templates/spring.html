@@ -17,26 +17,43 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
-                    <li><a href="/cart">Cart</a></li>
-                    <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/history">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>    
+                    {% if user.is_authenticated %}
+                    <li><a href="/Booking">Booking</a></li>
+                    {% endif %}
                 </ul>
             </div>
-            <div class="auth-buttons">
+            <div class="profile">
+                {% if user.is_authenticated %}
+                <a href="#">Option</a>
+                <ul class="dropdown">
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                    {% endif %}
+                </ul>
+                {% else %}
                 <a href="/login">Log In</a>
+                {% endif %}
             </div>
         </nav>
     </header>
-
+    <form action="/phone" method="GET" id="phone-form" >
         <div class="def-cards">
-            <h1>Spring</h1>
-            <p>+Germany - Kieler Woche ----- May 2024<br>
-            +Iceland - Reykjavik Arts Festival ----- May 2024<br>
-            +Switzerland - Finale Nationale de la Race d'Hérens ----- May 2024<br>
-            +United Kingdom - Liverpool Sound City ----- 4-5 May<br>
-            +Turkey - Cappadox Festival ----- May 2024
-            </p>
+            
+            <h1>Spring Events</h1>
+            <ul>
+                {% for event in events %}
+                    <li>
+                        <strong>{{ event.event_name }}</strong><br>
+                        Country: {{ event.country }}<br>
+                        Date: {{ event.date }}<br><br>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
+    </form>
     </body>
 </html>

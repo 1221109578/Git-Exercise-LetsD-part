@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LetsD'part</title>
+    <title>LetsD'Part - Package</title>
     <link rel="stylesheet" href="static/css/Home.css">
     <link rel="stylesheet" href="static/css/package.css">
     <link rel= "icon" href="\static\Logo.png" type="image/icon type">
@@ -21,15 +21,22 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="/cart">Cart</a></li>
-                    <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>    
+                    {% endif %}
                 </ul>
             </div>
-            <div class="auth-buttons">
+            <div class="profile">
                 {% if user.is_authenticated %}
-                <a href="/logout">Log Out</a>
+                <a href="#">Option</a>
+                <ul class="dropdown">
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                    {% endif %}
+                </ul>
                 {% else %}
                 <a href="/login">Log In</a>
                 {% endif %}
@@ -38,59 +45,48 @@
     </header>
 
     <div class="title">
-        <h3><b>Travel Packages - Choose your package</b></h3>
+        <h1><b>Travel Packages - Choose your package</b></h1>
     </div>
 
     <div class="Iceland">
         <h2><b><i><u>Iceland</u></i></b></h2>
-        </div>
-        <div class="Iceland-pic">
-            <image src="/static/Iceland (1).jpg" alt="Reykjavik">
-        </div><br>
+        <image src="/static/Iceland (1).jpg" alt="Reykjavik">
         <a href="/Iceland" class="button">Book Now!</a>
+    </div>
         
     
 
     <div class="Germany">
         <h2><b><i><u>Germany</u></i></b></h2>
-        </div>
-        <div class="Germany-pic">
         <image src="/static/Germany (1).jpg" alt="Berlin">
-        </div><br>
         <a href="/Germany" class="button">Book Now!</a>
+    </div>
 
     
 
     <div class="United-Kingdom">
         <h2><b><i><u>United Kingdom</u></i></b></h2>
-        </div>
-        <div class="UK-pic">
-            <image src="/static/UK (1).jpg" alt="London">
-        </div><br>
+        <image src="/static/UK (1).jpg" alt="London">
         <a href="/United Kingdom" class="button">Book Now!</a>
-
+    </div>
     
 
     <div class="Turkey">
         <h2><b><i><u>Turkey</u></i></b></h2>
-        </div>
-        <div class="Turkey-pic">
-            <image src="/static/Turkey (1).jpg" alt="cappadoccia">
-         </div><br>
+        <image src="/static/Turkey (1).jpg" alt="cappadoccia">
          <a href="/Turkey" class="button">Book Now!</a>
+    </div>
     
 
     <div class="Switzerland">
         <h2><b><i><u>Switzerland</u></i></b></h2>
-        </div>
-        <div class="Switzerland-pic">
-            <image src="/static/Switzerland (1).jpg" alt="Bern">
-        </div><br>
+        <image src="/static/Switzerland (1).jpg" alt="Bern">
         <a href="/Switzerland" class="button">Book Now!</a>
-    <br><br>
-        <footer>
-            <p>LetsD'Part. All rights reserved @2024.</p>
-        </footer>
+    </div>
+
+<footer>
+        <p>© 2024 LetsD'Part. All rights reserved.</p>
+</footer>
         
-    </body>
-    </html>
+</body>
+</html>

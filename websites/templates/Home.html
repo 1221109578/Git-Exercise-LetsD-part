@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LetsD'part</title>
+    <title>LetsD'Part - Home</title>
     <link rel="stylesheet" href="static/css/Home.css">
     <link rel= "icon" href="\static\Logo.png" type="image/icon type">
     <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
@@ -17,21 +17,29 @@
                     <img src="/static/Logo.png" alt="Logo">
                 </div>
             </div>
+
             <div class="nav-links">
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
+
                     {% if user.is_authenticated %}
-                    <li><a href="/cart">Cart</a></li>
-                    <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/Booking">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>
-                    {% endif %}   
+                    <li><a href="/Booking">Booking</a></li>    
+                    {% endif %}
                 </ul>
             </div>
-            <div class="auth-buttons">
+            <div class="profile">
                 {% if user.is_authenticated %}
-                <a href="/logout">Log Out</a>
+                <a href="#">Option</a>
+                <ul class="dropdown">
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                    {% endif %}
+                </ul>
                 {% else %}
                 <a href="/login">Log In</a>
                 {% endif %}
@@ -39,45 +47,96 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <p>Twenty years from now you will be more disappointed by the things you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. EXPLORE. DREAM. DISCOVER.</p>
-            <a href="/package" class="btn">Let's Explore</a>
-        </div>
+    <div class="hero-center">
+        <section class="hero">
+            <div>
+                <p>Twenty years from now you will be more disappointed by the things you didn't do than by the ones you did do. So throw off the bowlines.<br>Sail away from the safe harbor. Catch the trade winds in your sails.<br>EXPLORE. DREAM. DISCOVER.</p>
+                <a href="/package" class="btn">Let's Explore</a>
+            </div>
+        </section>
+
+    <section>
+        <div class="hero-content-2">
+        <h1 class="style-1">Explore the world while learning new things!</h1>
+            <div id="map"></div>
+            <script type="text/javascript">
+
+            const key = 'WKLh9Ubp8P8mijbUGzZN'; //API key to access the map tiles from MapTiler.//
+            //Initializes the map//
+            var map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=WKLh9Ubp8P8mijbUGzZN',
+            center: [0.11, 51.49],
+            zoom: 1,
+            });
+
+            //Creates a popup with HTML content//
+            const ukPopup = new maplibregl.Popup().setHTML("The UK is steeped in history, with ancient castles, cathedrals, and monuments scattered throughout the country.<br>(1) Stonehenge is older than the Pyramids.<br>(2) Belfast in Northern Ireland is where the Titanic was constructed.<br>(3) The UK's highest summit is Ben Nevis which is 1345 metres tall.<br>(4) London Eye is among the most significant landmarks worldwide. It takes 30 minutes to do a complete turn!<br>(5) Wales is known for having the most castles per square mile in Europe. Some of its most popular include Caernarfon Castle, Raglan Castle, and Conwy Castle.");
+
+            const uk = new maplibregl.Marker()
+            .setLngLat([-2.50, 55])
+            .setPopup(ukPopup)
+            .addTo(map);
+
+            const icelandPopup = new maplibregl.Popup().setHTML("Iceland is a magical Nordic destination located east of Greenland, a land of volcanoes and Viking sagas<br>(1) Iceland experiences up to 23 hours of darkness during the month of December and approximately 22 to 24 hours of daylight in the month of June.<br>(2) Settled by Norse Vikings who arrived from Norway in the 800s CE, Iceland has a unique cultural background full of history and colorful tales.<br>(3) Iceland is considered geologically active, with approximately 130 volcanic mountains, about 30 of which are still active today. several parts of Iceland are covered in lava fields.<br>(4) Surtsey Island is not only one of the world's newest islands, but the most filmed and researched and one of the most restricted.<br>(5)  Iceland has one of the lowest crime rate in the world.");
+
+            const iceland = new maplibregl.Marker()
+            .setLngLat([-18, 65])
+            .setPopup(icelandPopup)
+            .addTo(map);
+
+            const switzerlandPopup = new maplibregl.Popup().setHTML("Switzerland is acknowledged as one of the most scenic places in all of Europe<br>(1) Switzerland's Swiss Alps cover around 58% of the land area.<br>(2) Switzerland boasts some of the finest drinking water around the world.<br>(3) Switzerland's Alpine countryside ia really nice to go hiking!<br>(4) Switzerland is by far the most known country for the variety, quality, and quantity of cheeses it produces.<br>(5) Switzerland’s brilliant public transportation facility has cable cars and trains that run through the most astonishing parts of the country that could not be accessible by foot.");
+
+            const switzerland = new maplibregl.Marker()
+            .setLngLat([7.90, 46.89])
+            .setPopup(switzerlandPopup)
+            .addTo(map);
+
+            const germanyPopup = new maplibregl.Popup().setHTML("Germany as a country that loves beer and sausages, but it’s also a really interesting and vibrant place that’s full of history.<br>(1) You can find Europe’s largest train station in Berlin.<br>(2) The highest peak in Germany is the Zugspitze in Bavaria which is 2,962 meters high.<br>(3) Germany sells around 6 million cars a year, making it one of the largest car producers in the world.<br>(4) Some of the world’s most famous inventions were created in Germany - the lightbulb, automated calculators, automobiles, insulin, petrol engines, jet engines, and the Walkman.<br>(5) In Germany we have 1,500 different types of beer, 300 types of bread and 1,000 types of sausage.");
+
+            const germany = new maplibregl.Marker()
+            .setLngLat([10.40, 51.30])
+            .setPopup(germanyPopup)
+            .addTo(map);
+
+            const turkeyPopup = new maplibregl.Popup().setHTML("Turkey is blessed with some of the most stunning natural wonders in the world<br>(1) Istanbul is the only city in the world which straddles two continents.<br>(2) Istanbul is the largest city in Turkey but it is not the capital. Turkey’s capital is Ankara.<br>(3) There are more then 10 UNESCO World heritage sites in Turkey.<br>(4) Turkey is the birthplace of historic legends, such as Omar (the poet), King Midas, Herodotus (the father of history) and St. Paul the Apostle.<br>(5) The Black Sea coast of Turkey stretches for 1175 km. About the same distance between London and Venice.");
+
+            const turkey = new maplibregl.Marker()
+            .setLngLat([35.41, 39.10])
+            .setPopup(turkeyPopup)
+            .addTo(map);
+
+            </script>
     </section>
 
-    <section class="hero-2">
-        <div class="hero-content">
-        <a href="/Iceland" class="cd-1" ><p class="location-1">Iceland</p><img src="\static\pin.png" /></a>
-        <a href="/United Kingdom" class="cd-2" ><p class="location-2">United Kingdom</p><img src="\static\pin.png" /></a>
-        <a href="/Turkey" class="cd-3" ><p class="location-3">Turkey</p><img src="\static\pin.png" /></a>
-        <a href="/Switzerland" class="cd-4" ><p class="location-4">Switzerland</p><img src="\static\pin.png" /></a>
-        <a href="/Germany" class="cd-5" ><p class="location-5">Germany</p><img src="\static\pin.png" /></a>
-        </div>
-    </section>
+    <div class="hero-content-4">
+        <h1 class="style-2">Explore some unique seasonal events the country of your choices!</h1>
+        <section class="hero-content-3">
 
-    <section class="hero-content-3">
+            <a href="/winter"  class="card">
+                <h3>Winter</h3>
+                <img src="static\Winter.jpg">
+            </a>
 
-        <a href="/winter"  class="card">
-            <h3>Winter</h3>
-            <img src="static\Winter.jpg">
-        </a>
+            <a href="/summer"  class="card">
+                <h3>Summer</h3>
+                <img src="static\Summer.jpg">
+            </a>
 
-        <a href="/summer"  class="card">
-            <h3>Summer</h3>
-            <img src="static\Summer.jpg">
-        </a>
+            <a href="/spring"  class="card">
+                <h3>Spring</h3>
+                <img src="static\Spring.webp">
+            </a>
 
-        <a href="/spring"  class="card">
-            <h3>Spring</h3>
-            <img src="static\Spring.webp">
-        </a>
+            <a href="/autumn"  class="card">
+                <h3>Autumn</h3>
+                <img src="static\Autumn.jpg">
+            </a>
 
-        <a href="/autumn"  class="card">
-            <h3>Autumn</h3>
-            <img src="static\Autumn.jpg">
-        </a>
-    </section>
+        </section>
+    </div>
 
-    </body>
+    <footer>© 2024 LetsD'Part. All rights reserved.</footer>
+
+</body>
 </html>

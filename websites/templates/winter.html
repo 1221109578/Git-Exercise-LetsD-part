@@ -18,28 +18,45 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
-                    <li><a href="/cart">Cart</a></li>
-                    <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/history">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>    
+                    {% if user.is_authenticated %}
+                    <li><a href="/Booking">Booking</a></li>
+                    {% endif %}
                 </ul>
             </div>
-            <div class="auth-buttons">
+            <div class="profile">
+                {% if user.is_authenticated %}
+                <a href="#">Option</a>
+                <ul class="dropdown">
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                    {% endif %}
+                </ul>
+                {% else %}
                 <a href="/login">Log In</a>
+                {% endif %}
             </div>
         </nav>
     </header>
-
-        <div class="def-cards">
-            <h1>Winter</h1>
-            <p>+United Kingdom - Jorvik Viking Festivals ----- 20-27 February 2024<br>
-            +United Kingdom - Coastival Arts Festival ----- 22-24 February 2024<br>
-            +Switzerland - St. Moritz Gourmet Festival ----- 29/1/2024 to 3/2/2024<br>
-            +Switzerland - Alte Silvester ----- 30/12/2023 and 13/1/2024 <br>
-            +Germany - Tollwood Winter Festival ----- Novembre to December<br>
-            +Germany - Epiphany ----- 6/1/2024<br>
-            +Iceland - Reykjavík Winter Lights Festival - February 2024<br>
-            +Iceland - Dark Music Days ----- January 2024</p>
-        </div>
+    <form action="/phone" method="GET" id="phone-form" >
+            <div class="def-cards">
+                
+                <h1>Winter Events</h1>
+                <ul>
+                    
+                    {% for event in events %}
+                        <li>
+                            <strong>{{ event.event_name }}</strong><br>
+                            Country: {{ event.country }}<br>
+                            Date: {{ event.date }}<br><br>
+                        </li>
+                    {% endfor %}
+                    
+                </ul>
+            </div>
+        </form>
     </body>
 </html>
