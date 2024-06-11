@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LetsD'Part - Booking</title>
-    <link rel="stylesheet" href="static/css/booking.css">
+    <title>LetsD'Part - Home</title>
+    <link rel="stylesheet" href="static/css/Home.css">
     <link rel= "icon" href="\static\Logo.png" type="image/icon type">
+    <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
+    <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -22,11 +24,11 @@
                     {% if user.is_authenticated %}
                     <li><a href="/myaccount">My Account</a></li>
                     <li><a href="/Booking">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li> 
+                    <li><a href="/chat">Chat</a></li>    
                     {% endif %}
                     {% if user.is_admin %}
                     <li><a href="/admin">Admin</a></li>
-                    {% endif %}   
+                    {% endif %}
                 </ul>
             </div>
             <div class="auth-buttons">
@@ -38,10 +40,11 @@
             </div>
         </nav>
     </header>
-    <div class="Title">
-        <h1>Booking</h1>
+
+    <div class="greet">
+        <h1>Your Booking History</h1>
     </div>
-    
+
     <div class="flash-messages">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
@@ -54,54 +57,37 @@
             {% endfor %}
           {% endif %}
         {% endwith %}
-    </div>
+      </div>
 
-    <table class="book-table">
+    {% if bookings %}
+    <table class="cart-table">
         <tr>
-            <th>No.</th>
+            <th>Booking Date</th>
             <th>Package</th>
             <th>Price</th>
+            <th>Quantity</th>
             <th>Dates</th>
-            <th>Actions</th>
         </tr>
-        <form action="">
-            {% for package in booking_items %}
-            <tr>
-                <td>{{ country }}</td>
-                <td>{{ activity }}</td>
-                <td></td>
-                <td>Date Start <strong>To</strong> Date End</td>
-                <td>
-                    <div class="action-buttons">
-                        <a href="" class="btn btn-remove">Remove</a>
-                        <button type="submit" class="btn btn-update">Update</button>
-                        
-                    </div>
-                </td>
-            </tr>
+        {% set counter = 1 %}
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.booking_date }}</td>
+            <td>{{ booking.travel_package.city }}, {{ booking.travel_package.country }}</td>
+            <td>RM{{ booking.total_price }}</td>
+            <td>{{ booking.quantity }}</td>
+            <td>{{ booking.travel_package.date }} <strong>To</strong> {{ booking.travel_package.date_end }}</td>
+        </tr>
+        {% set counter = counter + 1 %}
         {% endfor %}
-        <tr>
-            <td>1</td>
-            <td></td>
-            <td id="price" name="price" value="0"></td>
-            <td>Date Start <strong>To</strong> Date End</td>
-            <td>
-                <div class="action-buttons">
-                    <a href="" class="btn btn-remove">Remove</a>
-                    <button type="submit" class="btn btn-update">Update</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="total-label">Total</td>
-            <td colspan="2" class="total-price"></td>
-            <td colspan="2"></td>
-        </tr>
-        </form>
+
     </table>
-    </body>
-    </html>
+    <div class="cart-actions">
+        <a href="/" class="btn btn-primary btn-proceed">Back</a>
+    </div>
+    {% else %}
+    <p class="cart-empty-msg"><strong>No bookings found. </strong></p>
+    {% endif %}
 
-
-
-          
+    <footer>© 2024 LetsD'Part. All rights reserved.</footer>
+</body>
+</html>

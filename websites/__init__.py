@@ -19,7 +19,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Seasons, Package
+    from.models import User, Seasons, TravelPackage
 
     with app.app_context():
         db.create_all()
@@ -38,7 +38,7 @@ def create_app():
     adminview = Admin(app, index_view=MyAdminIndexView())
     adminview.add_view(MyModelView(User, db.session))
     adminview.add_view(MyModelView(Seasons, db.session))
-    adminview.add_view(MyAdminPackageView(Package, db.session))
+    adminview.add_view(MyAdminPackageView(TravelPackage, db.session))
 
     return app
 
