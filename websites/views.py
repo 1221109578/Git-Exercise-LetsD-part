@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from . import create_app
-from .models import PaymentMethod, Seasons, Package, Booking
+from .models import PaymentMethod, Seasons, Package, Booking, Cart
 from . import db
 
 views = Blueprint('views', __name__)
@@ -106,228 +106,58 @@ def package():
 @views.route("/Booking", methods=['GET', 'POST'])
 @login_required
 def Booking():
-    package_id = db.session.query(Booking.package_id)
-    cust_username = db.session.query(Booking.cust_username)
-    country = db.session.query(Booking.country)
-    activity = db.session.query(Booking.activity)
-    total_price = db.session.query(Booking.total_price)
-    num_of_pax = db.session.query(Booking.num_of_pax)
-    booking_date = db.session.query(Booking.booking_date)
+    return render_template('Booking.html', user=current_user)
 
-@views.route("/Iceland")
-def iceland():
-    return render_template('Booking.html', 
-                            user=current_user, 
-                            package_id=package_id,
-                            cust_username=cust_username,
-                            country=country, activity=activity,
-                            total_price=total_price,
-                            num_of_pax=num_of_pax,
-                            booking_date=booking_date
-                            )
-
-@views.route("/Iceland", methods=["GET"])
+@views.route('/add_to_cart/<int:package_id>', methods=['POST'])
 @login_required
-def Iceland():
-    if request.method == "POST":
-        selected_activities = request.form.getlist('activities')
-        Num_of_pax = int(request.form['No. of Pax'])
-        price_flight = db.session.query(Package.price_flight).first()[0]
-        price_lodge = db.session.query(Package.price_lodge).first()[0]
-        price_activity_1 = db.session.query(Package.price_activity_1).first()[0]
-        price_activity_2 = db.session.query(Package.price_activity_2).first()[0]
-        price_activity_3 = db.session.query(Package.price_activity_3).first()[0]
-        price_activity_4 = db.session.query(Package.price_activity_4).first()[0]
-        price_activity_5 = db.session.query(Package.price_activity_5).first()[0]
+def add_to_cart(package_id):
+    travel_package = Package.query.get(package_id)
+    # See if Quantity is In Range
+    if travel_package:
+        quantity = int(request.form.get('quantity', 1))
+        if quantity > 0 and quantity <= travel_package.availability:
+            cart_item = Cart.query.filter_by(user=current_user, travel_package=travel_package).first()
+            # Check if the item is already in cart
+            if cart_item:
+                cart_item.quantity += quantity
+            else:
+                # Add to Cart's database
+                cart_item = Cart(user=current_user, travel_package=travel_package, quantity=quantity)
+                db.session.add(cart_item)
 
-        #Calculate total activity cost
-        total_activity_cost = 0
-        if 'activity_1' in selected_activities:
-            total_activity_cost += price_activity_1
-        if 'activity_2' in selected_activities:
-            total_activity_cost += price_activity_2
-        if 'activity_3' in selected_activities:
-            total_activity_cost += price_activity_3
-        if 'activity_4' in selected_activities:
-            total_activity_cost += price_activity_4
-        if 'activity_5' in selected_activities:
-            total_activity_cost += price_activity_5
+            db.session.commit()
 
-            #total activity costs (without person)
-            total_cost = total_activity_cost + price_flight + price_lodge
+            flash('Travel package(s) added to cart successfully!', 'success')
+        else:
+            flash('Invalid quantity or insufficient availability!', 'alert')
+    else:
+        flash('Travel package not found!', 'alert')
 
-            total_cost_with_pax = total_cost * Num_of_pax
+    return redirect(url_for('client.cart'))
 
-            return render_template('Booking.html', total_cost_with_persons=total_cost_with_pax)
-        
-    
-    price_flight = db.session.query(Package.price_flight).first()
-    price_lodge = db.session.query(Package.price_lodge).first()
-    date_start = db.session.query(Package.date_start).first()
-    date_end = db.session.query(Package.date_end).first()
-    price_activity_1 = db.session.query(Package.price_activity_1).first()
-    price_activity_2 = db.session.query(Package.price_activity_2).first()
-    price_activity_3 = db.session.query(Package.price_activity_3).first()
-    price_activity_4 = db.session.query(Package.price_activity_4).first()
-    price_activity_5 = db.session.query(Package.price_activity_5).first()
-    activity_1 = db.session.query(Package.activity_1).first()
-    activity_2 = db.session.query(Package.activity_2).first()
-    activity_3 = db.session.query(Package.activity_3).first()
-    activity_4 = db.session.query(Package.activity_4).first()
-    activity_5 = db.session.query(Package.activity_5).first()
-    return render_template('Iceland.html',
-                            user=current_user,
-                            price_flight = price_flight,
-                            price_lodge = price_lodge,
-                            date_start = date_start,
-                            date_end = date_end,
-                            price_activity_1 = price_activity_1,
-                            price_activity_2 = price_activity_2,
-                            price_activity_3 = price_activity_3,
-                            price_activity_4 = price_activity_4,
-                            price_activity_5 = price_activity_5,
-                            activity_1 = activity_1,
-                            activity_2 = activity_2,
-                            activity_3 = activity_3,
-                            activity_4 = activity_4,
-                            activity_5 = activity_5,
-                            id=1)
-
-@views.route("/United Kingdom")
+@views.route('/add_to_cart/<int:package_id>', methods=['POST'])
 @login_required
-def United_Kingdom():
-    price_flight = db.session.query(Package.price_flight).filter_by(id=2).first()
-    price_lodge = db.session.query(Package.price_lodge).filter_by(id=2).first()
-    date_start = db.session.query(Package.date_start).filter_by(id=2).first()
-    date_end = db.session.query(Package.date_end).filter_by(id=2).first()
-    price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=2).first()
-    price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=2).first()
-    price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=2).first()
-    price_activity_4 = db.session.query(Package.price_activity_4).filter_by(id=2).first()
-    price_activity_5 = db.session.query(Package.price_activity_5).filter_by(id=2).first()
-    activity_1 = db.session.query(Package.activity_1).filter_by(id=2).first()
-    activity_2 = db.session.query(Package.activity_2).filter_by(id=2).first()
-    activity_3 = db.session.query(Package.activity_3).filter_by(id=2).first()
-    activity_4 = db.session.query(Package.activity_4).filter_by(id=2).first()
-    activity_5 = db.session.query(Package.activity_5).filter_by(id=2).first()
-    return render_template('United Kingdom.html',
-                            user=current_user,
-                            price_flight = price_flight,
-                            price_lodge = price_lodge,
-                            date_start = date_start,
-                            date_end = date_end,
-                            price_activity_1 = price_activity_1,
-                            price_activity_2 = price_activity_2,
-                            price_activity_3 = price_activity_3,
-                            price_activity_4 = price_activity_4,
-                            price_activity_5 = price_activity_5,
-                            activity_1 = activity_1,
-                            activity_2 = activity_2,
-                            activity_3 = activity_3,
-                            activity_4 = activity_4,
-                            activity_5 = activity_5,
-                            id=2)
+def add_to_cart(package_id):
+    travel_package = Package.query.get(package_id)
+    # See if Quantity is In Range
+    if travel_package:
+        quantity = int(request.form.get('quantity', 1))
+        if quantity > 0 and quantity <= travel_package.availability:
+            cart_item = Cart.query.filter_by(user=current_user, travel_package=travel_package).first()
+            # Check if the item is already in cart
+            if cart_item:
+                cart_item.quantity += quantity
+            else:
+                # Add to Cart's database
+                cart_item = Cart(user=current_user, travel_package=travel_package, quantity=quantity)
+                db.session.add(cart_item)
+ 
+            db.session.commit()
 
-@views.route("/Switzerland")
-@login_required
-def Switzerland():
-    price_flight = db.session.query(Package.price_flight).filter_by(id=3).first()
-    price_lodge = db.session.query(Package.price_lodge).filter_by(id=3).first()
-    date_start = db.session.query(Package.date_start).filter_by(id=3).first()
-    date_end = db.session.query(Package.date_end).filter_by(id=3).first()
-    price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=3).first()
-    price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=3).first()
-    price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=3).first()
-    price_activity_4 = db.session.query(Package.price_activity_4).filter_by(id=3).first()
-    price_activity_5 = db.session.query(Package.price_activity_5).filter_by(id=3).first()
-    activity_1 = db.session.query(Package.activity_1).filter_by(id=3).first()
-    activity_2 = db.session.query(Package.activity_2).filter_by(id=3).first()
-    activity_3 = db.session.query(Package.activity_3).filter_by(id=3).first()
-    activity_4 = db.session.query(Package.activity_4).filter_by(id=3).first()
-    activity_5 = db.session.query(Package.activity_5).filter_by(id=3).first()
-    return render_template('Switzerland.html',
-                            user=current_user,
-                            price_flight = price_flight,
-                            price_lodge = price_lodge,
-                            date_start = date_start,
-                            date_end = date_end,
-                            price_activity_1 = price_activity_1,
-                            price_activity_2 = price_activity_2,
-                            price_activity_3 = price_activity_3,
-                            price_activity_4 = price_activity_4,
-                            price_activity_5 = price_activity_5,
-                            activity_1 = activity_1,
-                            activity_2 = activity_2,
-                            activity_3 = activity_3,
-                            activity_4 = activity_4,
-                            activity_5 = activity_5,
-                            id=3)
+            flash('Travel package(s) added to cart successfully!', 'success')
+        else:
+            flash('Invalid quantity or insufficient availability!', 'alert')
+    else:
+        flash('Travel package not found!', 'alert')
 
-@views.route("/Turkey")
-@login_required
-def Turkey():
-    price_flight = db.session.query(Package.price_flight).filter_by(id=4).first()
-    price_lodge = db.session.query(Package.price_lodge).filter_by(id=4).first()
-    date_start = db.session.query(Package.date_start).filter_by(id=4).first()
-    date_end = db.session.query(Package.date_end).filter_by(id=4).first()
-    price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=4).first()
-    price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=4).first()
-    price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=4).first()
-    price_activity_4 = db.session.query(Package.price_activity_4).filter_by(id=4).first()
-    price_activity_5 = db.session.query(Package.price_activity_5).filter_by(id=4).first()
-    activity_1 = db.session.query(Package.activity_1).filter_by(id=4).first()
-    activity_2 = db.session.query(Package.activity_2).filter_by(id=4).first()
-    activity_3 = db.session.query(Package.activity_3).filter_by(id=4).first()
-    activity_4 = db.session.query(Package.activity_4).filter_by(id=4).first()
-    activity_5 = db.session.query(Package.activity_5).filter_by(id=4).first()
-    return render_template('Turkey.html',
-                            user=current_user,
-                            price_flight = price_flight,
-                            price_lodge = price_lodge,
-                            date_start = date_start,
-                            date_end = date_end,
-                            price_activity_1 = price_activity_1,
-                            price_activity_2 = price_activity_2,
-                            price_activity_3 = price_activity_3,
-                            price_activity_4 = price_activity_4,
-                            price_activity_5 = price_activity_5,
-                            activity_1 = activity_1,
-                            activity_2 = activity_2,
-                            activity_3 = activity_3,
-                            activity_4 = activity_4,
-                            activity_5 = activity_5,
-                            id=4)
-@views.route("/Germany")
-@login_required
-def Germany():
-    price_flight = db.session.query(Package.price_flight).filter_by(id=5).first()
-    price_lodge = db.session.query(Package.price_lodge).filter_by(id=5).first()
-    date_start = db.session.query(Package.date_start).filter_by(id=5).first()
-    date_end = db.session.query(Package.date_end).filter_by(id=5).first()
-    price_activity_1 = db.session.query(Package.price_activity_1).filter_by(id=5).first()
-    price_activity_2 = db.session.query(Package.price_activity_2).filter_by(id=5).first()
-    price_activity_3 = db.session.query(Package.price_activity_3).filter_by(id=5).first()
-    price_activity_4 = db.session.query(Package.price_activity_4).filter_by(id=5).first()
-    price_activity_5 = db.session.query(Package.price_activity_5).filter_by(id=5).first()
-    activity_1 = db.session.query(Package.activity_1).filter_by(id=5).first()
-    activity_2 = db.session.query(Package.activity_2).filter_by(id=5).first()
-    activity_3 = db.session.query(Package.activity_3).filter_by(id=5).first()
-    activity_4 = db.session.query(Package.activity_4).filter_by(id=5).first()
-    activity_5 = db.session.query(Package.activity_5).filter_by(id=5).first()
-    return render_template('Germany.html',
-                            user=current_user,
-                            price_flight = price_flight,
-                            price_lodge = price_lodge,
-                            date_start = date_start,
-                            date_end = date_end,
-                            price_activity_1 = price_activity_1,
-                            price_activity_2 = price_activity_2,
-                            price_activity_3 = price_activity_3,
-                            price_activity_4 = price_activity_4,
-                            price_activity_5 = price_activity_5,
-                            activity_1 = activity_1,
-                            activity_2 = activity_2,
-                            activity_3 = activity_3,
-                            activity_4 = activity_4,
-                            activity_5 = activity_5,
-                            id=5)
+    return redirect(url_for('client.cart'))
