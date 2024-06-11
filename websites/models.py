@@ -24,11 +24,6 @@ class PaymentMethod(db.Model):
     card_number_last_digits = db.Column(db.String(200), nullable=False)
     cvv_hash = db.Column(db.String(200),nullable=False)
 
-class Cart(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    package_id = db.Column(db.Integer, db.ForeignKey('package.id'), nullable=False)
-    num_of_pax = db.Column(db.Integer, nullable=False)
 
 #------
 class Seasons(db.Model):
@@ -40,23 +35,20 @@ class Seasons(db.Model):
 
 class Package(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.String(300), nullable=False)
-    country_id = db.Column(db.Integer, nullable=False)
-    activity_1 = db.Column(db.String(2000), nullable=False)
-    activity_2 = db.Column(db.String(2000), nullable=False)
-    activity_3 = db.Column(db.String(2000), nullable=False)
-    activity_4 = db.Column(db.String(2000), nullable=False)
-    activity_5 = db.Column(db.String(2000), nullable=False)
-    activity_id = db.Column(db.Integer, nullable=False)
-    date_start = db.Column(db.String(20), nullable=False)
-    date_end = db.Column(db.String(20), nullable=False)
-    price_flight = db.Column(db.String(300), nullable=False)
-    price_lodge = db.Column(db.String(300), nullable=False)
-    price_activity_1 = db.Column(db.String(300), nullable=False)
-    price_activity_2 = db.Column(db.String(300), nullable=False)
-    price_activity_3 = db.Column(db.String(300), nullable=False)
-    price_activity_4 = db.Column(db.String(300), nullable=False)
-    price_activity_5 = db.Column(db.String(300), nullable=False)
+    city = db.Column(db.String(100))
+    country = db.Column(db.String(100))
+    description = db.Column(db.String(500))
+    price = db.Column(db.Float)
+    days = db.Column(db.Integer)
+    nights = db.Column(db.Integer)
+    date = db.Column(db.Date)
+    date_end = db.Column(db.Date)
+    airline_name = db.Column(db.String(100))
+    hotel_name = db.Column(db.String(100))
+    pax = db.Column(db.Integer)
+    availability = db.Column(db.Integer)
+    image_url = db.Column(db.String(200))
+    carts = db.relationship('Cart', backref='Package', lazy=True)
 
     @hybrid_property
     def days(self):
@@ -81,3 +73,9 @@ class Booking(db.Model):
     num_of_pax = db.Column(db.Integer, nullable=False)
     booking_date = db.Column(db.DateTime, nullable=False, default=datetime)
         
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    travel_package_id = db.Column(db.Integer, db.ForeignKey('Package.id'), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+
