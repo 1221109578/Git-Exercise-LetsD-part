@@ -47,59 +47,65 @@
         <h1><b><i><u>Basic package</u></i></b></h1><br>
     </div>
     <div class="Description">
-        <ul>
-        <li>Starts from RM 5k per person</li>
-        <li>12 Days 10 Nights</li>
-        <li>Flight - Swiss Airlines (Direct flight to Zurich International Airport from Kuala Lumpur International Airport)</li>
-        <li><b>From: </b>19/8/2024 <b>To: </b>31/8/2024</li>
-        <li><b>Lodgings: </b>Hotel Chalet du Lac</li>
-        </ul>
-    </div>
-    
-    <div class="Activity">
-        <h1><b>Activites</b></h1>
-    </div>
+        
+        <form id="booking-form" method="POST" action="/Switzerland"> 
+            <ul>
+                <li>
+                    <label for="date_start"><b>Start Date: {{ date_start[0] }}</b></label>
+                </li>
+                <li>
+                    <label for="date_end"><b>Return Date: {{ date_end[0] }}</b></label>
+                </li> 
+                <li><b>Flight: </b>Swiss Airlines - RM{{ price_flight[0] }}</li>
+                <li><b>Lodging: </b>Hotel Chalet du Lac - RM{{ price_lodge[0] }}</li>
+            </ul>
 
-    <div class="Activity-lists">
-        <ul>
-            <li>Zurich - The city of Zurich, a global center for banking and finance, lies at the north end of Lake Zurich in northern Switzerland.<br> The picturesque lanes of the central Altstadt (Old Town), on either side of the Limmat River, reflect its pre-medieval history.</li><br>
-            <li>Geneva - visit the Chillon Castle. Chillon Castle is an island medieval castle located on Lake Geneva,<br> south of Veytaux in the canton of Vaud. It is situated at the eastern end of the lake, on the narrow shore between Montreux and Villeneuve, which gives access to the Alpine valley of the Rhône </li><br>
-            <li>Mount Pilatus - Pilatus, also often referred to as Mount Pilatus, is a mountain massif overlooking Lucerne in Central Switzerland.<br> It is composed of several peaks, of which the highest is named Tomlishorn.</li><br>
-            <li>Rhine Falls - The Rhine Falls is a waterfall located in Switzerland and the most powerful waterfall in Europe.<br> The falls are located on the High Rhine on the border between the cantons of Schaffhausen and Zürich<br> between the municipalities of Neuhausen am Rheinfall  and Laufen-Uhwiesen/Dachsen , next to the town of Schaffhausen in northern Switzerland.</li><br>
-            <li>Lake Zurich -  Lake Zurich  is a lake in Switzerland, extending southeast of the city of Zürich. Depending on the context, Lake Zurich or Zürichsee can be used to describe the lake as a whole,<br> or just that part of the lake downstream of the Seedamm at Rapperswil, whilst the part upstream of Rapperswil may be called the Obersee or Upper Lake.</li>
-        </ul>
-    </div>
-    <br>
-    <div class="person-counter">
-        <form>
-            <label for="No. of pax">Select No. of pax:</label>
-            <select id="No. of pax" name="No. of Pax">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-            </select>
+            <div class="Activity">
+                <h1><b>Activities</b></h1>
+            </div>
+            <div class="Activity-lists">
+                <ul>
+                    <li>
+                        <input type="checkbox" id="zurich" name="activities" value="activity_1">
+                        <label for="zurich">{{ activity_1[0] }}. - RM{{ price_activity_1[0] }}</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="geneva" name="activities" value="activity_2">
+                        <label for="geneva">{{ activity_2[0] }}. - RM{{ price_activity_2[0] }}</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="mount-pilatus" name="activities" value="activity_3">
+                        <label for="mount-pilatus">{{ activity_3[0] }}. - RM{{ price_activity_3[0] }}</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="rhine-falls" name="activities" value="activity_4">
+                        <label for="rhine-falls">{{ activity_4[0] }}. - RM{{ price_activity_4[0] }}</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="lake-zurich" name="activities" value="activity_5">
+                        <label for="lake-zurich">{{ activity_5[0] }}. - RM{{ price_activity_5[0] }}</label>
+                    </li>
+                </ul>
+                <div class="person-counter">
+                    <label for="No. of pax">Select No. of pax:</label>
+                    <select id="No. of pax" name="No. of Pax">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <br><br>
+                <a href="/Booking" class="button"><b>Proceed</b></a> 
+            </div>
         </form>
-        </div>
-    
-        <a href="/Booking" class="button"><b>Proceed</b></a>
-
+    </div>
 </body>
 <footer>
     <p>LetsD'Part. All rights reserved @2024.</p>

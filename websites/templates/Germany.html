@@ -48,59 +48,67 @@
         <h1><b><i><u>Basic package</u></i></b></h1><br>
     </div>
     <div class="Description">
-        <ul>
-        <li>Starts from RM 3.7k per person</li>
-        <li>9 Days 7 Nights</li>
-        <li>Flight - Lufthansa (Direct flight to Frankfurt from KLIA)</li>
-        <li><b>From:</b> 3/12/2024 <b>To:</b>12/12/2024</li>
-        <li><b>Lodgings: </b>Leonardo Royal Hotel Frankfurt</li>
-        </ul>
-    </div>
+        <form id="booking-form" method="POST" action="/Germany">
+            <ul>
+                <li>
+                    <label for="date_start"><b>Start Date: {{ date_start[0] }}</b></label>
+                </li>
+                <li>
+                    <label for="date_end"><b>Return Date: {{ date_end[0] }}</b></label>
+                </li> 
+                <li><b>Flight: </b>Lufthansa - RM{{ price_flight[0] }}</li>
+                <li><b>Lodging: </b>Leonardo Royal Hotel Frankfurt - RM{{ price_lodge[0] }}</li>
+            </ul>
+            </form>
+            </div>
 
     <div class="Activity">
         <h1><b>Activites</b></h1>
     </div>
     
     <div class="Activity-lists">
-        <ul>
-            <li>Berlin - Visit art galleries, historical sites especially the sites from the Nazis reign</li><br>
-            <li>Munich - Visit the infamous Allianz Arena of the Bayern München. Join the Oktoberfest, the  traditional<br> festival celebrates every October in Germany. Featuring beautiful gardens and worth-exploring markets.</li><br>
-            <li>Black Forest - places for nature lover, a picturesque scenery. Highly recommended for Photographer.</li><br>
-            <li>Nuremberg - The city's darkest WW2 connections are on display at the documentations<br> Centre Nazi Party Rallying Grounds and the memorial Nuremberg trial Museum.</li><br>
-            <li>Munster - German Panzer museum Munster, a museum about Germany's war machines since the great war until modern equipments.</li>
-        </ul>
-    </div>
-    <br>
-    <div class="person-counter">
-        <form>
-            <label for="No. of pax">Select No. of pax:</label>
-            <select id="No. of pax" name="No. of Pax">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-            </select>
+        <form id="activity-form">
+            <ul>
+                <li>
+                    <input type="checkbox" id="berlin" name="activities" value="activity_1">
+                    <label for="berlin">{{ activity_1[0] }}. - RM{{ price_activity_1[0] }}</label>
+                </li><br>
+                <li>
+                    <input type="checkbox" id="munich" name="activities" value="activity_2">
+                    <label for="munich">{{ activity_2[0] }}. - RM{{ price_activity_2[0] }}</label>
+                </li><br>
+                <li>
+                    <input type="checkbox" id="black-forest" name="activities" value="activity_3">
+                    <label for="black-forest">{{ activity_3[0] }}. - RM{{ price_activity_3[0] }}</label>
+                </li><br>
+                <li>
+                    <input type="checkbox" id="nuremberg" name="activities" value="activity_4">
+                    <label for="nuremberg">{{ activity_4[0] }}. - RM{{ price_activity_4[0] }}</label>
+                </li><br>
+                <li>
+                    <input type="checkbox" id="munster" name="activities" value="activity_5">
+                    <label for="munster">{{ activity_5[0] }}. - RM{{ price_activity_5[0] }}</label>
+                </li>
+            </ul>
+            <div class="person-counter">
+                <label for="No. of pax">Select No. of pax:</label>
+                <select id="No. of pax" name="No. of Pax">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            <br><br>
+            <a href="/Booking" class="button"><b>Proceed</b></a>
         </form>
-        </div>
-    
-        <a href="/Booking" class="button"><b>Proceed</b></a>
-        
+    </div>
 </body>
 <footer>
     <p>LetsD'Part. All rights reserved @2024.</p>

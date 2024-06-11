@@ -6,7 +6,7 @@
     <title>LetsD'part</title>
     <link rel="stylesheet" href="static/css/Home.css">
     <link rel="stylesheet" href="static/css/countries.css">
-    <link rel= "icon" href="\static\Logo.png" type="image/icon type">
+    <link rel="icon" href="\static\Logo.png" type="image/icon type">
 </head>
 <body>
     <header>
@@ -45,61 +45,68 @@
     </header>
 
     <div class="package">
-        <h1><b><i><u>Basic package</u></i></b></h1><br>
+        <h1><b><i><u>Basic Package</u></i></b></h1><br>
     </div>
     <div class="Description">
-        <ul>
-        <li>Starts from RM 4.7k per person</li>
-        <li>10 Days 8 Nights</li>
-        <li>Flight - British Airways (Direct flight to London Heathrow Airport from Kuala Lumpur International Airport)</li>
-        <li><b>From: </b>3/11/2024 <b>To: </b>13/11/2024</li>
-        <li><b>Lodgings: </b>Premier Inn</li>
-        </ul>
-    </div>
+        
+        <form id="booking-form" method="POST" action="/UnitedKingdom"> 
+            <ul>
+                <li>
+                    <label for="date_start"><b>Start Date: {{ date_start[0] }}</b></label>
+                </li>
+                <li>
+                    <label for="date_end"><b>Return Date: {{ date_end[0] }}</b></label>
+                </li> 
+                <li><b>Flight: </b>British Airways - RM{{ price_flight[0] }}</li>
+                <li><b>Lodging: </b>Premier Inn - RM{{ price_lodge[0] }}</li>
+            </ul> 
 
-    <div class="Activity">
-        <h1><b>Activites</b></h1>
-    </div>
-    <div class="Activity-lists">
-        <ul>
-            <li>Visit the infamous Scotland's Loch Ness, Glencoe & Scottish highlands Tour</li><br>
-            <li>Visit London Tower Bridge + The Tower of London </li><br>
-            <li>Visit London's Madame Tussauds</li><br>
-            <li>Visit the World Renowned club's stadiums like the Anfield, Old Traffords and Etihad Stadium.</li><br>
-            <li>Visit the Unesco Heritage site, Stonehenge </li>
-        </ul>
-    </div>
-    <br>
-    <div class="person-counter">
-        <form>
-            <label for="No. of pax">Select No. of pax:</label>
-            <select id="No. of pax" name="No. of Pax">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-            </select>
+            <div class="Activity">
+                <h1><b>Activities</b></h1>
+            </div>
+            <div class="Activity-lists">
+                <ul>
+                    <li>
+                        <input type="checkbox" id="loch-ness" name="activities" value="activity_1">
+                        <label for="loch-ness">{{ activity_1[0] }}. - RM{{ price_activity_1[0] }}</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="london-tower" name="activities" value="activity_2">
+                        <label for="london-tower">{{ activity_2[0] }}. - RM{{ price_activity_2[0] }}</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="madame-tussauds" name="activities" value="activity_3">
+                        <label for="madame-tussauds">{{ activity_3[0] }}. - RM{{ price_activity_3[0] }}</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="stadium-tour" name="activities" value="activity_4">
+                        <label for="stadium-tour">{{ activity_4[0] }}. - RM{{ price_activity_4[0] }}</label>
+                    </li><br>
+                    <li>
+                        <input type="checkbox" id="stonehenge" name="activities" value="activity_5">
+                        <label for="stonehenge">{{ activity_5[0] }}. - RM{{ price_activity_5[0] }}</label>
+                    </li>
+                </ul>
+                <div class="person-counter">
+                    <label for="No. of pax">Select No. of pax:</label>
+                    <select id="No. of pax" name="No. of Pax">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <br>
+                <a href="/Booking" class="button"><b>Proceed</b></a>
+            </div>
         </form>
-        </div>
-    
-        <a href="/Booking" class="button"><b>Proceed</b></a>
-
+    </div>
 </body>
 <footer>
     <p>LetsD'Part. All rights reserved @2024.</p>

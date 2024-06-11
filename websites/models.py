@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     phone_number = db.Column(db.String(10))
-    is_admin = db.Column(db.Boolean, default=False)
+    is_admin = db.Column(db.Boolean, default=False, nullable=False)
     payment_methods = db.relationship('PaymentMethod', backref='user', lazy=True)
 
 class PaymentMethod(db.Model):
@@ -30,3 +30,47 @@ class Seasons(db.Model):
     country = db.Column(db.String(150), nullable=False)
     date = db.Column(db.String(150), nullable=False)
     event_id = db.Column(db.Integer, nullable=False)
+
+class Package(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    country = db.Column(db.String(300), nullable=False)
+    country_id = db.Column(db.Integer, nullable=False)
+    activity_1 = db.Column(db.String(2000), nullable=False)
+    activity_2 = db.Column(db.String(2000), nullable=False)
+    activity_3 = db.Column(db.String(2000), nullable=False)
+    activity_4 = db.Column(db.String(2000), nullable=False)
+    activity_5 = db.Column(db.String(2000), nullable=False)
+    activity_id = db.Column(db.Integer, nullable=False)
+    date_start = db.Column(db.String(20), nullable=False)
+    date_end = db.Column(db.String(20), nullable=False)
+    price_flight = db.Column(db.String(300), nullable=False)
+    price_lodge = db.Column(db.String(300), nullable=False)
+    price_activity_1 = db.Column(db.String(300), nullable=False)
+    price_activity_2 = db.Column(db.String(300), nullable=False)
+    price_activity_3 = db.Column(db.String(300), nullable=False)
+    price_activity_4 = db.Column(db.String(300), nullable=False)
+    price_activity_5 = db.Column(db.String(300), nullable=False)
+
+    @hybrid_property
+    def days(self):
+        if self.date_start and self.date_end:
+            return (self.date_end - self.date_start).days
+        return None
+    
+    @hybrid_property
+    def nights(self):
+        if self.days is not None:
+            return self.days - 1
+        return None
+    
+class Booking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    package_id = db.Column(db.Integer, db.ForeignKey('package.id'), nullable=False)  
+    cust_username = db.Column(db.String(150), nullable=False)
+    country = db.Column(db.String(150), nullable=False)
+    activity = db.Column(db.String(1500), nullable=False)
+    total_price = db.Column(db.Integer, nullable=False)
+    num_of_pax = db.Column(db.Integer, nullable=False)
+    booking_date = db.Column(db.DateTime, nullable=False, default=datetime)
+        
