@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TravelHive - Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='logo_w1.PNG') }}" type="image/icon type">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="/static/logo_w1.png" alt="Logo">
+                </div>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/package">Travel Packages</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/history">Booking</a></li>
+                    <li><a href="/chat">Chat</a></li>    
+                    {% endif %}
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <a href="/logout">Log Out</a>
+                {% else %}
+                <a href="/login">Log In</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    <div class="greet">
+        <h1>Your Cart</h1>
+    </div>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              {% if category == 'alert' %}
+                <div class="flash-message-alert">{{ message }}</div>
+                {% else %}
+                <div class="flash-message-success">{{ message }}</div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+
+    {% if cart_items %}
+    <table class="cart-table">
+        <tr>
+            <th>No.</th>
+            <th>Package</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Dates</th>
+            <th>Actions</th>
+        </tr>
+        {% set counter = 1 %}
+        {% for cart_item in cart_items %}
+        <form action="/cart/update/{{ cart_item.id }}" method="POST">
+        <tr>
+            <td>{{ counter }}</td>
+            <td>{{ cart_item.travel_package.city }}, {{ cart_item.travel_package.country }}</td>
+            <td>RM{{ cart_item.travel_package.price }}</td>
+            <td>
+                <select class="quantity-input" id="quantity-input-{{ cart_item.id }}" name="quantity">
+                    {% for qty in range(1, cart_item.travel_package.availability + 1) %}
+                        <option value="{{ qty }}" {% if qty == cart_item.quantity %}selected{% endif %}>{{ qty }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>{{ cart_item.travel_package.date }} <strong>To</strong> {{ cart_item.travel_package.date_end }}</td>
+            <td>
+                <div class="action-buttons">
+                    <a href="/cart/remove/{{ cart_item.id }}" class="btn btn-remove">Remove</a>
+                    <button type="submit" class="btn btn-update">Update</button>
+                </div>
+            </td>
+        </tr>       
+        </form>      
+        {% set counter = counter + 1 %}
+        {% endfor %}
+        <tr>
+            <td colspan="2" class="total-label">Total</td>
+            <td colspan="2" class="total-price">RM{{ cart_total }}</td>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+    <div class="cart-actions">
+        <a href="/summary" class="btn btn-primary btn-proceed">Proceed</a>
+    </div>
+    {% else %}
+    <p class="cart-empty-msg">Your cart is empty. <strong>unlucky tbh, skill issues D:</strong></p>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/filter.js') }}"></script>
+
+    <footer>
+        <p>&copy; Travel Hive. All rights reserved.</p>
+    </footer>
+</body>
+</html>

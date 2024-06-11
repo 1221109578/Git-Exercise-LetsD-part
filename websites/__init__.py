@@ -19,7 +19,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Seasons, Package
+    from .models import User, Seasons, TravelPackage, Booking, Cart
 
     with app.app_context():
         db.create_all()
@@ -38,7 +38,7 @@ def create_app():
     adminview = Admin(app, index_view=MyAdminIndexView())
     adminview.add_view(MyModelView(User, db.session))
     adminview.add_view(MyModelView(Seasons, db.session))
-    adminview.add_view(MyAdminPackageView(Package, db.session))
+    adminview.add_view(MyAdminPackageView(TravelPackage, db.session))
 
     return app
 
@@ -84,60 +84,3 @@ def Events():
         print("Data already exists, skipping insertion.")
 
     db.session.commit()
-
-
-#def Summer_event():
-#    from .models import Summer
-#
-#    if Summer.query.first() is None:
-#        # List of events
-#            summer_events = [
-#                
-#            ]
-#
-#            for event_data in summer_events:
-#                event2 = Summer(**event_data)
-#                db.session.add(event2)
-#
-#    else:
-#        print("Data already exists, skipping insertion.")
-#
-#    db.session.commit()
-#
-#
-#def Spring_event():
-#    from .models import Spring
-#
-#    if Spring.query.first() is None:
-#        # List of events
-#            spring_events = [
-#                
-#                        ]
-#
-#            for event_data in spring_events:
-#                event3 = Spring(**event_data)
-#                db.session.add(event3)
-#
-#    else:
-#        print("Data already exists, skipping insertion.")
-#
-#    db.session.commit()
-#
-#def Autumn_event():
-#    from .models import Autumn
-#
-#    if Autumn.query.first() is None:
-#        # List of events
-#            autumn_events = [
-#               
-#            ]           
-#
-#            for event_data in autumn_events:
-#                event4 = Autumn(**event_data)
-#                db.session.add(event4)
-#
-#    else:
-#        print("Data already exists, skipping insertion.")
-#
-#    db.session.commit()
-#

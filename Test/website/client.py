@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for
+from flask import Blueprint, render_template, request, flash, redirect ,url_for
 from flask_login import login_required, current_user
-from .models import PaymentMethod, Seasons, TravelPackage, Booking, Cart
-from . import db
+from . import db 
+from .models import TravelPackage, Cart, PaymentMethod, Booking
+import datetime
 
-views = Blueprint('views', __name__)
+client = Blueprint('client', __name__)
 
 months = [
     {'value': '01', 'label': '01 - January'},
@@ -34,75 +35,26 @@ years = [
     {'value': '2032', 'label': '2032'},
 ]
 
-
-@views.route("/", methods=['GET', 'POST'])
+@client.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('Home.html', user=current_user)
+    return render_template("home.html", user=current_user)
 
-@views.route('/myaccount', methods=['GET','POST'])
+@client.route('/myaccount', methods=['GET','POST'])
 @login_required
 def myaccount():
-    #Retrive User's informations
+    # Retrive User's Infromations
     username = current_user.username
-    email   = current_user.email
+    email = current_user.email
     full_name = current_user.full_name
     phone_number = current_user.phone_number
     payment_methods = PaymentMethod.query.filter_by(user_id=current_user.id).all()
-    return render_template('myaccount.html',
-                            user=current_user, 
-                            username=username, 
-                            email=email,
-                            full_name=full_name, 
-                            phone_number=phone_number, 
-                            months=months, 
-                            years=years,
-                            payment_methods=payment_methods
-                            )
 
-@views.route('/winter', methods=['GET'])
-def winter():
+    # Render the html's informations
+    return render_template('myaccount.html', user=current_user, username=username, email=email,
+                           phone_number=phone_number, full_name=full_name, months=months, years=years,
+                           payment_methods=payment_methods)
 
-    # Retrieve all events from the Seasons table
-    main_events = Seasons.query.filter_by(event_id=1)
-
-    return render_template('winter.html', 
-                            user=current_user, 
-                            events=main_events,
-                            )
-
-@views.route('/summer', methods=['GET'])
-def summer():
-    # Retrieve all events from the Seasons table
-    main_events = Seasons.query.filter_by(event_id=2)
-    return render_template('summer.html', 
-                           user=current_user, 
-                           events=main_events,
-                           )
-
-@views.route('/spring', methods=['GET'])
-def spring():
-    # Retrieve all events from the Seasons table
-    main_events = Seasons.query.filter_by(event_id=3)
-    return render_template('spring.html', 
-                           user=current_user, 
-                           events=main_events,
-                           )
-
-@views.route('/autumn', methods=['GET'])
-def autumn():
-    # Retrieve all events from the Seasons table
-    main_events = Seasons.query.filter_by(event_id=4)
-    return render_template('autumn.html', 
-                           user=current_user, 
-                           events=main_events,
-                           )
-
-@views.route("/Booking", methods=['GET', 'POST'])
-@login_required
-def Booking():
-    return render_template('Booking.html', user=current_user)
-
-@views.route('/package', methods=['GET', 'POST'])
+@client.route('/package', methods=['GET', 'POST'])
 def package():
     # Filter Travel Packages' by quering the database
     continents = db.session.query(TravelPackage.continent).distinct().all()
@@ -159,7 +111,7 @@ def package():
                            continents=continents, countries=countries, cities=cities,
                            hotels=hotels, airlines=airlines, paxes=paxes)
 
-@views.route('/add_to_cart/<int:package_id>', methods=['POST'])
+@client.route('/add_to_cart/<int:package_id>', methods=['POST'])
 @login_required
 def add_to_cart(package_id):
     travel_package = TravelPackage.query.get(package_id)
@@ -184,9 +136,9 @@ def add_to_cart(package_id):
     else:
         flash('Travel package not found!', 'alert')
 
-    return redirect(url_for('views.cart'))
+    return redirect(url_for('client.cart'))
 
-@views.route('/cart', methods=['GET','POST'])
+@client.route('/cart', methods=['GET','POST'])
 @login_required
 def cart():
     # Get The Data From User's Cart
@@ -195,7 +147,7 @@ def cart():
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
     return render_template('cart.html',user=current_user, cart_items=cart_items, cart_total=cart_total)
 
-@views.route('/cart/remove/<int:cart_item_id>', methods=['GET'])
+@client.route('/cart/remove/<int:cart_item_id>', methods=['GET'])
 @login_required
 def remove_from_cart(cart_item_id):
     # Get User's Selected Cart Items based on Cart's ID
@@ -209,9 +161,9 @@ def remove_from_cart(cart_item_id):
     else:
         flash('Cart item not found!', 'alert')
 
-    return redirect(url_for('views.cart'))
+    return redirect(url_for('client.cart'))
 
-@views.route('/cart/update/<int:cart_item_id>', methods=['GET', 'POST'])
+@client.route('/cart/update/<int:cart_item_id>', methods=['GET', 'POST'])
 @login_required
 def update_cart_item(cart_item_id):  
     # Get User's Selected Cart Items based on Cart's ID
@@ -231,9 +183,9 @@ def update_cart_item(cart_item_id):
             flash('Item is unavailable', 'alert')
     else:
         flash('Cart item not found!', 'alert')
-    return redirect(url_for('views.cart'))
+    return redirect(url_for('client.cart'))
 
-@views.route('/summary', methods=['GET', 'POST'])
+@client.route('/summary', methods=['GET', 'POST'])
 @login_required
 def summary():
     # Get the require informations to render the template
@@ -245,7 +197,7 @@ def summary():
 
 
 
-@views.route('/cust-info', methods=['GET', 'POST'])
+@client.route('/cust-info', methods=['GET', 'POST'])
 @login_required
 def cust_info():
     cart_items = current_user.carts
@@ -280,7 +232,7 @@ def cust_info():
     return render_template('cust_info.html', user=current_user, form_data=form_data, cart_items=cart_items)
 
 
-@views.route('/checkout', methods=['GET', 'POST'])
+@client.route('/checkout', methods=['GET', 'POST'])
 @login_required
 def checkout():
     # Get User's Cart Data 
@@ -290,7 +242,7 @@ def checkout():
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
     return render_template('checkout.html', user=current_user, cart_items=cart_items, payment_methods=payment_methods, cart_total=cart_total)
 
-@views.route('/payed', methods=['POST', 'GET'])
+@client.route('/payed', methods=['POST', 'GET'])
 @login_required
 def payed():
     # Get the cart items for the current user
@@ -324,16 +276,19 @@ def payed():
                 db.session.commit()
             else:
                 flash(f'Not enough quantity available for package ID {cart_item.travel_package_id}', category='alert')
-                return redirect(url_for('views.cart'))
+                return redirect(url_for('client.cart'))
 
         flash('Booking successful', category='success')
     else:
         flash('No items in the cart', category='alert')
 
-    return redirect(url_for('views.booking_history'))
+    return redirect(url_for('client.booking_history'))
 
-@views.route('/history')
+@client.route('/history')
 @login_required
 def booking_history():
     bookings = Booking.query.filter_by(user_id=current_user.id).all()
     return render_template('history.html', user=current_user, bookings=bookings)
+
+
+

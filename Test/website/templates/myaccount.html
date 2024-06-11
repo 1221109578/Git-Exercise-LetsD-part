@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TravelHive - My Account</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/myaccount.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='logo_w1.PNG') }}" type="image/icon type">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="/static/logo_w1.png" alt="Logo">
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/package">Travel Packages</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="/cart">Cart</a></li>
+                        <li><a href="/myaccount">My Account</a></li>
+                        <li><a href="/history">Booking</a></li>
+                        <li><a href="/chat">Chat</a></li>    
+                        {% endif %}
+                        {% if user.is_admin %}
+                        <li><a href="/admin">Admin</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="auth-buttons">
+                    {% if user.is_authenticated %}
+                    <a href="/logout">Log Out</a>
+                    {% else %}
+                    <a href="/login">Log In</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </header>
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  {% if category == 'alert' %}
+                    <div class="flash-message-alert">{{ message }}</div>
+                    {% else %}
+                    <div class="flash-message-success">{{ message }}</div>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>    
+        <div class="container">
+            <h1>Account Management</h1>
+            <div class="account-info">
+                <h2>Account Information</h2>
+                <form action="/phone" method="POST" id="phone-form">
+                    <label for="full_name">Full Name:</label>
+                    <input type="text" id="full_name" name="full_name" value="{{ full_name }}">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="{{ username }}" disabled>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ email }}" disabled>
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" value="{{ phone_number }}">
+                    <button type="submit">Update informations</button>
+                </form>
+            </div>
+            <div class="password-change">
+                <h2>Change Password</h2>
+                <form action="/pass" method="POST">
+                    <label for="current-password">Current Password:</label>
+                    <input type="password" id="current-password" name="current-password" >
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" name="new-password" >
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" >
+                    <button type="submit">Change Password</button>
+                </form>
+            </div>
+            <div class="payment-method">
+                <h2>Your Payment Methods</h2>
+                {% if payment_methods %}
+                <div class="payment-info">
+                    {% for payment_method in payment_methods %}
+                    <label>Cardholder Name: </label>
+                    <input type="text" id="cardholder_name" value="{{ payment_method.cardholder_name }}" disabled>
+                    <label>Card Number: </label>
+                    <input type="text" id="card-number" value="**** **** **** {{ payment_method.card_number_last_digits }}" disabled>
+                    <label>Expiry Date: </label>
+                    <input type="text" id="expiry-date" value="{{ payment_method.expiry_month }}/{{ payment_method.expiry_year }}" disabled>
+                    <div class="action-buttons">
+                        <a href="/payment/remove/{{ payment_method.id }}" class="btn btn-remove">Remove</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <h4> You haven't added any payment informations :C </h4>
+                {% endif %}
+                <h2>Payment Methods</h2>
+                <form action="/payment" method="POST">
+                    <label for="cardholder_name">Cardholder Name:</label>
+                    <input type="text" id="cardholder_name" name="cardholder_name" required>
+                    <label for="card-number">Card Number:</label>
+                    <input type="number" id="card-number" name="card-number" required>
+                    <div class="expiry-date">
+                        <label for="expiry-month">Expiry Date:</label>
+                        <div class="expiry-select">
+                            <select id="expiry-month" name="expiry-month">
+                                {% for month in months %}
+                                <option value="{{ month.value }}">{{ month.label }}</option>
+                                {% endfor %}
+                            </select>
+                            <select id="expiry-year" name="expiry-year">
+                                {% for year in years %}
+                                <option value="{{ year.value }}">{{ year.label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <label for="cvv">CVV:</label>
+                    <input type="number" id="cvv" name="cvv" required>
+                    <button type="submit">Add Payment Method</button>
+                </form>
+            </div>    
+        </div>
+        <footer>
+            <p>&copy; Travel Hive. All rights reserved.</p>
+        </footer>
+    </body>
+</html>

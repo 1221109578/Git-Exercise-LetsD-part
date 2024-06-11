@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+</head>
+<header>
+    <nav>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="/static/logo_w1.png" alt="Logo">
+            </div>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/package">Travel Packages</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="/cart">Cart</a></li>
+                <li><a href="/myaccount">My Account</a></li>
+                <li><a href="/history">Booking</a></li>
+                <li><a href="/chat">Chat</a></li>    
+                {% endif %}
+                {% if user.is_admin %}
+                <li><a href="/admin">Admin</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="auth-buttons">
+            {% if user.is_authenticated %}
+            <a href="/logout">Log Out</a>
+            {% else %}
+            <a href="/login">Log In</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="main-container">
+        <div class="chat-container" id="message-container">
+            <h1>Chat</h1>
+            <h2>Welcome, {{ user.username }}!</h2>
+        
+            <div id="message-container">
+                <!-- Message container to display messages -->
+            </div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button class="button" id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <script>
+        // Client-side JavaScript code for chat functionality
+        const socket = io();
+        const messageContainer = document.getElementById('message-container');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const username = '{{ username }}'; // Retrieve the username from the server-side template
+        const room = '{{ room }}'; // Retrieve the room name from the server-side template
+        
+        // Function to add a new message to the message container
+        function addMessage(username, message, isAdmin = false) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            const usernameText = isAdmin ? `${username} (admin):` : `${username}:`;
+            messageElement.innerHTML = `<span class="username">${usernameText} </span><span class="message-content">${message}</span>`;
+            messageContainer.appendChild(messageElement);
+            
+            // Scroll to the bottom of the message container
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+        
+        // Receive chat history when joining the room
+        socket.on('chat_history', (chatHistory) => {
+            chatHistory.forEach((message) => {
+                addMessage(message.username, message.message, message.isAdmin);
+            });
+            
+            // Scroll to the bottom of the message container after adding chat history
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        });
+        
+        // Receive new messages from the server and append them to the message container
+        socket.on('new_message', (data) => {
+            addMessage(data.username, data.message, data.isAdmin);
+            
+            // Scroll to the bottom of the message container after adding new message
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        });
+        
+        // Join the room when the page is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            socket.emit('join', { username, room, admin: 'assigned_admin' });
+        });
+
+        // Function to handle sending a message
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                socket.emit('message', { username, message, room });
+                messageInput.value = '';
+            }
+        }
+
+        // Send message when the send button is clicked
+        sendButton.addEventListener('click', () => {
+            sendMessage();
+        });
+
+        // Send message when Enter key is pressed in the message input field
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+    <footer>
+        <p>&copy; Travel Hive. All rights reserved.</p>
+    </footer>
+</body>
+</html>

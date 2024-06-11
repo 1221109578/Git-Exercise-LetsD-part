@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TravelHive</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='logo_w1.PNG') }}" type="image/icon type">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="/static/logo_w1.png" alt="Logo">
+                </div>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/package">Travel Packages</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/history">Booking</a></li>
+                    <li><a href="/chat">Chat</a></li>    
+                    {% endif %}
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <a href="/logout">Log Out</a>
+                {% else %}
+                <a href="/login">Log In</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Explore the World</h1>
+            <p>Discover amazing destinations and create unforgettable memories.</p>
+            <a href="/package" class="btn">Book Now</a>
+        </div>
+    </section>
+
+    <section class="destination-section">
+        <h2>Popular Destinations</h2>
+        <div class="destination-cards">
+            <div class="destination-card">
+                <img src="/static/japan.webp" alt="Japan">
+                <h3>Explore the Land of the Rising Sun</h3>
+                <p>Immerse yourself in the unique culture, rich history, and stunning landscapes of Japan.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+            <div class="destination-card">
+                <img src="/static/Italy.webp" alt="Italy">
+                <h3>Experience the Charm of Italy</h3>
+                <p>Indulge in delicious cuisine, marvel at ancient architecture, and soak up the romantic ambiance of Italy.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+            <div class="destination-card">
+                <img src="/static/Bali.jpg" alt="Bali, Indonesia">
+                <h3>Discover the Tropical Paradise of Bali</h3>
+                <p>Relax on stunning beaches, witness breathtaking sunsets, and explore the vibrant culture of Bali, Indonesia.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; Travel Hive. All rights reserved.</p>
+    </footer>
+</body>
+</html>

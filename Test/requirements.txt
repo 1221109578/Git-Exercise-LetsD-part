@@ -1,0 +1,8 @@
+Flask==2.3.2
+Flask_Admin==1.6.1
+Flask_Login==0.6.2
+Flask_SocketIO==5.3.4
+flask_sqlalchemy==3.0.5
+SQLAlchemy==2.0.15
+Werkzeug==2.3.4
+WTForms==3.0.1

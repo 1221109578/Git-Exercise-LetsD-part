@@ -153,7 +153,7 @@
                     <p><strong>Hotel:</strong> {{ package.hotel_name }}</p>
                     <p><strong>Pax:</strong> {{ package.pax }}</p>
                 </div>
-                <form action="{{ url_for('views.add_to_cart', package_id=package.id) }}" method="POST">
+                <form action="{{ url_for('client.add_to_cart', package_id=package.id) }}" method="POST">
                     <button type="submit" class="btn btn-primary">Book Now</button>
                     <div class="quantity-input">
                         <label for="quantity">Quantity:</label>
