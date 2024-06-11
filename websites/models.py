@@ -31,14 +31,6 @@ class Seasons(db.Model):
     date = db.Column(db.String(150), nullable=False)
     event_id = db.Column(db.Integer, nullable=False)
 
-#--------------------------
-
-class Cart(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    travel_package_id = db.Column(db.Integer, db.ForeignKey('travel_package.id'), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-
 class TravelPackage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     continent = db.Column(db.String(100))  
@@ -56,7 +48,6 @@ class TravelPackage(db.Model):
     availability = db.Column(db.Integer)
     image_url = db.Column(db.String(200))
     carts = db.relationship('Cart', backref='travel_package', lazy=True)
-
 
     @hybrid_property
     def days(self):
@@ -77,6 +68,15 @@ class Booking(db.Model):
     buyers_username = db.Column(db.String(150), nullable=False)
     package_place = db.Column(db.String(150), nullable=False)
     total_price = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    booking_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user = db.relationship('User', backref='bookings')
+    travel_package = db.relationship('TravelPackage', backref='bookings')
+        
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    travel_package_id = db.Column(db.Integer, db.ForeignKey('travel_package.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     booking_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user = db.relationship('User', backref='bookings')

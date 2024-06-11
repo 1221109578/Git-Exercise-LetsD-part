@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TravelHive - Travel Packages</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/package.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='logo_w1.PNG') }}" type="image/icon type">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LetsD'part</title>
+    <link rel="stylesheet" href="static/css/Home.css">
+    <link rel="stylesheet" href="static/css/countries.css">
+    <link rel="icon" href="\static\Logo.png" type="image/icon type">
 </head>
 <body>
     <header>
@@ -20,12 +23,12 @@
                     {% if user.is_authenticated %}
                     <li><a href="/cart">Cart</a></li>
                     <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/history">Booking</a></li>
-                    <li><a href="/chat">Chat</a></li>    
+                    <li><a href="/Booking">Booking</a></li>
+                    <li><a href="/chat">Chat</a></li> 
                     {% endif %}
                     {% if user.is_admin %}
-                    <li><a href="/admin">Admin</a></li>
-                    {% endif %}
+                    <li><a href="/admin">Admin</a></li>   
+                    {% endif %} 
                 </ul>
             </div>
             <div class="auth-buttons">
@@ -45,16 +48,6 @@
         <section id="filter-section" class="filter-section">
             <div class="filter-box">
                 <form action="/package" method="get" class="filter-form">
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="continent">Continent:</label>
-                            <select name="continent" id="continent">
-                                <option value="">All</option>
-                                {% for continent in continents %}
-                                <option value="{{ continent[0] }}">{{ continent[0] }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
                         <div class="filter-group">
                             <label for="country">Country:</label>
                             <select name="country" id="country">
@@ -153,7 +146,7 @@
                     <p><strong>Hotel:</strong> {{ package.hotel_name }}</p>
                     <p><strong>Pax:</strong> {{ package.pax }}</p>
                 </div>
-                <form action="{{ url_for('views.add_to_cart', package_id=package.id) }}" method="POST">
+                <form action="{{ url_for('client.add_to_cart', package_id=package.id) }}" method="POST">
                     <button type="submit" class="btn btn-primary">Book Now</button>
                     <div class="quantity-input">
                         <label for="quantity">Quantity:</label>
@@ -174,9 +167,6 @@
     {% endfor %}
 {% endif %}
 
-
-    <footer>
-        <p>&copy; Travel Hive. All rights reserved.</p>
-    </footer>
+<footer>© 2024 LetsD'Part. All rights reserved.</footer>
 </body>
 </html>
