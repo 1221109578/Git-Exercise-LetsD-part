@@ -97,14 +97,9 @@ def autumn():
     return render_template('autumn.html', 
                            user=current_user, 
                            events=main_events,
-                           )
+                           event_id=4)
 
-@views.route("/Booking", methods=['GET', 'POST'])
-@login_required
-def booking():
-    return render_template('Booking.html', user=current_user)
-
-@views.route('/package', methods=['GET', 'POST'])
+@views.route("/package")
 def package():
     # Filter Travel Packages' by quering the database
     continents = db.session.query(TravelPackage.continent).distinct().all()
@@ -160,6 +155,23 @@ def package():
     return render_template('package.html', travel_packages=travel_packages, user=current_user,
                            continents=continents, countries=countries, cities=cities,
                            hotels=hotels, airlines=airlines, paxes=paxes)
+    
+    
+
+@views.route("/Booking", methods=['GET', 'POST'])
+@login_required
+def booking():
+    return render_template('Booking.html', user=current_user)
+
+@views.route('/cart', methods=['GET','POST'])
+@login_required
+def cart():
+    # Get The Data From User's Cart
+    cart_items = current_user.carts
+    # Calculate Cart's Total Price
+    cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+    return render_template('cart.html',user=current_user, cart_items=cart_items, cart_total=cart_total)
+
 
 @views.route('/add_to_cart/<int:package_id>', methods=['POST'])
 @login_required
@@ -188,15 +200,6 @@ def add_to_cart(package_id):
 
     return redirect(url_for('views.cart'))
 
-@views.route('/cart', methods=['GET','POST'])
-@login_required
-def cart():
-    # Get The Data From User's Cart
-    cart_items = current_user.carts
-    # Calculate Cart's Total Price
-    cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
-    return render_template('cart.html',user=current_user, cart_items=cart_items, cart_total=cart_total)
-
 @views.route('/cart/remove/<int:cart_item_id>', methods=['GET'])
 @login_required
 def remove_from_cart(cart_item_id):
@@ -211,7 +214,7 @@ def remove_from_cart(cart_item_id):
     else:
         flash('Cart item not found!', 'alert')
 
-    return redirect(url_for('client.cart'))
+    return redirect(url_for('views.cart'))
 
 @views.route('/cart/update/<int:cart_item_id>', methods=['GET', 'POST'])
 @login_required
@@ -233,7 +236,7 @@ def update_cart_item(cart_item_id):
             flash('Item is unavailable', 'alert')
     else:
         flash('Cart item not found!', 'alert')
-    return redirect(url_for('client.cart'))
+    return redirect(url_for('views.cart'))
 
 @views.route('/summary', methods=['GET', 'POST'])
 @login_required
@@ -289,7 +292,7 @@ def checkout():
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
     return render_template('checkout.html', user=current_user, cart_items=cart_items, payment_methods=payment_methods, cart_total=cart_total)
 
-views.route('/payed', methods=['POST', 'GET'])
+@views.route('/payed', methods=['POST', 'GET'])
 @login_required
 def paid():
     # Get the cart items for the current user
@@ -329,7 +332,7 @@ def paid():
     else:
         flash('No items in the cart', category='alert')
 
-    return redirect(url_for('client.booking_history'))
+    return redirect(url_for('views.booking_history'))
 
 @views.route('/history')
 @login_required
