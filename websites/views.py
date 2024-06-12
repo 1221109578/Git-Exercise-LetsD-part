@@ -282,6 +282,8 @@ def cust_info():
 
     return render_template('cust_info.html', user=current_user, form_data=form_data, cart_items=cart_items)
 
+#-------
+
 @views.route('/checkout', methods=['GET', 'POST'])
 @login_required
 def checkout():
@@ -298,6 +300,8 @@ def paid():
     # Get the cart items for the current user
     cart_items = Cart.query.filter_by(user_id=current_user.id).all()
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+
+    
 
     if cart_items:
         for cart_item in cart_items:
