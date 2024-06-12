@@ -16,3 +16,7 @@ class MyAdminIndexView(AdminIndexView):
 class MyAdminPackageView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
+
+class AdminHistory(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin

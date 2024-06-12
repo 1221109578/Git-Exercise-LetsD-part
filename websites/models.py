@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     phone_number = db.Column(db.String(10))
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
+    carts = db.relationship('Cart', backref='user', lazy=True)
     payment_methods = db.relationship('PaymentMethod', backref='user', lazy=True)
 
 class PaymentMethod(db.Model):
@@ -40,8 +41,6 @@ class TravelPackage(db.Model):
     country = db.Column(db.String(100))
     description = db.Column(db.String(500))
     price = db.Column(db.Float)
-    days = db.Column(db.Integer)
-    nights = db.Column(db.Integer)
     date = db.Column(db.Date)
     date_end = db.Column(db.Date)
     airline_name = db.Column(db.String(100))

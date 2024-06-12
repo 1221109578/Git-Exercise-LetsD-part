@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LetsD'part</title>
     <link rel="stylesheet" href="static/css/Home.css">
-    <link rel="stylesheet" href="static/css/countries.css">
+    <link rel="stylesheet" href="static/css/summary.css">
     <link rel="icon" href="\static\Logo.png" type="image/icon type">
 </head>
 <body>
@@ -22,7 +22,8 @@
                     <li><a href="/package">Travel Packages</a></li>
                     {% if user.is_authenticated %}
                     <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/Booking">Booking</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/history">History</a></li>
                     <li><a href="/chat">Chat</a></li> 
                     {% endif %}
                     {% if user.is_admin %}
