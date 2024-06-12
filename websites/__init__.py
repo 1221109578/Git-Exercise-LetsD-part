@@ -19,11 +19,12 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Seasons
+    from.models import User, Seasons, TravelPackage, Booking
 
     with app.app_context():
         db.create_all()
         Events() # Insert data after creating the tables
+        
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -33,10 +34,12 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
     
-    from .admin import MyModelView, MyAdminIndexView
+    from .admin import MyModelView, MyAdminIndexView, MyAdminPackageView, AdminHistory
     adminview = Admin(app, index_view=MyAdminIndexView())
     adminview.add_view(MyModelView(User, db.session))
     adminview.add_view(MyModelView(Seasons, db.session))
+    adminview.add_view(MyAdminPackageView(TravelPackage, db.session))
+    adminview.add_view(AdminHistory(Booking, db.session))
 
     return app
 
@@ -77,7 +80,7 @@ def Events():
         for event_data in main_events:
             event1 = Seasons(**event_data)
             db.session.add(event1)
-
+            
     else:
         print("Data already exists, skipping insertion.")
 
