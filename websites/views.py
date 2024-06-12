@@ -37,7 +37,10 @@ years = [
 
 @views.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('Home.html', user=current_user)
+    username = current_user.username
+    return render_template('Home.html',
+                            username = username,
+                            user=current_user)
 
 @views.route('/myaccount', methods=['GET','POST'])
 @login_required
@@ -64,9 +67,11 @@ def winter():
 
     # Retrieve all events from the Seasons table
     main_events = Seasons.query.filter_by(event_id=1)
+    username = current_user.username
 
     return render_template('winter.html', 
                             user=current_user, 
+                            username=username,
                             events=main_events,
                             )
 
@@ -74,8 +79,10 @@ def winter():
 def summer():
     # Retrieve all events from the Seasons table
     main_events = Seasons.query.filter_by(event_id=2)
+    username = current_user.username
     return render_template('summer.html', 
-                           user=current_user, 
+                           user=current_user,
+                           username = username,
                            events=main_events,
                            )
 
@@ -83,8 +90,10 @@ def summer():
 def spring():
     # Retrieve all events from the Seasons table
     main_events = Seasons.query.filter_by(event_id=3)
+    username = current_user.username
     return render_template('spring.html', 
-                           user=current_user, 
+                           user=current_user,
+                           username = username, 
                            events=main_events,
                            )
 
@@ -92,19 +101,27 @@ def spring():
 def autumn():
     # Retrieve all events from the Seasons table
     main_events = Seasons.query.filter_by(event_id=4)
+    username = current_user.username
     return render_template('autumn.html', 
                            user=current_user, 
+                           username = username,
                            events=main_events,
                            )
 
 @views.route("/package")
 def package():
-    return render_template('package.html', user=current_user)
+    username = current_user.username
+    return render_template('package.html',
+                            user=current_user,
+                            username = username,)
 
 @views.route("/Booking")
 @login_required
 def Booking():
-    return render_template('Booking.html', user=current_user)
+    username = current_user.username
+    return render_template('Booking.html', 
+                           username = username,
+                           user=current_user)
 
 @views.route("/Iceland")
 @login_required
