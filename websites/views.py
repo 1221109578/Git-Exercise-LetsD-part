@@ -293,7 +293,7 @@ def checkout():
     # Calculate Cart's Total
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
 
-    if not payment_methods:
+    if not payment_methods: # Will automatically redirect to the MyAccount page to add payment method.
         flash('Please add a payment method first', 'alert')
         return redirect(url_for('views.myaccount'))
     return render_template('checkout.html', user=current_user, cart_items=cart_items, payment_methods=payment_methods, cart_total=cart_total)
