@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LetsD'Part - Booking</title>
+    <link rel="stylesheet" href="static/css/summary.css">
+    <link rel= "icon" href="\static\Logo.png" type="image/icon type">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="/static/Logo.png" alt="Logo">
+                </div>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/package">Travel Packages</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/myaccount">My Account</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/history">History</a></li>
+                    <li><a href="/chat">Chat</a></li> 
+                    {% endif %}
+                    {% if user.is_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}   
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <a href="/logout">Log Out</a>
+                {% else %}
+                <a href="/login">Log In</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <div class="greet">
+        <h1>Payment</h1>
+    </div>
+    {% if cart_items %}
+    <table class="cart-table">
+        <tr>
+            <th>No.</th>
+            <th>Package</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Dates</th>
+        </tr>
+        {% set counter = 1 %}
+        {% for cart_item in cart_items %}
+        <form action="/cart/update/{{ cart_item.id }}" method="POST">
+        <tr>
+            <td>{{ counter }}</td>
+            <td>{{ cart_item.travel_package.city }}, {{ cart_item.travel_package.country }}</td>
+            <td>RM{{ cart_item.travel_package.price }}</td>
+            <td>
+                {{ cart_item.quantity }}
+            </td>
+            <td>{{ cart_item.travel_package.date }} <strong>To</strong> {{ cart_item.travel_package.date_end }}</td>
+        </tr>       
+        </form>      
+        {% set counter = counter + 1 %}
+        {% endfor %}
+        <tr>
+            <td colspan="2" class="total-label">Total</td>
+            <td colspan="2" class="total-price">RM{{ cart_total }}</td>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+    <div class="container">
+        <div class="payment-method">
+            <h2 class="payment-method-heading">Payment Method</h2>
+            {% if payment_methods %}
+            <div class="payment-info">
+                {% for payment_method in payment_methods %}
+                <label for="cardholder_name_{{ payment_method.id }}">Cardholder Name: </label>
+                <input type="text" id="cardholder_name_{{ payment_method.id }}" value="{{ payment_method.cardholder_name }}" disabled>
+                <label for="card_number_{{ payment_method.id }}">Card Number: </label>
+                <input type="text" id="card_number_{{ payment_method.id }}" value="**** **** **** {{ payment_method.card_number_last_digits }}" disabled>
+                <label for="expiry_date_{{ payment_method.id }}">Expiry Date: </label>
+                <input type="text" id="expiry_date_{{ payment_method.id }}" value="{{ payment_method.expiry_month }}/{{ payment_method.expiry_year }}" disabled>
+                {% endfor %}
+                <div class="cart-actions">
+                    <a href="/myaccount" class="btn-proceed">Change Payment Method</a>
+                </div>
+            </div>       
+            {% else %}
+            <h2> You have not add your payment method yet.</h2>
+            <a href="/myaccount"> Click here to add your payment method now!</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="cart-actions">
+        <a href="/payed" class="btn-proceed">Confirm Payment</a>
+    </div>
+    {% else %}
+    <p class="cart-empty-msg">Your cart is empty. <strong>:c</strong></p>
+    {% endif %}
+
+    <footer>© 2024 LetsD'Part. All rights reserved.</footer>
+</body>
+</html> 

@@ -11,7 +11,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     phone_number = db.Column(db.String(10))
-    is_admin = db.Column(db.Boolean, default=False)
+    is_admin = db.Column(db.Boolean, default=False, nullable=False)
+    carts = db.relationship('Cart', backref='user', lazy=True)
     payment_methods = db.relationship('PaymentMethod', backref='user', lazy=True)
 
 class PaymentMethod(db.Model):
@@ -24,9 +25,58 @@ class PaymentMethod(db.Model):
     card_number_last_digits = db.Column(db.String(200), nullable=False)
     cvv_hash = db.Column(db.String(200),nullable=False)
 
+
+#------
 class Seasons(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(150), nullable=False)
     country = db.Column(db.String(150), nullable=False)
     date = db.Column(db.String(150), nullable=False)
     event_id = db.Column(db.Integer, nullable=False)
+
+class TravelPackage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    continent = db.Column(db.String(100))  
+    city = db.Column(db.String(100))
+    country = db.Column(db.String(100))
+    description = db.Column(db.String(500))
+    price = db.Column(db.Float)
+    date = db.Column(db.Date)
+    date_end = db.Column(db.Date)
+    airline_name = db.Column(db.String(100))
+    hotel_name = db.Column(db.String(100))
+    pax = db.Column(db.Integer)
+    availability = db.Column(db.Integer)
+    image_url = db.Column(db.String(200))
+    carts = db.relationship('Cart', backref='travel_package', lazy=True)
+
+    @hybrid_property
+    def days(self):
+        if self.date_start and self.date_end:
+            return (self.date_end - self.date_start).days
+        return None
+    
+    @hybrid_property
+    def nights(self):
+        if self.days is not None:
+            return self.days - 1
+        return None
+    
+class Booking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    package_id = db.Column(db.Integer, db.ForeignKey('travel_package.id'), nullable=False)  
+    buyers_username = db.Column(db.String(150), nullable=False)
+    package_place = db.Column(db.String(150), nullable=False)
+    total_price = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    booking_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user = db.relationship('User', backref='bookings')
+    travel_package = db.relationship('TravelPackage', backref='bookings')
+        
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    travel_package_id = db.Column(db.Integer, db.ForeignKey('travel_package.id'), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+
