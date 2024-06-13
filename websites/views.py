@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect ,url_for
+from flask import Blueprint, render_template, request, redirect, flash, url_for
 from flask_login import login_required, current_user
 from . import create_app
 from .models import PaymentMethod, Seasons, TravelPackage, Cart, Booking
@@ -61,41 +61,39 @@ def myaccount():
                             payment_methods=payment_methods
                             )
 
-#-----
-
 @views.route('/winter', methods=['GET'])
 def winter():
+
     # Retrieve all events from the Seasons table
-    main_events = Seasons.query.all()
+    main_events = Seasons.query.filter_by(event_id=1)
+
     return render_template('winter.html', 
-                           user=current_user, 
-                           events=main_events,
-                           event_id = 1)
+                            user=current_user, 
+                            events=main_events,
+                            )
 
 @views.route('/summer', methods=['GET'])
 def summer():
     # Retrieve all events from the Seasons table
-    main_events = Seasons.query.all()
+    main_events = Seasons.query.filter_by(event_id=2)
     return render_template('summer.html', 
                            user=current_user, 
                            events=main_events,
-                           event_id = 2
                            )
 
 @views.route('/spring', methods=['GET'])
 def spring():
     # Retrieve all events from the Seasons table
-    main_events = Seasons.query.all()
+    main_events = Seasons.query.filter_by(event_id=3)
     return render_template('spring.html', 
                            user=current_user, 
                            events=main_events,
-                           event_id=3,
                            )
 
 @views.route('/autumn', methods=['GET'])
 def autumn():
     # Retrieve all events from the Seasons table
-    main_events = Seasons.query.all()
+    main_events = Seasons.query.filter_by(event_id=4)
     return render_template('autumn.html', 
                            user=current_user, 
                            events=main_events,
@@ -240,7 +238,7 @@ def update_cart_item(cart_item_id):
         flash('Cart item not found!', 'alert')
     return redirect(url_for('views.cart'))
 
-@views.route('/summary', methods=['GET', 'POST'])
+@views.route('/summary', methods=['GET', 'POST']) 
 @login_required
 def summary():
     # Get the require informations to render the template
@@ -284,6 +282,8 @@ def cust_info():
 
     return render_template('cust_info.html', user=current_user, form_data=form_data, cart_items=cart_items)
 
+#-------
+
 @views.route('/checkout', methods=['GET', 'POST'])
 @login_required
 def checkout():
@@ -292,6 +292,10 @@ def checkout():
     payment_methods = PaymentMethod.query.filter_by(user_id=current_user.id).all()
     # Calculate Cart's Total
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+
+    if not payment_methods: # Will automatically redirect to the MyAccount page to add payment method.
+        flash('Please add a payment method first', 'alert')
+        return redirect(url_for('views.myaccount'))
     return render_template('checkout.html', user=current_user, cart_items=cart_items, payment_methods=payment_methods, cart_total=cart_total)
 
 @views.route('/payed', methods=['POST', 'GET'])
@@ -300,6 +304,8 @@ def paid():
     # Get the cart items for the current user
     cart_items = Cart.query.filter_by(user_id=current_user.id).all()
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+
+    
 
     if cart_items:
         for cart_item in cart_items:

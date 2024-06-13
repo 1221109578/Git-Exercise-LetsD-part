@@ -25,8 +25,6 @@ class PaymentMethod(db.Model):
     card_number_last_digits = db.Column(db.String(200), nullable=False)
     cvv_hash = db.Column(db.String(200),nullable=False)
 
-
-#------
 class Seasons(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(150), nullable=False)
@@ -52,10 +50,10 @@ class TravelPackage(db.Model):
 
     @hybrid_property
     def days(self):
-        if self.date_start and self.date_end:
-            return (self.date_end - self.date_start).days
+        if self.date and self.date_end:
+            return (self.date_end - self.date).days
         return None
-    
+
     @hybrid_property
     def nights(self):
         if self.days is not None:
@@ -71,7 +69,7 @@ class Booking(db.Model):
     total_price = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     booking_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    user = db.relationship('User', backref='bookings')
+    user = db.relationship('User', backref='booking')
     travel_package = db.relationship('TravelPackage', backref='bookings')
         
 class Cart(db.Model):
@@ -79,4 +77,3 @@ class Cart(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     travel_package_id = db.Column(db.Integer, db.ForeignKey('travel_package.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-
