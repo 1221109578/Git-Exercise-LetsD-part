@@ -238,7 +238,7 @@ def update_cart_item(cart_item_id):
         flash('Cart item not found!', 'alert')
     return redirect(url_for('views.cart'))
 
-@views.route('/summary', methods=['GET', 'POST'])
+@views.route('/summary', methods=['GET', 'POST']) 
 @login_required
 def summary():
     # Get the require informations to render the template
@@ -292,6 +292,10 @@ def checkout():
     payment_methods = PaymentMethod.query.filter_by(user_id=current_user.id).all()
     # Calculate Cart's Total
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+
+    if not payment_methods: # Will automatically redirect to the MyAccount page to add payment method.
+        flash('Please add a payment method first', 'alert')
+        return redirect(url_for('views.myaccount'))
     return render_template('checkout.html', user=current_user, cart_items=cart_items, payment_methods=payment_methods, cart_total=cart_total)
 
 @views.route('/payed', methods=['POST', 'GET'])
