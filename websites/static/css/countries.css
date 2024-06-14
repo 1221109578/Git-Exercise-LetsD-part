@@ -76,6 +76,7 @@ footer {
 .profile {
     position: relative;
     display: inline-block;
+    text-align: center;
 }
 
 .profile > a {
@@ -94,9 +95,9 @@ footer {
 
 .profile .dropdown {
     display: none;
-    position: absolute;
-    top: 30px;
-    left: -63px;
+    position: fixed;
+    top: 55px;
+    right: 9px;
     background-color: #5aafff;
     border-radius: 10px;
     z-index: 999;

@@ -30,11 +30,7 @@
                 <a href="#">{{ user.username }}</a>
                 <ul class="dropdown">
                     {% if user.is_admin %}
-                    <li><a href="/admin">Admin</a></li>
                     {% endif %}
-                    {% if user.is_authenticated %}
-                    <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/logout">Log Out</a></li>
                     {% endif %}
                 </ul>
                 {% else %}
