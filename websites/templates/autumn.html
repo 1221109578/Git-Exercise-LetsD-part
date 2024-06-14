@@ -18,24 +18,13 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/package">Travel Packages</a></li>
                     {% if user.is_authenticated %}
-<<<<<<< HEAD
                     <li><a href="/cart">Cart</a></li>  
-=======
-                    <li><a href="/myaccount">My Account</a></li>
-                    <li><a href="/cart">Cart</a></li>
-                    <li><a href="/history">Booking</a></li>
-                    
->>>>>>> origin/main
                     {% endif %}
                 </ul>
             </div>
             <div class="profile">
                 {% if user.is_authenticated %}
-<<<<<<< HEAD
                 <a href="#">{{ user.username }}</a>
-=======
-                <a href="#">Option</a>
->>>>>>> origin/main
                 <ul class="dropdown">
                     {% if user.is_admin %}
                     <li><a href="/admin">Admin</a></li>
