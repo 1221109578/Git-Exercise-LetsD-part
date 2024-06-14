@@ -48,6 +48,7 @@ def create_database(app):
         db.create_all(app=app)
         print('Created Database!')
 
+#Inserting data into table Seasons
 def Events():
     from .models import Seasons
 

@@ -64,7 +64,7 @@ def myaccount():
 @views.route('/winter', methods=['GET'])
 def winter():
 
-    # Retrieve all events from the Seasons table
+    #Retrieve events the id of 1 from the Seasons table
     main_events = Seasons.query.filter_by(event_id=1)
 
     return render_template('winter.html', 
@@ -74,7 +74,7 @@ def winter():
 
 @views.route('/summer', methods=['GET'])
 def summer():
-    # Retrieve all events from the Seasons table
+    #Retrieve events the id of 2 from the Seasons table
     main_events = Seasons.query.filter_by(event_id=2)
     return render_template('summer.html', 
                            user=current_user, 
@@ -83,7 +83,7 @@ def summer():
 
 @views.route('/spring', methods=['GET'])
 def spring():
-    # Retrieve all events from the Seasons table
+    #Retrieve events the id of 3 from the Seasons table
     main_events = Seasons.query.filter_by(event_id=3)
     return render_template('spring.html', 
                            user=current_user, 
@@ -92,7 +92,7 @@ def spring():
 
 @views.route('/autumn', methods=['GET'])
 def autumn():
-    # Retrieve all events from the Seasons table
+    #Retrieve events the id of 4 from the Seasons table
     main_events = Seasons.query.filter_by(event_id=4)
     return render_template('autumn.html', 
                            user=current_user, 
