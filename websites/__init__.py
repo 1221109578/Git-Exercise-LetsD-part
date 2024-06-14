@@ -52,7 +52,7 @@ def Events():
     from .models import Seasons
 
     if Seasons.query.first() is None:
-    # List of events
+    # List of eventsw
         main_events = [
             {"event_name": "Jorvik Viking Festivals", "country": "United Kingdom", "date": "20-27 February 2024", "event_id": "1"},
             {"event_name": "Coastival Arts Festival", "country": "United Kingdom", "date": "22-24 February 2024", "event_id": "1"},
