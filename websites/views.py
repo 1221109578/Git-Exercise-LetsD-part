@@ -103,207 +103,298 @@ def autumn():
 
 @views.route("/package")
 def package():
-    # Filter Travel Packages' by quering the database
+    # Define a route for the /package endpoint
+    # Filter Travel Packages by querying the database
     continents = db.session.query(TravelPackage.continent).distinct().all()
+    # Get a list of unique continents from the TravelPackage table
     countries = db.session.query(TravelPackage.country).distinct().all()
+    # Get a list of unique countries from the TravelPackage table
     cities = db.session.query(TravelPackage.city).distinct().all()
+    # Get a list of unique cities from the TravelPackage table
     hotels = db.session.query(TravelPackage.hotel_name).distinct().all()
+    # Get a list of unique hotel names from the TravelPackage table
     airlines = db.session.query(TravelPackage.airline_name).distinct().all()
+    # Get a list of unique airline names from the TravelPackage table
     paxes = db.session.query(TravelPackage.pax).distinct().all()
+    # Get a list of unique pax values from the TravelPackage table
 
     # Get The Users' Filter From The Filter Form From HTML
     continent = request.args.get('continent')
+    # Get the selected continent from the request arguments
     country = request.args.get('country')
+    # Get the selected country from the request arguments
     city = request.args.get('city')
+    # Get the selected city from the request arguments
     price_min = request.args.get('price_min')
+    # Get the minimum price from the request arguments
     price_max = request.args.get('price_max')
+    # Get the maximum price from the request arguments
     hotel = request.args.get('hotel')
+    # Get the selected hotel from the request arguments
     airline = request.args.get('airline')
+    # Get the selected airline from the request arguments
     pax = request.args.get('pax')
+    # Get the selected pax value from the request arguments
     date_start = request.args.get('date_start')
+    # Get the start date from the request arguments
     date_end = request.args.get('date_end')
+    # Get the end date from the request arguments
 
     # See if the conditions matches with the users' preferences
     query = db.session.query(TravelPackage)
+    # Initialize a query object for the TravelPackage table
     if continent:
         query = query.filter_by(continent=continent)
+        # Filter the query by continent if a value is provided
     if country:
         query = query.filter_by(country=country)
+        # Filter the query by country if a value is provided
     if city:
         query = query.filter_by(city=city)
+        # Filter the query by city if a value is provided
     if price_min:
         query = query.filter(TravelPackage.price >= price_min)
+        # Filter the query by minimum price if a value is provided
     if price_max:
         query = query.filter(TravelPackage.price <= price_max)
+        # Filter the query by maximum price if a value is provided
     if hotel:
         query = query.filter_by(hotel_name=hotel)
+        # Filter the query by hotel name if a value is provided
     if airline:
         query = query.filter_by(airline_name=airline)
+        # Filter the query by airline name if a value is provided
     if pax:
         query = query.filter_by(pax=pax)
+        # Filter the query by pax value if a value is provided
     if date_start:
         query = query.filter(TravelPackage.date >= datetime.datetime.strptime(date_start, '%Y-%m-%d').date())
+        # Filter the query by start date if a value is provided
     if date_end:
         query = query.filter(TravelPackage.date <= datetime.datetime.strptime(date_end, '%Y-%m-%d').date())
+        # Filter the query by end date if a value is provided
 
     travel_packages = query.all()
+    # Execute the query and get the resulting travel packages
     # Display Message If No Packages Meets User's Criteria
     if not travel_packages:
         message = "No travel packages match your criteria or no packages is availables"
+        # Set a message to display if no packages are found
         return render_template('package.html', message=message, user=current_user,
                                continents=continents, countries=countries, cities=cities,
                                hotels=hotels, airlines=airlines, paxes=paxes)
-
+        # Render the package.html template with the message and other data
     return render_template('package.html', travel_packages=travel_packages, user=current_user,
                            continents=continents, countries=countries, cities=cities,
                            hotels=hotels, airlines=airlines, paxes=paxes)
-    
+    # Render the package.html template with the travel packages and other data
     
 
 @views.route("/Booking", methods=['GET', 'POST'])
 @login_required
 def booking():
+    # Define a route for the /Booking endpoint
     return render_template('Booking.html', user=current_user)
+    # Render the Booking.html template with the current user
+
 
 @views.route('/cart', methods=['GET','POST'])
 @login_required
 def cart():
+    # Define a route for the /cart endpoint
     # Get The Data From User's Cart
     cart_items = current_user.carts
+    # Get the cart items for the current user
     # Calculate Cart's Total Price
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+    # Calculate the total price of the cart items
     return render_template('cart.html',user=current_user, cart_items=cart_items, cart_total=cart_total)
+    # Render the cart.html template with the cart items and total price
 
 
 @views.route('/add_to_cart/<int:package_id>', methods=['POST'])
 @login_required
 def add_to_cart(package_id):
+    # Define a route for the /add_to_cart endpoint
     travel_package = TravelPackage.query.get(package_id)
+    # Get the travel package with the specified ID
     # See if Quantity is In Range
     if travel_package:
         quantity = int(request.form.get('quantity', 1))
+        # Get the quantity from the request form
         if quantity > 0 and quantity <= travel_package.availability:
             cart_item = Cart.query.filter_by(user=current_user, travel_package=travel_package).first()
             # Check if the item is already in cart
             if cart_item:
                 cart_item.quantity += quantity
+                # Update the quantity of the existing cart item
             else:
                 # Add to Cart's database
                 cart_item = Cart(user=current_user, travel_package=travel_package, quantity=quantity)
                 db.session.add(cart_item)
-
+                # Create a new cart item and add it to the database
             db.session.commit()
-
             flash('Travel package(s) added to cart successfully!', 'success')
+            # Commit the changes and flash a success message
         else:
             flash('Invalid quantity or insufficient availability!', 'alert')
+            # Flash an error message if the quantity is invalid or unavailable
     else:
         flash('Travel package not found!', 'alert')
-
+        # Flash an error message if the travel package is not found
     return redirect(url_for('views.cart'))
+    # Redirect to the cart endpoint
+
+...
 
 @views.route('/cart/remove/<int:cart_item_id>', methods=['GET'])
 @login_required
 def remove_from_cart(cart_item_id):
+    # Define a route for the /cart/remove endpoint
     # Get User's Selected Cart Items based on Cart's ID
     cart_item = Cart.query.get(cart_item_id)
-
+    # Get the cart item with the specified ID
     if cart_item:
         # Delete Selected Cart
         db.session.delete(cart_item)
         db.session.commit()
         flash('Item removed from cart successfully!', 'success')
+        # Delete the cart item and flash a success message
     else:
         flash('Cart item not found!', 'alert')
-
+        # Flash an error message if the cart item is not found
     return redirect(url_for('views.cart'))
+    # Redirect to the cart endpoint
+
+...
 
 @views.route('/cart/update/<int:cart_item_id>', methods=['GET', 'POST'])
 @login_required
-def update_cart_item(cart_item_id):  
+def update_cart_item(cart_item_id):
+    # Define a route for the /cart/update endpoint
     # Get User's Selected Cart Items based on Cart's ID
     cart_item = Cart.query.get(cart_item_id)
-
+    # Get the cart item with the specified ID
     if cart_item:
         # Get The New Quantity 
         new_quantity = request.form.get('quantity')
+        # Get the new quantity from the request form
         if new_quantity is not None: # Check If new_quantity is null or not
             if new_quantity != cart_item.quantity: # Update the user's cart quantity
                 cart_item.quantity = new_quantity
                 db.session.commit()
                 flash('Cart item updated successfully!', 'success')
+                # Update the quantity and flash a success message
             else:
                 flash('No changes made to the quantity!', 'alert')
+                # Flash a message if no changes were made
         else:
             flash('Item is unavailable', 'alert')
+            # Flash an error message if the item is unavailable
     else:
         flash('Cart item not found!', 'alert')
+        # Flash an error message if the cart item is not found
     return redirect(url_for('views.cart'))
+    # Redirect to the cart endpoint
+
+...
 
 @views.route('/summary', methods=['GET', 'POST']) 
 @login_required
 def summary():
+    # Define a route for the /summary endpoint
     # Get the require informations to render the template
     travel_package = TravelPackage.query.all()
+    # Get all travel packages
     cart_items = current_user.carts
+    # Get the cart items for the current user
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+    # Calculate the total price of the cart items
     full_name = current_user.full_name
+    # Get the full name of the current user
     return render_template('summary.html', user=current_user, cart_items=cart_items, cart_total=cart_total, travel_package=travel_package, full_name=full_name)
+    # Render the summary.html template with the required data
+
 
 @views.route('/cust-info', methods=['GET', 'POST'])
 @login_required
 def cust_info():
+    # Define a route for the /cust-info endpoint
     cart_items = current_user.carts
+    # Get the cart items for the current user
     # To store the informations
     form_data = {}
+    # Initialize an empty dictionary to store the form data
 
     for cart_item in cart_items:
         package_id = cart_item.travel_package.id
+        # Get the package ID
         quantity = cart_item.quantity
+        # Get the quantity of the cart item
 
         package_data = []
+        # Initialize an empty list to store the package data
         for i in range(quantity):
             form_counter = i + 1
+            # Initialize a counter for the form
             pax_data = []
+            # Initialize an empty list to store the pax data
             # Get the infromations based on its packages numbers and its form numbers 
             for j in range(cart_item.travel_package.pax):
                 pax_info = {
                     'airline_name': request.form.get(f'airline_name{package_id}_{form_counter}_{j+1}'),
                     'airline_ic': request.form.get(f'airline_ic{package_id}_{form_counter}_{j+1}')
                 }
+                # Get the airline name and IC from the request form
                 pax_data.append(pax_info)
+                # Add the pax info to the pax data list
             # Get Head/Name for hotel's Informations
             form_info = {
                 'name': request.form.get(f'name{package_id}_{form_counter}'),
                 'ic': request.form.get(f'ic{package_id}_{form_counter}'),
                 'airline_details': pax_data
             }
+            # Get the name and IC from the request form
             package_data.append(form_info)
-
+            # Add the form info to the package data list
         form_data[package_id] = package_data
-
+        # Add the package data to the form data dictionary
     return render_template('cust_info.html', user=current_user, form_data=form_data, cart_items=cart_items)
+    # Render the cust_info.html template with the form data and cart items
+
+
 
 @views.route('/checkout', methods=['GET', 'POST'])
 @login_required
 def checkout():
+    # Define a route for the /checkout endpoint
     # Get User's Cart Data 
     cart_items = current_user.carts
+    # Get the cart items for the current user
     payment_methods = PaymentMethod.query.filter_by(user_id=current_user.id).all()
+    # Get the payment methods for the current user
     # Calculate Cart's Total
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+    # Calculate the total price of the cart items
 
     if not payment_methods: # Will automatically redirect to the MyAccount page to add payment method.
         flash('Please add a payment method first', 'alert')
+        # Flash an error message if no payment methods are found
         return redirect(url_for('views.myaccount'))
+        # Redirect to the myaccount endpoint
     return render_template('checkout.html', user=current_user, cart_items=cart_items, payment_methods=payment_methods, cart_total=cart_total)
+    # Render the checkout.html template with the cart items, payment methods, and total price
+
+
 
 @views.route('/payed', methods=['POST', 'GET'])
 @login_required
 def paid():
+    # Define a route for the /payed endpoint
     # Get the cart items for the current user
     cart_items = Cart.query.filter_by(user_id=current_user.id).all()
     cart_total = sum(cart_item.travel_package.price * cart_item.quantity if cart_item.travel_package.price is not None else 0 for cart_item in cart_items)
+    # Calculate the total price of the cart items
 
     if cart_items:
         for cart_item in cart_items:
@@ -315,7 +406,7 @@ def paid():
                 package.availability -= cart_item.quantity
                 db.session.commit()
 
-                # Create a new booking record
+               # Create a new booking record
                 booking = Booking(
                     user_id=current_user.id,
                     package_id=package.id,
@@ -332,16 +423,23 @@ def paid():
                 db.session.commit()
             else:
                 flash(f'Not enough quantity available for package ID {cart_item.travel_package_id}', category='alert')
+                # Flash an error message if the package is not available
                 return redirect(url_for('client.cart'))
-
+                # Redirect to the cart endpoint
         flash('Booking successful', category='success')
+        # Flash a success message if the booking is successful
     else:
         flash('No items in the cart', category='alert')
-
+        # Flash an error message if no items are in the cart
     return redirect(url_for('views.booking_history'))
+    # Redirect to the booking history endpoint
+
 
 @views.route('/history')
 @login_required
 def booking_history():
+    # Define a route for the /history endpoint
     bookings = Booking.query.filter_by(user_id=current_user.id).all()
+    # Get the booking records for the current user
     return render_template('history.html', user=current_user, bookings=bookings)
+    # Render the history.html template with the booking records
