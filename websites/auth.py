@@ -14,8 +14,10 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
+        #check if username is correct with the user
         user = User.query.filter_by(username=username).first()
         if user:
+            #check if password hash is correct with the user
             if check_password_hash(user.password, password):
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
@@ -74,13 +76,16 @@ def signup():
 
     return render_template('signup.html', user=current_user)
 
+#Check for proper phone number format
 def validate_phone_number(number):
     pattern = r'^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$'
     return re.match(pattern, number) is not None
 
+#Update phone number
 @auth.route('/phone', methods=['POST'])
 @login_required
 def update_phone_number():
+    #Get the Info from My Account Page
     new_full_name = request.form.get('full_name')
     new_phone_number = request.form.get('phone')
 
@@ -91,16 +96,19 @@ def update_phone_number():
     flash('Phone number updated successfully.', category='success')
     return redirect(url_for('views.myaccount'))
 
+#New Password
 @auth.route('/pass', methods=['POST'])
 @login_required
 
 def change_password():
+    #Get the Info from My Account Page
     current_password = request.form.get('current-password')
     new_password = request.form.get('new-password')
     confirm_password = request.form.get('confirm-password')
     
     user = User.query.get(current_user.id)
 
+    #Check if user password
     if not (user.password, current_password):
         flash('Current password is incorrect.', category='alert')
     elif new_password != confirm_password:
@@ -111,6 +119,7 @@ def change_password():
         flash('Password must be at least 7 character', category='alert')
 
     else:
+        #generate hash for new password
         user.password = generate_password_hash(new_password, method='pbkdf2:sha256')
         db.session.commit()
         flash('Password changed successfully.', category='success')
@@ -120,17 +129,20 @@ def change_password():
 @auth.route('/payment', methods=['POST'])
 @login_required
 def update_payment_method():
+    #Get User info 
     cardholder_name = request.form.get('cardholder_name')
     card_number = request.form.get('card-number')
     expiry_month = str(request.form.get('expiry-month'))
     expiry_year = str(request.form.get('expiry-year'))
     cvv = request.form.get('cvv')
 
+    #Cvv Check
     if len(cvv) > 3:
         flash('invalid CVV number. Please try again', category='alert')
     if len(cvv) < 3:
         flash('Invalid CVV number. Please try again', category='alert')
 
+    #Generate hash for cvv and card num
     cvv_hash = generate_password_hash(cvv)
     card_number_hash = generate_password_hash(card_number)
     card_number_last_digits = card_number[-4:]
@@ -139,6 +151,7 @@ def update_payment_method():
 
     payment_method = PaymentMethod.query.filter_by(user_id=user.id).first()
 
+    #Update user payment method if found and create new if theres none
     if payment_method:
         payment_method.card_number_hash = card_number_hash
         payment_method.card_number_last_digit = card_number_last_digits
@@ -164,6 +177,7 @@ def update_payment_method():
     flash('Payment method updated successfully', category='success')
     return redirect(url_for('views.myaccount'))
 
+#Remove payment method
 @auth.route('/payment/remove/<int:payment_method_id>', methods=["GET"])
 @login_required
 def remove_payment_method(payment_method_id):
