@@ -118,77 +118,65 @@ def package():
     paxes = db.session.query(TravelPackage.pax).distinct().all()
     # Get a list of unique pax values from the TravelPackage table
 
-    # Get The Users' Filter From The Filter Form From HTML
+    
     continent = request.args.get('continent')
-    # Get the selected continent from the request arguments
     country = request.args.get('country')
-    # Get the selected country from the request arguments
     city = request.args.get('city')
-    # Get the selected city from the request arguments
     price_min = request.args.get('price_min')
-    # Get the minimum price from the request arguments
     price_max = request.args.get('price_max')
-    # Get the maximum price from the request arguments
     hotel = request.args.get('hotel')
-    # Get the selected hotel from the request arguments
     airline = request.args.get('airline')
-    # Get the selected airline from the request arguments
     pax = request.args.get('pax')
-    # Get the selected pax value from the request arguments
     date_start = request.args.get('date_start')
-    # Get the start date from the request arguments
     date_end = request.args.get('date_end')
-    # Get the end date from the request arguments
+    # Get the info from the request arguments
 
     # See if the conditions matches with the users' preferences
     query = db.session.query(TravelPackage)
-    # Initialize a query object for the TravelPackage table
     if continent:
         query = query.filter_by(continent=continent)
-        # Filter the query by continent if a value is provided
+
     if country:
         query = query.filter_by(country=country)
-        # Filter the query by country if a value is provided
+
     if city:
         query = query.filter_by(city=city)
-        # Filter the query by city if a value is provided
+
     if price_min:
         query = query.filter(TravelPackage.price >= price_min)
-        # Filter the query by minimum price if a value is provided
+
     if price_max:
         query = query.filter(TravelPackage.price <= price_max)
-        # Filter the query by maximum price if a value is provided
+        
     if hotel:
         query = query.filter_by(hotel_name=hotel)
-        # Filter the query by hotel name if a value is provided
+        
     if airline:
         query = query.filter_by(airline_name=airline)
-        # Filter the query by airline name if a value is provided
+        
     if pax:
         query = query.filter_by(pax=pax)
-        # Filter the query by pax value if a value is provided
+        
     if date_start:
         query = query.filter(TravelPackage.date >= datetime.datetime.strptime(date_start, '%Y-%m-%d').date())
-        # Filter the query by start date if a value is provided
+        
     if date_end:
         query = query.filter(TravelPackage.date <= datetime.datetime.strptime(date_end, '%Y-%m-%d').date())
-        # Filter the query by end date if a value is provided
+       
 
     travel_packages = query.all()
-    # Execute the query and get the resulting travel packages
-    # Display Message If No Packages Meets User's Criteria
+
     if not travel_packages:
         message = "No travel packages match your criteria or no packages is availables"
-        # Set a message to display if no packages are found
         return render_template('package.html', message=message, user=current_user,
                                continents=continents, countries=countries, cities=cities,
                                hotels=hotels, airlines=airlines, paxes=paxes)
-        # Render the package.html template with the message and other data
+        
     return render_template('package.html', travel_packages=travel_packages, user=current_user,
                            continents=continents, countries=countries, cities=cities,
                            hotels=hotels, airlines=airlines, paxes=paxes)
-    # Render the package.html template with the travel packages and other data
     
+
 
 @views.route("/Booking", methods=['GET', 'POST'])
 @login_required
