@@ -2,4 +2,4 @@ cache/
 __pycache__/
 database/
 Test/
-database.db
+instance/database.db/
